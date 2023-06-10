@@ -49,9 +49,15 @@ Drive chassis (
   // 3 Wire Port Expander Smart Port
   // ,1
 );
+// Brain Ports:
+// Motors
+int LEFT_WHEELS_PORTBACK = 1;
+int LEFT_WHEELS_PORTFRONT = 2;
+int LEFT_WHEEL_PORTTOP = 3; 
 
-int LEFT_WHEELS_PORT = 1;
-int RIGHT_WHEELS_PORT = 10;
+int RIGHT_WHEELS_PORTBACK = 4;
+int RIGHT_WHEELS_PORTFRONT = 5; 
+int Right_WHEELS_PORTTOP = 6;
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -158,21 +164,36 @@ void autonomous() {
 void opcontrol() {
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_COAST);
-  pros::Motor left_wheels (LEFT_WHEELS_PORT);
-  pros::Motor right_wheels (RIGHT_WHEELS_PORT, true); // This reverses the motor
+  pros::Motor left_wheelsBACK (LEFT_WHEELS_PORTBACK);
+  pros::Motor left_wheelsFRONT (LEFT_WHEELS_PORTFRONT);
+  pros::Motor right_wheelsBACK (RIGHT_WHEELS_PORTBACK, true); // This reverses the motor
+  pros::Motor right_wheelsFRONT (RIGHT_WHEELS_PORTFRONT, true); // This reverses the motor
+  //top motors
+  pros::Motor left_wheelsTOP (LEFT_WHEEL_PORTTOP);
+  pros::Motor right_wheelsTOP (Right_WHEELS_PORTTOP);
+
+
   pros::Controller master (CONTROLLER_MASTER);
   while (true) {
+     
+    int power = master.get_analog(ANALOG_LEFT_Y);
+    int turn = master.get_analog(ANALOG_RIGHT_X);
+    int left = power + turn;
+    int right = power - turn;
 
     // chassis.tank(); // Tank control
     // chassis.arcade_standard(ez::SPLIT); // Standard split arcade
     // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
     // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
     // chassis.arcade_flipped(ez::SINGLE); // Flipped single arcade
-     left_wheels.move(master.get_analog(ANALOG_LEFT_Y));
-    right_wheels.move(master.get_analog(ANALOG_RIGHT_Y));
-    // . . .
-    // Put more user control code here!
-    // . . .
+    left_wheelsBACK.move(left);
+    left_wheelsFRONT.move(left);
+    right_wheelsBACK.move(right);
+    right_wheelsFRONT.move(right);
+    
+    left_wheelsTOP.move(left);
+    right_wheelsTOP.move(right);
+    
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
