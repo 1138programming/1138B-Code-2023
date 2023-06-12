@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Test template",
+    "project_name": "new test",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -189,7 +189,8 @@
       }
     },
     "upload_options": {
-      "icon": "pros"
+      "icon": "pros",
+      "slot": 3
     }
   }
 }
