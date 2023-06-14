@@ -49,9 +49,20 @@ Drive chassis (
   // 3 Wire Port Expander Smart Port
   // ,1
 );
+// Ports
+//Motors
+int RIGHT_FRONT_WHEELS_PORT = 10;
+int RIGHT_BACK_WHEELS_PORT = 7; 
+int RIGHT_TOP_WHEELS_PORT = 9;
 
-int LEFT_WHEELS_PORT = 1;
-int RIGHT_WHEELS_PORT = 10;
+int LEFT_FRONT_WHEELS_PORT = 2;
+int LEFT_BACK_WHEELS_PORT = 4;
+int LEFT_TOP_WHEELS_PORT = 3;
+
+int INTAKE_LEFT = 1; 
+int INTAKE_RIGHT =  8; 
+
+float Inatke_Speed = 100;
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -157,22 +168,55 @@ void autonomous() {
  */
 void opcontrol() {
   // This is preference to what you like to drive on.
-  chassis.set_drive_brake(MOTOR_BRAKE_COAST);
-  pros::Motor left_wheels (LEFT_WHEELS_PORT);
-  pros::Motor right_wheels (RIGHT_WHEELS_PORT, true); // This reverses the motor
+  //left drivetrain
+  pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT, true);
+  pros::Motor left_wheelsback (LEFT_BACK_WHEELS_PORT, true);
+  pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT);
+  //right drivetrain
+  pros::Motor right_wheelsfront (RIGHT_FRONT_WHEELS_PORT);
+  pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
+  pros::Motor right_wheelstop (RIGHT_TOP_WHEELS_PORT, true); // True This reverses the motor
+  //intake
+  pros::Motor Left_intake (INTAKE_LEFT);
+  pros::Motor Right_intake (INTAKE_RIGHT);
+  //controller code
   pros::Controller master (CONTROLLER_MASTER);
+  int speed;
+  int turn;
+  int leftcontrol;
+  int rightcontrol;
   while (true) {
+     
+    speed = master.get_analog(ANALOG_RIGHT_Y);
+    turn = master.get_analog(ANALOG_LEFT_X);
 
-    // chassis.tank(); // Tank control
-    // chassis.arcade_standard(ez::SPLIT); // Standard split arcade
-    // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
-    // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
-    // chassis.arcade_flipped(ez::SINGLE); // Flipped single arcade
-     left_wheels.move(master.get_analog(ANALOG_LEFT_Y));
-    right_wheels.move(master.get_analog(ANALOG_RIGHT_Y));
-    // . . .
-    // Put more user control code here!
-    // . . .
+    leftcontrol = (speed + turn);
+    rightcontrol = (speed - turn);
+    
+    left_wheelsfront.move(leftcontrol);
+    left_wheelsback.move(leftcontrol);
+    left_wheelstop.move(leftcontrol);
+
+    right_wheelsfront.move(rightcontrol);
+    right_wheelsback.move(rightcontrol);
+    right_wheelstop.move(rightcontrol);
+
+    //intake 
+    if (master.get_digital(DIGITAL_R2)) {
+      Left_intake.move(Inatke_Speed);
+      Right_intake.move(-Inatke_Speed);
+    }
+
+    else if (master.get_digital(DIGITAL_R1)) {
+      Left_intake.move(-Inatke_Speed);
+      Right_intake.move(Inatke_Speed);
+    }
+    else {
+      Left_intake.move(0);
+      Right_intake.move(0);
+    }
+
+
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
