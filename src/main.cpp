@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "Odometry.h"
 
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
@@ -71,8 +71,7 @@ float Inatke_Speed = 100;
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-  // Print our branding over your terminal :D
-  ez::print_ez_template();
+  
   
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
 
@@ -86,21 +85,11 @@ void initialize() {
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
   // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
   // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
+  
+  Odometry a();
+ 
 
-  // Autonomous Selector using LLEMU
-  ez::as::auton_selector.add_autons({
-    Auton("Example Drive\n\nDrive forward and come back.", drive_example),
-    Auton("Example Turn\n\nTurn 3 times.", turn_example),
-    Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
-    Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
-    Auton("Swing Example\n\nSwing, drive, swing.", swing_example),
-    Auton("Combine all 3 movements", combining_movements),
-    Auton("Interference\n\nAfter driving forward, robot performs differently if interfered or not.", interfered_example),
-  });
 
-  // Initialize chassis and auton selector
-  chassis.initialize();
-  ez::as::initialize();
 }
 
 
@@ -187,8 +176,8 @@ void opcontrol() {
   int rightcontrol;
   while (true) {
      
-    speed = master.get_analog(ANALOG_RIGHT_Y);
-    turn = master.get_analog(ANALOG_LEFT_X);
+    speed = master.get_analog(ANALOG_LEFT_Y);
+    turn = master.get_analog(ANALOG_RIGHT_X);
 
     leftcontrol = (speed + turn);
     rightcontrol = (speed - turn);

@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "6 mortor protype arcade",
+    "project_name": "od protype",
     "target": "v5",
     "templates": {
       "EZ-Template": {
