@@ -6,9 +6,10 @@
 * 
 *
 */
+#include "api.h"
 
 #include "Odometry.h"
-#include "Constants"
+#include "Constants.cpp"
 #include <functional>
 #include <iostream>
 
@@ -16,8 +17,10 @@
 pros::Rotation X_Encoder(x_Sesnor_Port);
 pros::Rotation Y_Encoder(y_Sensor_Port);
 
+
+
 void getxrawrot() {
-  X_Encoder.get_position
+  X_Encoder.get_position();
 
 }
 
@@ -27,11 +30,7 @@ void getyrawrot() {
 
 void Odometry() {
   
-    pros::screen::set_pen(COLOR_BLUE);
-    while(1){
-       // Will print seconds started since program started on line 3
-       pros::screen::print(pros::TEXT_MEDIUM, 3, "gttttttt",getxrawrot());
-    }
+   //j
 }
 
 
@@ -43,4 +42,5 @@ void getxcord() {
 void getycord() {
 
 }
+
 

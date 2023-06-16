@@ -1,6 +1,7 @@
 #include "main.h"
 #include "Odometry.h"
 
+
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -51,13 +52,13 @@ Drive chassis (
 );
 // Ports
 //Motors
-int RIGHT_FRONT_WHEELS_PORT = 10;
-int RIGHT_BACK_WHEELS_PORT = 7; 
-int RIGHT_TOP_WHEELS_PORT = 9;
+int RIGHT_FRONT_WHEELS_PORT = 2;
+int RIGHT_BACK_WHEELS_PORT = 4; 
+int RIGHT_TOP_WHEELS_PORT = 3;
 
-int LEFT_FRONT_WHEELS_PORT = 2;
-int LEFT_BACK_WHEELS_PORT = 4;
-int LEFT_TOP_WHEELS_PORT = 3;
+int LEFT_FRONT_WHEELS_PORT = 9;
+int LEFT_BACK_WHEELS_PORT = 10;
+int LEFT_TOP_WHEELS_PORT = 7;
 
 int INTAKE_LEFT = 1; 
 int INTAKE_RIGHT =  8; 
@@ -86,7 +87,7 @@ void initialize() {
   // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
   // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
   
-  Odometry a();
+  Odometry();
  
 
 
@@ -158,9 +159,9 @@ void autonomous() {
 void opcontrol() {
   // This is preference to what you like to drive on.
   //left drivetrain
-  pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT, true);
+  pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT);
   pros::Motor left_wheelsback (LEFT_BACK_WHEELS_PORT, true);
-  pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT);
+  pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT, true);
   //right drivetrain
   pros::Motor right_wheelsfront (RIGHT_FRONT_WHEELS_PORT);
   pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
@@ -175,7 +176,8 @@ void opcontrol() {
   int leftcontrol;
   int rightcontrol;
   while (true) {
-     
+
+
     speed = master.get_analog(ANALOG_LEFT_Y);
     turn = master.get_analog(ANALOG_RIGHT_X);
 
@@ -204,8 +206,13 @@ void opcontrol() {
       Left_intake.move(0);
       Right_intake.move(0);
     }
-
-
+       
+      pros::screen::set_pen(COLOR_BLUE);
+      int i = 0;
+    for (i =0;i<0;i++) {
+       // Will print seconds started since program started on line 3
+       pros::screen::print(pros::E_TEXT_MEDIUM, 3, "gttttttt");
+    };
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
