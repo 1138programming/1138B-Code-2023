@@ -9,47 +9,7 @@
 
 
 // Chassis constructor
-Drive chassis (
-  // Left Chassis Ports (negative port will reverse it!)
-  //   the first port is the sensored port (when trackers are not used!)
-  {1, 2}
 
-  // Right Chassis Ports (negative port will reverse it!)
-  //   the first port is the sensored port (when trackers are not used!)
-  ,{-4, -5}
-
-  // IMU Port
-  ,21
-
-  // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
-  //    (or tracking wheel diameter)
-  ,4.125
-
-  // Cartridge RPM
-  //   (or tick per rotation if using tracking wheels)
-  ,200
-
-  // External Gear Ratio (MUST BE DECIMAL)
-  //    (or gear ratio of tracking wheel)
-  // eg. if your drive is 84:36 where the 36t is powered, your RATIO would be 2.333.
-  // eg. if your drive is 36:60 where the 60t is powered, your RATIO would be 0.6.
-  ,1
-
-  // Uncomment if using tracking wheels
-  /*
-  // Left Tracking Wheel Ports (negative port will reverse it!)
-  // ,{1, 2} // 3 wire encoder
-  // ,8 // Rotation sensor
-
-  // Right Tracking Wheel Ports (negative port will reverse it!)
-  // ,{-3, -4} // 3 wire encoder
-  // ,-9 // Rotation sensor
-  */
-
-  // Uncomment if tracking wheels are plugged into a 3 wire expander
-  // 3 Wire Port Expander Smart Port
-  // ,1
-);
 // Ports
 //Motors
 int RIGHT_FRONT_WHEELS_PORT = 2;
@@ -60,10 +20,29 @@ int LEFT_FRONT_WHEELS_PORT = 9;
 int LEFT_BACK_WHEELS_PORT = 10;
 int LEFT_TOP_WHEELS_PORT = 7;
 
-int INTAKE_LEFT = 1; 
-int INTAKE_RIGHT =  8; 
+int INTAKE_LEFT = 8; 
+int INTAKE_RIGHT =  1; 
+
+int CATA_PORT = 11;
 
 float Inatke_Speed = 100;
+float Cata_Speed = 75;
+
+ pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT, true);
+ pros::Motor left_wheelsback (LEFT_BACK_WHEELS_PORT, true);
+  pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT);
+  //right drivetrain
+  pros::Motor right_wheelsfront (RIGHT_FRONT_WHEELS_PORT);
+  pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
+  pros::Motor right_wheelstop (RIGHT_TOP_WHEELS_PORT, true); // True This reverses the motor
+  //intake
+  pros::Motor Left_intake (INTAKE_LEFT);
+  pros::Motor Right_intake (INTAKE_RIGHT);
+  //catapult
+  pros::Motor Catapult (CATA_PORT);
+  //controller code
+  pros::Controller master (CONTROLLER_MASTER);
+
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -77,17 +56,12 @@ void initialize() {
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
 
   // Configure your chassis controls
-  chassis.toggle_modify_curve_with_controller(true); // Enables modifying the controller curve with buttons on the joysticks
-  chassis.set_active_brake(0); // Sets the active brake kP. We recommend 0.1.
-  chassis.set_curve_default(0, 0); // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)  
-  default_constants(); // Set the drive to your own constants from autons.cpp!
-  exit_condition_defaults(); // Set the exit conditions to your own constants from autons.cpp!
-
+  
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
   // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
   // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
   
-  Odometry();
+
  
 
 
@@ -133,10 +107,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-  chassis.reset_pid_targets(); // Resets PID targets to 0
-  chassis.reset_gyro(); // Reset gyro position to 0
-  chassis.reset_drive_sensor(); // Reset drive sensors to 0
-  chassis.set_drive_brake(MOTOR_BRAKE_HOLD); // Set motors to hold.  This helps autonomous consistency.
+
 
   ez::as::auton_selector.call_selected_auton(); // Calls selected auton from autonomous selector.
 }
@@ -159,16 +130,7 @@ void autonomous() {
 void opcontrol() {
   // This is preference to what you like to drive on.
   //left drivetrain
-  pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT);
-  pros::Motor left_wheelsback (LEFT_BACK_WHEELS_PORT, true);
-  pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT, true);
-  //right drivetrain
-  pros::Motor right_wheelsfront (RIGHT_FRONT_WHEELS_PORT);
-  pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
-  pros::Motor right_wheelstop (RIGHT_TOP_WHEELS_PORT, true); // True This reverses the motor
-  //intake
-  pros::Motor Left_intake (INTAKE_LEFT);
-  pros::Motor Right_intake (INTAKE_RIGHT);
+  
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
   int speed;
@@ -206,12 +168,24 @@ void opcontrol() {
       Left_intake.move(0);
       Right_intake.move(0);
     }
-       
+    
+    //catapult
+    if (master.get_digital(DIGITAL_L2)) {
+      Catapult.move(Cata_Speed);
+    }
+
+    else if (master.get_digital(DIGITAL_L1)) {
+      Catapult.move(-Cata_Speed);
+    }
+    else {
+      Catapult.move(0);
+    }
+
       pros::screen::set_pen(COLOR_BLUE);
       int i = 0;
     for (i =0;i<0;i++) {
        // Will print seconds started since program started on line 3
-       pros::screen::print(pros::E_TEXT_MEDIUM, 3, "gttttttt");
+       pros::screen::print(pros::E_TEXT_MEDIUM, 3, "This is a test");
     };
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME

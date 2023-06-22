@@ -14,33 +14,55 @@
 #include <iostream>
 
 
+
+
 pros::Rotation X_Encoder(x_Sesnor_Port);
 pros::Rotation Y_Encoder(y_Sensor_Port);
+pros::Imu Gyro(gyroPort);
+double xcord;
+double ycord; 
 
 
 
-void getxrawrot() {
-  X_Encoder.get_position();
+double absD(double num) {
+  return num < 0? - num: num;
+}
+
+double getxrawrot() {
+  return X_Encoder.get_position();
+
 
 }
 
-void getyrawrot() {
-
+double getyrawrot() {
+  return Y_Encoder.get_position();
 }
 
-void Odometry() {
+double getGyro() {
+  return Gyro.get_rotation(); 
+}
+
+
+double getxcord() {
+  double degreesnormalized = absD(fmod(getGyro(),360));
+  if (degreesnormalized <= 90 && degreesnormalized >= 270) {
+    return absD((-fmod(degreesnormalized,180)/ 90)+1);
+  }
+  else if (degreesnormalized >=90 && degreesnormalized <= 270) {
+    return -absD((-fmod(degreesnormalized,180)/ 90)+1);
+  }
   
-   //j
 }
 
 
-void getxcord() {
-
-}
-
-
-void getycord() {
-
+double getycord() {
+  double degreesnormalized = absD(fmod(getGyro(),360));
+  if (degreesnormalized <= 90 && degreesnormalized >= 270) {
+    return absD((fmod(degreesnormalized,180)/ 90) - 1);
+  }
+  else if (degreesnormalized >=90 && degreesnormalized <= 270) {
+    return -absD((fmod(degreesnormalized,180)/ 90) - 1);
+  }
 }
 
 

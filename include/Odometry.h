@@ -6,11 +6,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void Odometry(void);
-void getxcord(void);
-void getycord(void);
-void getxrawrot(void);
-void getyrawrot(void);
+
+double getxcord(void); 
+double getycord(void);
+double getxrawrot(void);
+double getyrawrot(void);
+double absD(double num);
+double getGyro(void);
 #ifdef __cplusplus
 }
 #endif
