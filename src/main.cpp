@@ -24,8 +24,10 @@ int INTAKE_LEFT = 8;
 int INTAKE_RIGHT =  1; 
 
 int CATA_PORT = 11;
+int CATA_ROT = 12;
 
 float Inatke_Speed = 100;
+float Outtake_Coefficient = 1;
 float Cata_Speed = 75;
 
  pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT, true);
@@ -39,11 +41,14 @@ float Cata_Speed = 75;
   pros::Motor Left_intake (INTAKE_LEFT);
   pros::Motor Right_intake (INTAKE_RIGHT);
   //catapult
-  pros::Motor Catapult (CATA_PORT);
+  pros::Motor Catapult (CATA_PORT, true);
+  pros::Rotation Cata_Rotation (CATA_ROT);
+  bool inRange(unsigned low, unsigned high, unsigned x)         
+    {         
+      return (low <= x && x <= high);         
+    }          
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
-
-
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -54,6 +59,7 @@ void initialize() {
   
   
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
+  Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
   // Configure your chassis controls
   
@@ -137,6 +143,8 @@ void opcontrol() {
   int turn;
   int leftcontrol;
   int rightcontrol;
+  bool intaketoggle = false;
+  float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
   while (true) {
 
 
@@ -146,39 +154,54 @@ void opcontrol() {
     leftcontrol = (speed + turn);
     rightcontrol = (speed - turn);
     
-    left_wheelsfront.move(leftcontrol);
-    left_wheelsback.move(leftcontrol);
-    left_wheelstop.move(leftcontrol);
+    left_wheelsfront.move_velocity(leftcontrol);
+    left_wheelsback.move_velocity(leftcontrol);
+    left_wheelstop.move_velocity(leftcontrol);
 
-    right_wheelsfront.move(rightcontrol);
-    right_wheelsback.move(rightcontrol);
-    right_wheelstop.move(rightcontrol);
+    right_wheelsfront.move_velocity(rightcontrol);
+    right_wheelsback.move_velocity(rightcontrol);
+    right_wheelstop.move_velocity(rightcontrol);
 
     //intake 
+    
     if (master.get_digital(DIGITAL_R2)) {
-      Left_intake.move(Inatke_Speed);
-      Right_intake.move(-Inatke_Speed);
+      intaketoggle = false;
+      Left_intake.move(outtake_speed);
+      Right_intake.move(-outtake_speed);
     }
 
     else if (master.get_digital(DIGITAL_R1)) {
+      if (intaketoggle == true) {
+        intaketoggle = false;
+      }
+      else {
+        intaketoggle = true;
+        }
+      pros::delay(250);
+    }
+
+    if (intaketoggle) {
       Left_intake.move(-Inatke_Speed);
       Right_intake.move(Inatke_Speed);
     }
-    else {
+    else if (!intaketoggle && !master.get_digital(DIGITAL_R2)) {
       Left_intake.move(0);
       Right_intake.move(0);
     }
-    
     //catapult
     if (master.get_digital(DIGITAL_L2)) {
-      Catapult.move(Cata_Speed);
+      Catapult.move(-Cata_Speed);
     }
 
     else if (master.get_digital(DIGITAL_L1)) {
-      Catapult.move(-Cata_Speed);
+      float catarotationdegrees = Cata_Rotation.get_angle() / 100;
+      while (catarotationdegrees!=1) {
+        Catapult.move(Cata_Speed);
+      }
+      
     }
     else {
-      Catapult.move(0);
+      Catapult.brake();
     }
 
       pros::screen::set_pen(COLOR_BLUE);
