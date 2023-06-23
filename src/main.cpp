@@ -189,27 +189,20 @@ void opcontrol() {
       Right_intake.move(0);
     }
     //catapult
+    
     if (master.get_digital(DIGITAL_L2)) {
       Catapult.move(-Cata_Speed);
     }
-
     else if (master.get_digital(DIGITAL_L1)) {
       float catarotationdegrees = Cata_Rotation.get_angle() / 100;
-      while (catarotationdegrees!=1) {
-        Catapult.move(Cata_Speed);
+      while (catarotationdegrees != 1) {
+        Catapult.move(Cata_Speed); // move catapult until it reaches position from rotation sensor
       }
-      
+    pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Rotation = %f", catarotationdegrees); //print rotation sensor data on screen for debugging
     }
     else {
-      Catapult.brake();
+      Catapult.brake(); // holds the catapult in place
     }
-
-      pros::screen::set_pen(COLOR_BLUE);
-      int i = 0;
-    for (i =0;i<0;i++) {
-       // Will print seconds started since program started on line 3
-       pros::screen::print(pros::E_TEXT_MEDIUM, 3, "This is a test");
-    };
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
