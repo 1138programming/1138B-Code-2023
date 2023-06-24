@@ -29,6 +29,7 @@ int CATA_ROT = 12;
 float Inatke_Speed = 100;
 float Outtake_Coefficient = 1;
 float Cata_Speed = 75;
+float Drive_Speed_Coefficient = 2;
 
  pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT, true);
  pros::Motor left_wheelsback (LEFT_BACK_WHEELS_PORT, true);
@@ -43,9 +44,14 @@ float Cata_Speed = 75;
   //catapult
   pros::Motor Catapult (CATA_PORT, true);
   pros::Rotation Cata_Rotation (CATA_ROT);
-  bool inRange(unsigned low, unsigned high, unsigned x)         
-    {         
-      return (low <= x && x <= high);         
+  bool inRange(unsigned low, unsigned high, unsigned x) //check if rotational sensor data is within a range of degrees        
+    { 
+      if (low > high) {
+        return (low <= x || x <= high);
+      }
+      else {  
+        return (low <= x && x <= high);         
+      }        
     }          
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
@@ -59,7 +65,7 @@ void initialize() {
   
   
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
-  Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
 
   // Configure your chassis controls
   
@@ -139,21 +145,28 @@ void opcontrol() {
   
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
+  pros::screen::set_pen(COLOR_BLUE);
   int speed;
   int turn;
   int leftcontrol;
   int rightcontrol;
   bool intaketoggle = false;
+  bool intakebuttonstate = false;
   float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
   while (true) {
 
+    //drive
 
-    speed = master.get_analog(ANALOG_LEFT_Y);
-    turn = master.get_analog(ANALOG_RIGHT_X);
+    speed = (master.get_analog(ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
+    turn = (master.get_analog(ANALOG_RIGHT_X) * Drive_Speed_Coefficient);
 
-    leftcontrol = (speed + turn);
+    leftcontrol = (speed + turn); // divides the controller value to get a percent, then multiplies by 600 (max rpm of drive motors), then multiplies by the drive speed coefficient
     rightcontrol = (speed - turn);
-    
+
+    //tank testing
+    //leftcontrol = turn;
+    //rightcontrol = speed;
+
     left_wheelsfront.move_velocity(leftcontrol);
     left_wheelsback.move_velocity(leftcontrol);
     left_wheelstop.move_velocity(leftcontrol);
@@ -162,25 +175,18 @@ void opcontrol() {
     right_wheelsback.move_velocity(rightcontrol);
     right_wheelstop.move_velocity(rightcontrol);
 
-    //intake 
+    //intake/outtake
     
-    if (master.get_digital(DIGITAL_R2)) {
+    if (master.get_digital(DIGITAL_R2)) { //outtake (push button)
       intaketoggle = false;
       Left_intake.move(outtake_speed);
       Right_intake.move(-outtake_speed);
     }
 
-    else if (master.get_digital(DIGITAL_R1)) {
-      if (intaketoggle == true) {
-        intaketoggle = false;
-      }
-      else {
-        intaketoggle = true;
-        }
-      pros::delay(250);
+    else if (master.get_digital_new_press(DIGITAL_R1)) { //toggle the intake
+      intaketoggle = !intaketoggle;
     }
-
-    if (intaketoggle) {
+    if (intaketoggle) { // activates the intake based on toggle status
       Left_intake.move(-Inatke_Speed);
       Right_intake.move(Inatke_Speed);
     }
@@ -189,27 +195,20 @@ void opcontrol() {
       Right_intake.move(0);
     }
     //catapult
+    
     if (master.get_digital(DIGITAL_L2)) {
       Catapult.move(-Cata_Speed);
     }
-
     else if (master.get_digital(DIGITAL_L1)) {
       float catarotationdegrees = Cata_Rotation.get_angle() / 100;
-      while (catarotationdegrees!=1) {
-        Catapult.move(Cata_Speed);
+      while (!inRange(358,2,catarotationdegrees)) {
+        Catapult.move(Cata_Speed); // move catapult until it reaches position from rotation sensor
       }
-      
+    pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Rotation = %f", catarotationdegrees); //print rotation sensor data on screen for debugging
     }
     else {
-      Catapult.brake();
+      Catapult.brake(); // holds the catapult in place
     }
-
-      pros::screen::set_pen(COLOR_BLUE);
-      int i = 0;
-    for (i =0;i<0;i++) {
-       // Will print seconds started since program started on line 3
-       pros::screen::print(pros::E_TEXT_MEDIUM, 3, "This is a test");
-    };
 
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
