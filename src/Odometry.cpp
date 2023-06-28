@@ -17,8 +17,10 @@
 
 
 pros::Rotation X_Encoder(x_Sesnor_Port);
-pros::Rotation Y_Encoder(y_Sensor_Port);
+
 pros::Imu Gyro(gyroPort);
+double xencoderbuffer;
+double yencoderbuffer;
 double xcord;
 double ycord; 
 
@@ -30,13 +32,11 @@ double absD(double num) {
 
 double getxrawrot() {
   return X_Encoder.get_position();
-
+  
 
 }
 
-double getyrawrot() {
-  return Y_Encoder.get_position();
-}
+
 
 double getGyro() {
   return Gyro.get_rotation(); 
@@ -46,10 +46,10 @@ double getGyro() {
 double getxcord() {
   double degreesnormalized = absD(fmod(getGyro(),360));
   if (degreesnormalized <= 90 && degreesnormalized >= 270) {
-    return absD((-fmod(degreesnormalized,180)/ 90)+1);
+    return cos(degreesnormalized) * (getxrawrot() - xencoderbuffer);
   }
   else if (degreesnormalized >=90 && degreesnormalized <= 270) {
-    return -absD((-fmod(degreesnormalized,180)/ 90)+1);
+    return cos(degreesnormalized) * (getxrawrot() - xencoderbuffer);
   }
   
 }
@@ -58,11 +58,16 @@ double getxcord() {
 double getycord() {
   double degreesnormalized = absD(fmod(getGyro(),360));
   if (degreesnormalized <= 90 && degreesnormalized >= 270) {
-    return absD((fmod(degreesnormalized,180)/ 90) - 1);
+    return sin(degreesnormalized);
   }
   else if (degreesnormalized >=90 && degreesnormalized <= 270) {
-    return -absD((fmod(degreesnormalized,180)/ 90) - 1);
+    return sin(degreesnormalized) * (getxrawrot() - xencoderbuffer);
   }
+
+void updateOdometry() {
+  xcord = xcord +getxcord();
+  ycord = ycord +getycord();
+}
 }
 
 

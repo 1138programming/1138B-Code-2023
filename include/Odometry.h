@@ -10,9 +10,9 @@ extern "C" {
 double getxcord(void); 
 double getycord(void);
 double getxrawrot(void);
-double getyrawrot(void);
 double absD(double num);
 double getGyro(void);
+void updateOdometry(void);
 #ifdef __cplusplus
 }
 #endif
