@@ -66,6 +66,8 @@ void initialize() {
   
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
   Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
+  pros::lcd::initialize();
+  pros::lcd::set_text_color(0,255,0);
 
   // Configure your chassis controls
   
@@ -153,6 +155,7 @@ void opcontrol() {
   bool intaketoggle = false;
   bool intakebuttonstate = false;
   float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
+  float catarotationdegrees;
   while (true) {
 
     //drive
@@ -195,16 +198,17 @@ void opcontrol() {
       Right_intake.move(0);
     }
     //catapult
-    
+    catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
     if (master.get_digital(DIGITAL_L2)) {
       Catapult.move(-Cata_Speed);
     }
     else if (master.get_digital(DIGITAL_L1)) {
-      float catarotationdegrees = Cata_Rotation.get_angle() / 100;
+      
       while (!inRange(358,2,catarotationdegrees)) {
         Catapult.move(Cata_Speed); // move catapult until it reaches position from rotation sensor
+        catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
       }
-    pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Rotation = %f", catarotationdegrees); //print rotation sensor data on screen for debugging
+    pros::lcd::set_text(1, ("Catapult Rotation = " + std::to_string(catarotationdegrees))); //print rotation sensor data on screen for debugging (not sure if this is gonna work)
     }
     else {
       Catapult.brake(); // holds the catapult in place
