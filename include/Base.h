@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 void Base();
-void DriveWithJoysticks(pros::Controller master);
+void DriveWithJoysticks();
 void DriveBy(double dist);
 void TurnDeg(double deg);
 #ifdef __cplusplus

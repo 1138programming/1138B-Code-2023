@@ -2,7 +2,7 @@
 #include "api.h"
 
 #include "Base.h"
-#include "Constants.cpp"
+#include "Constants.h"
 #include <functional>
 #include <iostream>
 
@@ -21,7 +21,7 @@ pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
 pros::Motor right_wheelstop (RIGHT_TOP_WHEELS_PORT, true); // True This reverses the motor
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
-//Constructor
+//Base Constructor
 void Base() {
 
 

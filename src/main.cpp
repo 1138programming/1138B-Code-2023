@@ -1,7 +1,7 @@
 #include "main.h"
 #include "Odometry.h"
-#include "Constants.cpp"
-
+#include "Constants.h"
+#include "Base.h"
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -46,6 +46,7 @@ void initialize() {
   Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
   pros::lcd::initialize();
   pros::lcd::set_text_color(0,255,0);
+  Base();
 
   // Configure your chassis controls
   
@@ -134,16 +135,9 @@ void opcontrol() {
   while (true) {
 
     //drive
-
+    DriveWithJoysticks();
    
-    //tank testing
-    //leftcontrol = turn;
-    //rightcontrol = speed;
-
-
-
-    //intake/outtake
-    
+    //intake/outtake 
     if (master.get_digital(DIGITAL_R2)) { //outtake (push button)
       intaketoggle = false;
       Left_intake.move(outtake_speed);
@@ -161,6 +155,7 @@ void opcontrol() {
       Left_intake.move(0);
       Right_intake.move(0);
     }
+    
     //catapult
     catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
     if (master.get_digital(DIGITAL_L2)) {
