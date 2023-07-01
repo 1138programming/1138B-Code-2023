@@ -181,7 +181,8 @@ void opcontrol() {
         Catapult.move(Cata_Speed); // move catapult until it reaches position from rotation sensor
         catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
         pros::lcd::set_text(1, ("Catapult Rotation = " + std::to_string(catarotationdegrees))); //print rotation sensor data on screen for debugging (not sure if this is gonna work)
-      }
+      } 
+    }
     else {
       Catapult.brake(); // holds the catapult in place
     }
