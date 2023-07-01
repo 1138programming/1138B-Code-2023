@@ -1,6 +1,6 @@
 #include "main.h"
 #include "Odometry.h"
-
+#include "Constants.cpp"
 
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
@@ -13,23 +13,15 @@
 // Ports
 //Motors
 
-
-int INTAKE_LEFT = 8; 
-int INTAKE_RIGHT =  1; 
-
-int CATA_PORT = 11;
-int CATA_ROT = 12;
-
-float Inatke_Speed = 100;
-float Outtake_Coefficient = 1;
-float Cata_Speed = 75;
-
-
   //intake
   pros::Motor Left_intake (INTAKE_LEFT);
   pros::Motor Right_intake (INTAKE_RIGHT);
+  float Inatke_Speed = 100;
+  float Outtake_Coefficient = 1;
+
   //catapult
   pros::Motor Catapult (CATA_PORT, true);
+  float Cata_Speed = 75;
   pros::Rotation Cata_Rotation (CATA_ROT);
   bool inRange(unsigned low, unsigned high, unsigned x) //check if rotational sensor data is within a range of degrees        
     { 
