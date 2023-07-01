@@ -12,13 +12,7 @@
 
 // Ports
 //Motors
-int RIGHT_FRONT_WHEELS_PORT = 2;
-int RIGHT_BACK_WHEELS_PORT = 4; 
-int RIGHT_TOP_WHEELS_PORT = 3;
 
-int LEFT_FRONT_WHEELS_PORT = 9;
-int LEFT_BACK_WHEELS_PORT = 10;
-int LEFT_TOP_WHEELS_PORT = 7;
 
 int INTAKE_LEFT = 8; 
 int INTAKE_RIGHT =  1; 
@@ -29,15 +23,8 @@ int CATA_ROT = 12;
 float Inatke_Speed = 100;
 float Outtake_Coefficient = 1;
 float Cata_Speed = 75;
-float Drive_Speed_Coefficient = 2;
 
- pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT, true);
- pros::Motor left_wheelsback (LEFT_BACK_WHEELS_PORT, true);
-  pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT);
-  //right drivetrain
-  pros::Motor right_wheelsfront (RIGHT_FRONT_WHEELS_PORT);
-  pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
-  pros::Motor right_wheelstop (RIGHT_TOP_WHEELS_PORT, true); // True This reverses the motor
+
   //intake
   pros::Motor Left_intake (INTAKE_LEFT);
   pros::Motor Right_intake (INTAKE_RIGHT);
@@ -53,8 +40,7 @@ float Drive_Speed_Coefficient = 2;
         return (low <= x && x <= high);         
       }        
     }          
-  //controller code
-  pros::Controller master (CONTROLLER_MASTER);
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -146,10 +132,7 @@ void opcontrol() {
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
   pros::screen::set_pen(COLOR_BLUE);
-  int speed;
-  int turn;
-  int leftcontrol;
-  int rightcontrol;
+  
   bool intaketoggle = false;
   bool intakebuttonstate = false;
   float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
@@ -157,23 +140,12 @@ void opcontrol() {
 
     //drive
 
-    speed = (master.get_analog(ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
-    turn = (master.get_analog(ANALOG_RIGHT_X) * Drive_Speed_Coefficient);
-
-    leftcontrol = (speed + turn); // divides the controller value to get a percent, then multiplies by 600 (max rpm of drive motors), then multiplies by the drive speed coefficient
-    rightcontrol = (speed - turn);
-
+   
     //tank testing
     //leftcontrol = turn;
     //rightcontrol = speed;
 
-    left_wheelsfront.move_velocity(leftcontrol);
-    left_wheelsback.move_velocity(leftcontrol);
-    left_wheelstop.move_velocity(leftcontrol);
 
-    right_wheelsfront.move_velocity(rightcontrol);
-    right_wheelsback.move_velocity(rightcontrol);
-    right_wheelstop.move_velocity(rightcontrol);
 
     //intake/outtake
     
@@ -200,10 +172,12 @@ void opcontrol() {
       Catapult.move(-Cata_Speed);
     }
     else if (master.get_digital(DIGITAL_L1)) {
-      float catarotationdegrees = Cata_Rotation.get_angle() / 100;
+      float catarotationdegrees;
       while (!inRange(358,2,catarotationdegrees)) {
+        catarotationdegrees = Cata_Rotation.get_angle() / 100;
         Catapult.move(Cata_Speed); // move catapult until it reaches position from rotation sensor
       }
+      Catapult.brake();
     pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Rotation = %f", catarotationdegrees); //print rotation sensor data on screen for debugging
     }
     else {

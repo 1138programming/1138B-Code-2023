@@ -27,7 +27,7 @@ double ycord;
 
 
 double absD(double num) {
-  return num < 0? - num: num;
+  return num < 0? - num: num; 
 }
 
 double getxrawrot() {
@@ -63,11 +63,11 @@ double getycord() {
   else if (degreesnormalized >=90 && degreesnormalized <= 270) {
     return sin(degreesnormalized) * (getxrawrot() - xencoderbuffer);
   }
-
+}
 void updateOdometry() {
   xcord = xcord +getxcord();
   ycord = ycord +getycord();
 }
-}
+
 
 
