@@ -1,23 +1,23 @@
 //odom ports
-extern const int x_Sesnor_Port;
-extern const int gyroPort;
-extern const int y_Sensor_Port;
+inline const int x_Sesnor_Port = 15;
+inline const int gyroPort = 20;
+inline const int y_Sensor_Port = 16;
 
 //drive ports
-extern const int RIGHT_FRONT_WHEELS_PORT;
-extern const int RIGHT_BACK_WHEELS_PORT; 
-extern const int RIGHT_TOP_WHEELS_PORT;
-extern const int LEFT_FRONT_WHEELS_PORT;
-extern const int LEFT_BACK_WHEELS_PORT;
-extern const int LEFT_TOP_WHEELS_PORT;
+inline const int RIGHT_FRONT_WHEELS_PORT = 2;
+inline const int RIGHT_BACK_WHEELS_PORT = 4; 
+inline const int RIGHT_TOP_WHEELS_PORT = 3;
+inline const int LEFT_FRONT_WHEELS_PORT = 9;
+inline const int LEFT_BACK_WHEELS_PORT = 10;
+inline const int LEFT_TOP_WHEELS_PORT = 7;
 
 //intake options
-extern int INTAKE_LEFT; 
-extern int INTAKE_RIGHT; 
-extern float Inatke_Speed;
-extern float Outtake_Coefficient;
+inline int INTAKE_LEFT = 8; 
+inline int INTAKE_RIGHT =  1;
+inline float Inatke_Speed = 100;
+inline float Outtake_Coefficient = 1;
 
 //cata options
-extern int CATA_PORT;
-extern int CATA_ROT;
-extern float Cata_Speed;
+inline int CATA_PORT = 11;
+inline int CATA_ROT = 12;
+inline float Cata_Speed = 75;
