@@ -43,7 +43,7 @@ void initialize() {
   Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
   pros::lcd::initialize();
   pros::lcd::set_text_color(0,255,0);
-  Base();
+  Base_Init();
 
   // Configure your chassis controls
   
@@ -126,7 +126,6 @@ void opcontrol() {
   pros::screen::set_pen(COLOR_BLUE);
   
   bool intaketoggle = false;
-  bool intakebuttonstate = false;
   float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
   float catarotationdegrees;
   while (true) {
@@ -154,14 +153,12 @@ void opcontrol() {
     }
     
     //catapult
-    catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
     if (master.get_digital(DIGITAL_L2)) {
       Catapult.move(-Cata_Speed);
     }
     else if (master.get_digital(DIGITAL_L1)) {
-      float catarotationdegrees;
+      catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
       while (!inRange(358,2,catarotationdegrees)) {
-        catarotationdegrees = Cata_Rotation.get_angle() / 100;
         Catapult.move(Cata_Speed); // move catapult until it reaches position from rotation sensor
         catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
         pros::lcd::set_text(1, ("Catapult Rotation = " + std::to_string(catarotationdegrees))); //print rotation sensor data on screen for debugging (not sure if this is gonna work)

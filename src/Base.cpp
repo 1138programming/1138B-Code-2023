@@ -20,24 +20,16 @@ pros::Motor right_wheelsfront (RIGHT_FRONT_WHEELS_PORT);
 pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
 pros::Motor right_wheelstop (RIGHT_TOP_WHEELS_PORT, true); // True This reverses the motor
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-
 //Base Constructor
-void Base() {
+void Base_Init() {
 
-
-
+  
   left_wheelsback.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   left_wheelsfront.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   left_wheelstop.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   right_wheelsback.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   right_wheelsfront.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   right_wheelstop.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-
-  int speed;
-  int turn;
-  int leftcontrol;
-  int rightcontrol;
-  float Drive_Speed_Coefficient = 2;
 
 }
 

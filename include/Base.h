@@ -4,7 +4,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void Base();
+void Base_Init();
 void DriveWithJoysticks();
 void DriveBy(double dist);
 void TurnDeg(double deg);
