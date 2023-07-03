@@ -33,6 +33,7 @@ static lv_res_t backButtonAction(lv_obj_t* btn) {
         pageHandler(0);
         break;
     }
+    return LV_RES_OK;
 
 }
 void addbackBtn(int currentpage) {
@@ -67,12 +68,13 @@ void initscreen() {
     lv_img_set_src(image, &init);
 }
 
-void button_action_callback(lv_obj_t* btnm, const char* btn_text)
+lv_res_t button_action_callback(lv_obj_t* btnm, const char* btn_text)
 {
     strncpy(currentauton, btn_text, 10 - 1);
     currentauton[10 - 1] = '\0';  // Ensure null-termination
     autonnumber = atoi(currentauton);
     printf("\n");
+    return LV_RES_OK;
 }
 
 void autonselector() {
@@ -114,7 +116,7 @@ void autonselector() {
 
 }
 
-void homescreenSelector(lv_obj_t* btn)
+lv_res_t homescreenSelector(lv_obj_t* btn)
 {
     uint8_t id = lv_obj_get_free_num(btn);
     switch (id) {
@@ -125,6 +127,7 @@ void homescreenSelector(lv_obj_t* btn)
         pageHandler(2);
         break;
     }
+    return LV_RES_OK;
 }
 
 void homescreen() {
