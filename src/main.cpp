@@ -41,9 +41,10 @@ void initialize() {
   
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
   Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
-  pros::lcd::initialize();
-  pros::lcd::set_text_color(0,255,0);
+  //pros::lcd::initialize();
+  //pros::lcd::set_text_color(0,255,0);
   Base_Init();
+  lv_init();
 
   // Configure your chassis controls
   
