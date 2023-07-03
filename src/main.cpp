@@ -2,6 +2,7 @@
 #include "Odometry.h"
 #include "Constants.h"
 #include "Base.h"
+#include "pagehandler.h"
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -38,13 +39,15 @@
  */
 void initialize() {
   
-  
+  lv_init();
+  pageHandler(-1);
+  lv_task_handler();
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
   Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
   //pros::lcd::initialize();
   //pros::lcd::set_text_color(0,255,0);
   Base_Init();
-  lv_init();
+  
 
   // Configure your chassis controls
   
@@ -81,7 +84,11 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
-  // . . .
+  pageHandler(1); //will open the auton selector
+  while (true) {
+    lv_task_handler();
+    pros::delay(10);
+  }
 }
 
 
@@ -124,8 +131,11 @@ void opcontrol() {
   
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
-  pros::screen::set_pen(COLOR_BLUE);
-  
+  //pros::screen::set_pen(COLOR_BLUE);
+  //open the default menu
+  pageHandler(0);
+  lv_task_handler();
+  //define variables
   bool intaketoggle = false;
   float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
   float catarotationdegrees;
@@ -170,7 +180,11 @@ void opcontrol() {
     }
 
     pros::delay(ez::util::DELAY_TIME);// This is used for timer calculations!  Keep this ez::util::DELAY_TIME
-    //update od 
+    //update od
+
+    //update screen
+    lv_task_handler();
+    pros::delay(10);
   }
   
     
