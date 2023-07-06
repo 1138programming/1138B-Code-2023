@@ -12,6 +12,7 @@ int turn;
 int leftcontrol;
 int rightcontrol;
 float Drive_Speed_Coefficient = 2;
+float Turn_Speed_Coefficient = 1.75;
 pros::Motor left_wheelsfront (LEFT_FRONT_WHEELS_PORT, true);
 pros::Motor left_wheelsback (LEFT_BACK_WHEELS_PORT, true);
 pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT);
@@ -36,7 +37,7 @@ void Base_Init() {
 void DriveWithJoysticks() {
     
     speed = (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
-    turn = (master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Drive_Speed_Coefficient);
+    turn = (master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Turn_Speed_Coefficient);
 
     leftcontrol = (speed + turn); // divides the controller value to get a percent, then multiplies by 600 (max rpm of drive motors), then multiplies by the drive speed coefficient
     rightcontrol = (speed - turn);

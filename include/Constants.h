@@ -19,5 +19,5 @@ inline float Outtake_Coefficient = 1;
 
 //cata options
 inline int CATA_PORT = 11;
-inline int CATA_ROT = 12;
+inline int CATA_ROT = 16;
 inline float Cata_Speed = 75;

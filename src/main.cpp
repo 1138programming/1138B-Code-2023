@@ -2,6 +2,8 @@
 #include "Odometry.h"
 #include "Constants.h"
 #include "Base.h"
+#include "pagehandler.h"
+#include "screens.h"
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -38,7 +40,10 @@
  */
 void initialize() {
   
-  
+  lv_init();
+  pageHandler(-1);
+  lv_task_handler();
+  pros::delay(1500); //pause to show loading
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
   Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
   pros::lcd::initialize();
@@ -167,6 +172,9 @@ void opcontrol() {
     else {
       Catapult.brake(); // holds the catapult in place
     }
+    //update cata data on debug
+    catarotationdegrees = Cata_Rotation.get_angle() / 100;
+    debugValues(1,catarotationdegrees);
 
     pros::delay(ez::util::DELAY_TIME);// This is used for timer calculations!  Keep this ez::util::DELAY_TIME
     //update od 
