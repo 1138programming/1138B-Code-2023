@@ -19,7 +19,7 @@ pros::Motor left_wheelstop (LEFT_TOP_WHEELS_PORT);
 pros::Motor right_wheelsfront (RIGHT_FRONT_WHEELS_PORT);
 pros::Motor right_wheelsback (RIGHT_BACK_WHEELS_PORT);
 pros::Motor right_wheelstop (RIGHT_TOP_WHEELS_PORT, true); // True This reverses the motor
-pros::Controller master(pros::E_CONTROLLER_MASTER);
+
 
 //Constructor
 void Base() {
@@ -41,7 +41,7 @@ void Base() {
 
 }
 
-void DriveWithJoysticks() {
+void DriveWithJoysticks(pros::Controller master) {
     
     speed = (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
     turn = (master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Drive_Speed_Coefficient);

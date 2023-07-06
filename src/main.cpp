@@ -1,6 +1,6 @@
 #include "main.h"
-#include "Odometry.h"
-
+#include "Odometry.cpp"
+#include "Base.cpp"
 
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
@@ -40,6 +40,7 @@ float Cata_Speed = 75;
         return (low <= x && x <= high);         
       }        
     }          
+
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -128,6 +129,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+  
   // This is preference to what you like to drive on.
   //left drivetrain
   
@@ -140,8 +142,7 @@ void opcontrol() {
   float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
   float catarotationdegrees;
   while (true) {
-
-    //drive
+    Base.DriveWithJoysticks(master);
 
    
     //tank testing
@@ -182,6 +183,7 @@ void opcontrol() {
         catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
         pros::lcd::set_text(1, ("Catapult Rotation = " + std::to_string(catarotationdegrees))); //print rotation sensor data on screen for debugging (not sure if this is gonna work)
       }
+    }
     else {
       Catapult.brake(); // holds the catapult in place
     }
