@@ -8,12 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-Page ID:
-0 = Home
-1 = Auton Selector
-2 = Debug
-*/
+ /*
+ Page ID
+ -1 = Init
+ 0 = Page Selector
+ 1 = Auton Selector
+ 2 = Debug
+ */
 
 char currentauton[10] = "1";
 int autonnumber = 1;
@@ -56,9 +57,9 @@ void addbackBtn(int currentpage) {
     orizontally and vertically*/
     lv_obj_set_free_num(back, currentpage);   /*Set a unique number for the button*/
     lv_btn_set_action(back, LV_BTN_ACTION_CLICK, backButtonAction);
-    lv_obj_t*label = lv_label_create(back, NULL);
+    lv_obj_t* label = lv_label_create(back, NULL);
     lv_label_set_text(label, "<-");
-    lv_btn_set_style(back, LV_BTN_STYLE_REL ,&style);
+    lv_btn_set_style(back, LV_BTN_STYLE_REL, &style);
     lv_btn_set_style(back, LV_BTN_STYLE_PR, &style2);
     lv_obj_set_style(label, &style);
     lv_obj_align(back, NULL, LV_ALIGN_IN_TOP_LEFT, 0, 0);
@@ -68,12 +69,17 @@ void initscreen() {
     lv_img_set_src(image, &init);
 }
 
+lv_obj_t* autontitle;
+
 lv_res_t button_action_callback(lv_obj_t* btnm, const char* btn_text)
 {
     strncpy(currentauton, btn_text, 10 - 1);
     currentauton[10 - 1] = '\0';  // Ensure null-termination
     autonnumber = atoi(currentauton);
     printf("\n");
+    char label_text[100];
+    sprintf(label_text, "Current Autonomous: %s", currentauton);
+    lv_label_set_text(autontitle, label_text);
     return LV_RES_OK;
 }
 
@@ -85,10 +91,13 @@ void autonselector() {
     //add back button
     addbackBtn(1);
     //add title
-    lv_obj_t* title = lv_label_create(lv_scr_act(), NULL);
-    lv_label_set_text(title, "Autonomous Selector");
-    lv_obj_align(title, NULL, LV_ALIGN_CENTER, 0, -105);
-    lv_label_set_style(title, &lv_style_plain_color);
+    autontitle = lv_label_create(lv_scr_act(), NULL);
+    char label_text[100];
+    sprintf(label_text, "Current Autonomous: %s", currentauton);
+    lv_label_set_text(autontitle, label_text);
+    //lv_label_set_text(title, "Autonomous Selector");
+    lv_obj_align(autontitle, NULL, LV_ALIGN_CENTER, 0, -105);
+    lv_label_set_style(autontitle, &lv_style_plain_color);
     //add toggles
     static lv_style_t style_bg;
     lv_style_copy(&style_bg, &lv_style_plain);
@@ -98,9 +107,9 @@ void autonselector() {
     lv_obj_t* btnm = lv_btnm_create(lv_scr_act(), NULL);
 
     // Step 2: Set button labels
-    static const char* btnm_map[] = { "1", "2","\n", "3","4", ""};
+    static const char* btnm_map[] = { "1", "2","\n", "3","4", "" };
     lv_btnm_set_map(btnm, btnm_map);
-    lv_btnm_set_toggle(btnm, true, autonnumber-1);
+    lv_btnm_set_toggle(btnm, true, autonnumber - 1);
     // Step 3: Set button matrix styles
     lv_btnm_set_style(btnm, LV_BTNM_STYLE_BG, &lv_style_transp);
     lv_btnm_set_style(btnm, LV_BTNM_STYLE_BTN_REL, &lv_style_btn_rel);
@@ -111,7 +120,7 @@ void autonselector() {
     lv_btnm_set_action(btnm, button_action_callback);
 
     // Step 5: Position the button matrix
-    lv_obj_align(btnm, title, LV_ALIGN_CENTER, 0, 115);
+    lv_obj_align(btnm, autontitle, LV_ALIGN_CENTER, 0, 115);
 
 
 }
@@ -142,15 +151,15 @@ void homescreen() {
     lv_obj_align(title, NULL, LV_ALIGN_CENTER, 0, -105);
     lv_label_set_style(title, &lv_style_plain_color);
     //add page buttons
-    lv_obj_t * autonpage = lv_btn_create(lv_scr_act(), NULL);
+    lv_obj_t* autonpage = lv_btn_create(lv_scr_act(), NULL);
     lv_obj_set_free_num(autonpage, 1);
     lv_cont_set_fit(autonpage, true, true);
     lv_obj_t* label = lv_label_create(autonpage, NULL);
     char label_text[100];
     sprintf(label_text, "Autonomous Selector: %s", currentauton);
     lv_label_set_text(label, label_text);
-    lv_btn_set_action(autonpage,LV_BTN_ACTION_PR ,homescreenSelector);
-    lv_obj_align(autonpage, NULL, LV_ALIGN_CENTER, 0, -lv_obj_get_height(autonpage)/2);
+    lv_btn_set_action(autonpage, LV_BTN_ACTION_PR, homescreenSelector);
+    lv_obj_align(autonpage, NULL, LV_ALIGN_CENTER, 0, -lv_obj_get_height(autonpage) / 2);
     //page2
     lv_obj_t* debugpage = lv_btn_create(lv_scr_act(), NULL);
     lv_obj_set_free_num(debugpage, 2);
@@ -158,23 +167,25 @@ void homescreen() {
     lv_obj_t* debuglabel = lv_label_create(debugpage, NULL);
     lv_label_set_text(debuglabel, "Debug Screen (Crashes)");
     lv_btn_set_action(debugpage, LV_BTN_ACTION_PR, homescreenSelector);
-    lv_obj_align(debugpage, NULL, LV_ALIGN_CENTER, 0, 5+lv_obj_get_height(autonpage) / 2);
+    lv_obj_align(debugpage, NULL, LV_ALIGN_CENTER, 0, 5 + lv_obj_get_height(autonpage) / 2);
 }
 //Debug Variables
 float catarotation;
+lv_obj_t* catapult;
 //Function to be called from main.cpp to show data on screen
 void debugValues(int id, float data) {
-/* 
-ID LIST
-1 - Cata Rotation
-*/
+    /*
+    ID LIST
+    1 - Cata Rotation
+   */
+    char catarotationtext[100];
     switch (id) {
-        case 1:
-            catarotation = data;
+    case 1:
+        sprintf(catarotationtext, "Catapult Rotation: %f", data);
+        lv_label_set_text(catapult, catarotationtext);
         break;
     }
 }
-lv_obj_t* catapult = lv_label_create(lv_scr_act(), NULL);
 
 void debugScreen() {
     clearScreen(); //remove previous items on screen
@@ -189,9 +200,9 @@ void debugScreen() {
     lv_obj_align(title, NULL, LV_ALIGN_CENTER, 0, -105);
     lv_label_set_style(title, &lv_style_plain_color);
     //add cata debug
+    catapult = lv_label_create(lv_scr_act(), NULL);
     char catarotationtext[100];
     sprintf(catarotationtext, "Catapult Rotation: %f", catarotation);
     lv_label_set_text(catapult, catarotationtext);
-    lv_obj_align(catapult, NULL, LV_ALIGN_CENTER, 0,0);
-    
-    }
+    lv_obj_align(catapult, NULL, LV_ALIGN_CENTER, 0, 0);
+}
