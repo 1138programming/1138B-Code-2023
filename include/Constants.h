@@ -14,10 +14,7 @@ inline const int LEFT_TOP_WHEELS_PORT = 7;
 //intake options
 inline int INTAKE_LEFT = 8; 
 inline int INTAKE_RIGHT =  1;
-inline float Inatke_Speed = 100;
-inline float Outtake_Coefficient = 1;
 
 //cata options
 inline int CATA_PORT = 11;
 inline int CATA_ROT = 16;
-inline float Cata_Speed = 75;

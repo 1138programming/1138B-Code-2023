@@ -130,6 +130,7 @@ lv_res_t homescreenSelector(lv_obj_t* btn)
     return LV_RES_OK;
 }
 
+
 void homescreen() {
     clearScreen(); //remove previous items on screen
     //add bg
@@ -188,9 +189,9 @@ void debugScreen() {
     lv_obj_align(title, NULL, LV_ALIGN_CENTER, 0, -105);
     lv_label_set_style(title, &lv_style_plain_color);
     //add cata debug
-    //char catarotationtext[100];
-    //sprintf(catarotationtext, "Catapult Rotation: %f", catarotation);
-    lv_label_set_text(catapult, "catarotationtext");
+    char catarotationtext[100];
+    sprintf(catarotationtext, "Catapult Rotation: %f", catarotation);
+    lv_label_set_text(catapult, catarotationtext);
     lv_obj_align(catapult, NULL, LV_ALIGN_CENTER, 0,0);
     
     }
