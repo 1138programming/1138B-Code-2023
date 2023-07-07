@@ -12,7 +12,7 @@ bool inRange(unsigned low, unsigned high, unsigned x) //check if rotational sens
         return (low <= x && x <= high);         
       }        
     }     
-
+//intake/outtake
 float Inatke_Voltage = 100;
 float Outtake_Coefficient = 1;
 float outtake_speed = (Inatke_Voltage * Outtake_Coefficient * -1);
@@ -27,6 +27,7 @@ float outtake_speed = (Inatke_Voltage * Outtake_Coefficient * -1);
             intakemotors.move(0);
         }
 
+//catapult
 inline float Cata_Voltage = 75;
 pros::Rotation Cata_Rotation (CATA_ROT);
 

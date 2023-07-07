@@ -6,6 +6,9 @@
 
 void pageHandler(int page) {
     switch (page){
+        case -1:
+        initscreen();
+        break;
         case 0:
         homescreen();
         break;

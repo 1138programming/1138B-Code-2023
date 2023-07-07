@@ -53,8 +53,7 @@ void addbackBtn(int currentpage) {
     style2.body.main_color = LV_COLOR_SILVER;
     style2.body.grad_color = LV_COLOR_GRAY;
     lv_obj_t* back = lv_btn_create(lv_scr_act(), NULL);
-    lv_cont_set_fit(back, true, true); /*Enable resizing h
-    orizontally and vertically*/
+    lv_cont_set_fit(back, true, true); /*Enable resizing horizontally and vertically*/
     lv_obj_set_free_num(back, currentpage);   /*Set a unique number for the button*/
     lv_btn_set_action(back, LV_BTN_ACTION_CLICK, backButtonAction);
     lv_obj_t* label = lv_label_create(back, NULL);
