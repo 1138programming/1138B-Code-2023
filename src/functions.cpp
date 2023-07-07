@@ -2,6 +2,8 @@
 #include "motors.h"
 #include "Constants.h"
 #include "functions.h"
+#include "screens.h"
+#include "pagehandler.h"
 
 bool inRange(unsigned low, unsigned high, unsigned x) //check if rotational sensor data is within a range of degrees        
     { 
@@ -28,7 +30,8 @@ float outtake_speed = (Inatke_Voltage * Outtake_Coefficient * -1);
         }
 
 //catapult
-inline float Cata_Voltage = 75;
+float Cata_Voltage = 75;
+bool catainterupt;
 pros::Rotation Cata_Rotation (CATA_ROT);
 
     void Catapult::init() {
@@ -44,11 +47,24 @@ pros::Rotation Cata_Rotation (CATA_ROT);
     }  
     void Catapult::park() {
         //move catapult to parked position when using only intake/outtake
+        float catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
+        while (!inRange(42,46,catarotationdegrees)) {
+            Catapultmotor.move(Cata_Voltage); // move catapult until it reaches position from rotation sensor
+            catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
+        } 
     }
     void Catapult::run() {
         //run the catapult
-        Catapultmotor.move(Cata_Voltage);
+        pageHandler(2);
+        catainterupt = false;
+        float catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
+        while (!catainterupt) {
+            Catapultmotor.move(Cata_Voltage);
+            catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
+            debugValues(1,catarotationdegrees);
+        }
     }
     void Catapult::stop() {
+        catainterupt = true;
         Catapultmotor.brake();
     }
