@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "api.h"
 
  /*
  Page ID
@@ -66,6 +67,9 @@ void addbackBtn(int currentpage) {
 void initscreen() {
     lv_obj_t* image = lv_img_create(lv_scr_act(), NULL);
     lv_img_set_src(image, &init);
+    pros::delay(1000);
+    lv_img_set_src(image, &socal_logo);
+    pros::delay(1000);
 }
 
 lv_obj_t* autontitle;

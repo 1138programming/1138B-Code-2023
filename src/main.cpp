@@ -22,7 +22,7 @@ void initialize() {
   lv_init();
   pageHandler(-1);
   lv_task_handler();
-  pros::delay(1500); //pause to show loading
+  //pros::delay(1500); //pause to show loading
   pros::delay(500); // Stop the user from doing anything while legacy ports configure
   Catapult::init(); //initilize the catapult
   Base_Init();

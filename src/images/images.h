@@ -7,3 +7,5 @@ extern const lv_img_dsc_t background;
 
 extern const uint8_t init_map[];
 extern const lv_img_dsc_t init;
+
+extern const lv_img_dsc_t socal_logo;
