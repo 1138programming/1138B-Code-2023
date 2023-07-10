@@ -13,7 +13,7 @@ inline const int LEFT_TOP_WHEELS_PORT = 7;
 
 //intake options
 inline int INTAKE_LEFT = 8; 
-inline int INTAKE_RIGHT =  1;
+inline int INTAKE_RIGHT =  20;
 
 //cata options
 inline int CATA_PORT = 11;
