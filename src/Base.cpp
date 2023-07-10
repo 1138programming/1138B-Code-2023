@@ -26,6 +26,10 @@ void Base_Init() {
       left_drivetrain.move_velocity(speed);
       right_drivetrain.move_velocity(speed);
     }
+    void BaseDrive::brake() {
+      left_drivetrain.brake();
+      right_drivetrain.brake();
+    }
     void BaseDrive::driveController(pros::Controller controller) {
     speed = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
     turn = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Turn_Speed_Coefficient);

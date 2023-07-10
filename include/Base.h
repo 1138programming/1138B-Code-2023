@@ -7,6 +7,7 @@ void Base_Init();
 class BaseDrive {
     public:
         static void driveForward(int speed);
+        static void brake();
         static void driveController(pros::Controller controller);
 };
 #ifdef __cplusplus
