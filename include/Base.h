@@ -6,7 +6,7 @@ extern "C" {
 void Base_Init();
 class BaseDrive {
     public:
-        static void driveForward(int speed);
+        static void drive(int speed);
         static void driveController(pros::Controller controller);
 };
 #ifdef __cplusplus

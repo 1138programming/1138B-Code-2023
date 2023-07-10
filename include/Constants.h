@@ -8,7 +8,7 @@ inline const int RIGHT_FRONT_WHEELS_PORT = 2;
 inline const int RIGHT_BACK_WHEELS_PORT = 4; 
 inline const int RIGHT_TOP_WHEELS_PORT = 3;
 inline const int LEFT_FRONT_WHEELS_PORT = 9;
-inline const int LEFT_BACK_WHEELS_PORT = 10;
+inline const int LEFT_BACK_WHEELS_PORT = 6;
 inline const int LEFT_TOP_WHEELS_PORT = 7;
 
 //intake options

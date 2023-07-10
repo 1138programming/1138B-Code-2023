@@ -22,7 +22,7 @@ void Base_Init() {
 
 }
 
-    void BaseDrive::driveForward(int speed) {
+    void BaseDrive::drive(int speed) {
       left_drivetrain.move_velocity(speed);
       right_drivetrain.move_velocity(speed);
     }
