@@ -1,45 +1,15 @@
 #include "main.h"
-#include "Odometry.cpp"
-#include "Base.cpp"
-
+#include "Odometry.h"
+#include "Constants.h"
+#include "Base.h"
+#include "pagehandler.h"
+#include "screens.h"
+#include "motors.h"
+#include "functions.h"
 /////
 // For instalattion, upgrading, documentations and tutorials, check out website!
 // https://ez-robotics.github.io/EZ-Template/
-/////
-
-
-// Chassis constructor
-
-// Ports
-//Motors
-
-
-int INTAKE_LEFT = 8; 
-int INTAKE_RIGHT =  1; 
-
-int CATA_PORT = 11;
-int CATA_ROT = 12;
-
-float Inatke_Speed = 100;
-float Outtake_Coefficient = 1;
-float Cata_Speed = 75;
-
-
-  //intake
-  pros::Motor Left_intake (INTAKE_LEFT);
-  pros::Motor Right_intake (INTAKE_RIGHT);
-  //catapult
-  pros::Motor Catapult (CATA_PORT, true);
-  pros::Rotation Cata_Rotation (CATA_ROT);
-  bool inRange(unsigned low, unsigned high, unsigned x) //check if rotational sensor data is within a range of degrees        
-    { 
-      if (low > high) {
-        return (low <= x || x <= high);
-      }
-      else {  
-        return (low <= x && x <= high);         
-      }        
-    }          
+/////       
 
 
 /**
@@ -50,20 +20,19 @@ float Cata_Speed = 75;
  */
 void initialize() {
   
-  
-  pros::delay(500); // Stop the user from doing anything while legacy ports configure.
-  Catapult.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
-  pros::lcd::initialize();
-  pros::lcd::set_text_color(0,255,0);
+  lv_init();
+  pageHandler(-1);
+  lv_task_handler();
+  //pros::delay(1500); //pause to show loading
+  pros::delay(500); // Stop the user from doing anything while legacy ports configure
+  Catapult::init(); //initilize the catapult
+  Base_Init();
 
   // Configure your chassis controls
   
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
   // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
   // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
-  
-
- 
 
 
 }
@@ -132,61 +101,46 @@ void opcontrol() {
   
   // This is preference to what you like to drive on.
   //left drivetrain
-  
+  pageHandler(0);
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
-  pros::screen::set_pen(COLOR_BLUE);
   
   bool intaketoggle = false;
-  bool intakebuttonstate = false;
-  float outtake_speed = (Inatke_Speed * Outtake_Coefficient);
+  
   float catarotationdegrees;
   while (true) {
-    Base.DriveWithJoysticks(master);
 
+    //drive
+    BaseDrive::driveController(master);
    
-    //tank testing
-    //leftcontrol = turn;
-    //rightcontrol = speed;
+    //intake/outtake 
 
-
-
-    //intake/outtake
-    
     if (master.get_digital(DIGITAL_R2)) { //outtake (push button)
       intaketoggle = false;
-      Left_intake.move(outtake_speed);
-      Right_intake.move(-outtake_speed);
+      Intake::reverse();
     }
 
     else if (master.get_digital_new_press(DIGITAL_R1)) { //toggle the intake
       intaketoggle = !intaketoggle;
     }
     if (intaketoggle) { // activates the intake based on toggle status
-      Left_intake.move(-Inatke_Speed);
-      Right_intake.move(Inatke_Speed);
+      Intake::run();
     }
     else if (!intaketoggle && !master.get_digital(DIGITAL_R2)) {
-      Left_intake.move(0);
-      Right_intake.move(0);
+      Intake::stop();
     }
+    
     //catapult
-    catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
     if (master.get_digital(DIGITAL_L2)) {
-      Catapult.move(-Cata_Speed);
+
     }
     else if (master.get_digital(DIGITAL_L1)) {
-      float catarotationdegrees;
-      while (!inRange(358,2,catarotationdegrees)) {
-        catarotationdegrees = Cata_Rotation.get_angle() / 100;
-        Catapult.move(Cata_Speed); // move catapult until it reaches position from rotation sensor
-        catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
-        pros::lcd::set_text(1, ("Catapult Rotation = " + std::to_string(catarotationdegrees))); //print rotation sensor data on screen for debugging (not sure if this is gonna work)
-      }
+      Catapult::run();
     }
     else {
-      Catapult.brake(); // holds the catapult in place
+      Catapult::stop(); // holds the catapult in place
     }
+    //update cata data on debug
 
     pros::delay(ez::util::DELAY_TIME);// This is used for timer calculations!  Keep this ez::util::DELAY_TIME
     //update od 
