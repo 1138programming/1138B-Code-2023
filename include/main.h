@@ -42,7 +42,7 @@
 //#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 #include "EZ-Template/api.hpp"
-#include "autons.hpp"
+#include "autons.h"
 
 // More includes here...
 //
