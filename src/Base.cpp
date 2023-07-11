@@ -26,6 +26,13 @@ void Base_Init() {
       left_drivetrain.move_velocity(speed);
       right_drivetrain.move_velocity(speed);
     }
+    void BaseDrive::driveDistance(float distance, int speed) {
+      int ticksperrotation = 0; //need to test
+      float wheelSize = 0; //need to set
+      float rotationRequired = distance/wheelSize;
+      float tickstomove = ticksperrotation * rotationRequired;
+      left_drivetrain.move_relative(tickstomove, speed);
+    }
     void BaseDrive::driveController(pros::Controller controller) {
     speed = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
     turn = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Turn_Speed_Coefficient);
