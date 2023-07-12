@@ -99,15 +99,16 @@ void autonomous() {
 void opcontrol() {
   // This is preference to what you like to drive on.
   //left drivetrain
+
   pageHandler(0);
+  //debugValues(1,Catapult::GetCatapultRot());
   //controller code
   pros::Controller master (CONTROLLER_MASTER);
   
   bool intaketoggle = false;
   
   float catarotationdegrees;
-  while (true) {
-
+  while (true) { 
     //drive
     BaseDrive::driveController(master);
    
@@ -130,19 +131,21 @@ void opcontrol() {
     
     //catapult
     if (master.get_digital(DIGITAL_L2)) {
-      pageHandler(1);
+      pageHandler(2);
       Catapult::park();
     }
     else if (master.get_digital(DIGITAL_L1)) {
       Catapult::run();
     }
     else if (master.get_digital(DIGITAL_A)) {
-      Catapult::intake();
-    }
+       Catapult::intake();
+     }
     else {
       Catapult::stop(); // holds the catapult in place
     }
     //update cata data on debug
+    
+    
 
     pros::delay(ez::util::DELAY_TIME);// This is used for timer calculations!  Keep this ez::util::DELAY_TIME
     //update od 

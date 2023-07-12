@@ -1,3 +1,5 @@
+#ifndef BASE_H
+#define BASE_H
 //  Header File for Base
 #include "api.h"
 #ifdef __cplusplus
@@ -13,4 +15,4 @@ class BaseDrive {
 #ifdef __cplusplus
 }
 #endif
-
+#endif

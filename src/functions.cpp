@@ -29,7 +29,7 @@ float outtake_speed = 127;
             intakemotors.move(0);
         }
 
-//catapult
+//catapult doesnt work :( 
 float Cata_Voltage = 90;
 bool catainterupt;
 pros::Rotation Cata_Rotation (CATA_ROT);
@@ -39,20 +39,19 @@ pros::Rotation Cata_Rotation (CATA_ROT);
     }
     void Catapult::intake() {
         //move catapult to intake position
-        float catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
-        while (!inRange(1800, 1900, Cata_Rotation.get_angle())) {
-            Catapultmotor.move(Cata_Voltage); // move catapult until it reaches position from rotation sensor
-            catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
+    
+        float catarotationdegrees = Cata_Rotation.get_angle(); //define the catapult rotation when the button is first pressed
+        while (!inRange(17,18,(Cata_Rotation.get_angle()/100))) {
+            Catapultmotor.move(25); // move catapult until it reaches position from rotation sensor
+            catarotationdegrees = Cata_Rotation.get_angle(); //check the catapult position while moving
       } 
     }  
     void Catapult::park() {
         //move catapult to parked position when using only intake/outtake
-        float catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
-        pageHandler(2);
-            while (!inRange(34500, 34600, Cata_Rotation.get_angle())) {
-            Catapultmotor.move(50); // move catapult until it reaches position from rotation sensor
+        float catarotationdegrees = Cata_Rotation.get_angle(); //define the catapult rotation when the button is first pressed
+            while (!inRange(345, 346, (Cata_Rotation.get_angle()/100))) {
+            Catapultmotor.move_velocity(75); // move catapult until it reaches position from rotation sensor
             catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
-            //debugValues(1,Cata_Rotation.get_angle());
         }
         Catapultmotor.move(0);
     }
@@ -68,4 +67,7 @@ pros::Rotation Cata_Rotation (CATA_ROT);
     void Catapult::stop() {
         catainterupt = true;
         Catapultmotor.brake();
+    }
+    double Catapult::GetCatapultRot() {
+        return Cata_Rotation.get_angle();
     }

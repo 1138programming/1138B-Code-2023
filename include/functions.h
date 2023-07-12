@@ -1,3 +1,6 @@
+#ifndef function_h
+#define function_h
+
 class Intake {
     public:
         static void run();
@@ -11,5 +14,7 @@ public:
     static void park();
     static void run();
     static void stop();
+    static double GetCatapultRot();
     static void init();
 };
+#endif
