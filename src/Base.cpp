@@ -22,11 +22,12 @@ float Turn_Speed_Coefficient = 1.75;
 
 
 
-//Base Constructor
+//base init
 void Base_Init() {
 
   left_drivetrain.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
   right_drivetrain.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
+  PID(0,0,0,0,100,0,1);
 
 }
 
@@ -39,7 +40,8 @@ void Base_Init() {
       float wheelSize = 0; //need to set
       float rotationRequired = distance/wheelSize;
       float tickstomove = ticksperrotation * rotationRequired;
-      left_drivetrain.move_relative(tickstomove, speed);
+    
+      
     }
     void BaseDrive::driveController(pros::Controller controller, int type) {
       switch (type) {

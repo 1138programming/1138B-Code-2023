@@ -7,11 +7,22 @@
     }
 
 
-     void PID(double setpoint, double Kp, double Ki, double Kd, double outputMax, double outputMin, double allowedError) {
+     PID::PID(double setpoint, double Kp, double Ki, double Kd, double outputMax, double outputMin, double allowedError) {
       
-       std::uint32_t iterationTime = 0; // PLEASE change this to use UNIX time on the actual bot code, I'm just doing this to write it rn.
-       std::uint32_t lastMillis = 1;
+      std::uint32_t iterationTime = 0; // PLEASE change this to use UNIX time on the actual bot code, I'm just doing this to write it rn.
+      std::uint32_t lastMillis = 1;
+      this->setpoint = setpoint;
+      this->Kp = Kp;
+      this->Ki = Ki;
+      this->Kd = Kd;
+      this->outputMax = outputMax;
+      this->outputMin = outputMin;
+      this->allowedError = allowedError;
+      this->lastMillis = pros::millis();
+
     }
+    
+  
 
     double PID::setSetpoint(double setpoint) {
       this->setpoint = setpoint;
