@@ -3,6 +3,7 @@
 #include "motors.h"
 #include "Base.h"
 #include "Constants.h"
+#include "PID.h"
 #include <functional>
 #include <iostream>
 
@@ -13,6 +14,13 @@ int leftcontrol;
 int rightcontrol;
 float Drive_Speed_Coefficient = 2;
 float Turn_Speed_Coefficient = 1.75;
+
+
+
+
+
+
+
 
 //Base Constructor
 void Base_Init() {
@@ -26,7 +34,7 @@ void Base_Init() {
       left_drivetrain.move_velocity(speed);
       right_drivetrain.move_velocity(speed);
     }
-    void BaseDrive::driveDistance(float distance, int speed) {
+    void BaseDrive::driveDistance(float distance, float speed) {
       int ticksperrotation = 0; //need to test
       float wheelSize = 0; //need to set
       float rotationRequired = distance/wheelSize;

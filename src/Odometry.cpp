@@ -16,21 +16,20 @@
 
 
 
+
 pros::Rotation X_Encoder(x_Sesnor_Port);
-
 pros::Imu Gyro(gyroPort);
-double xencoderbuffer;
-double yencoderbuffer;
-double xcord;
-double ycord; 
 
+void OdometryI() {
+  
+ 
+}
 
-
-double absD(double num) {
+double Odometry::absD(double num) {
   return num < 0? - num: num; 
 }
 
-double getxrawrot() {
+double Odometry::getxrawrot() {
   return X_Encoder.get_position();
   
 
@@ -38,12 +37,12 @@ double getxrawrot() {
 
 
 
-double getGyro() {
+double Odometry::getGyro() {
   return Gyro.get_rotation(); 
 }
 
 
-double getxcord() {
+double Odometry::getxcorddiffrence() {
   double degreesnormalized = absD(fmod(getGyro(),360));
   if (degreesnormalized <= 90 && degreesnormalized >= 270) {
     return cos(degreesnormalized) * (getxrawrot() - xencoderbuffer);
@@ -55,7 +54,7 @@ double getxcord() {
 }
 
 
-double getycord() {
+double Odometry::getycorddiffrence() {
   double degreesnormalized = absD(fmod(getGyro(),360));
   if (degreesnormalized <= 90 && degreesnormalized >= 270) {
     return sin(degreesnormalized);
@@ -64,9 +63,22 @@ double getycord() {
     return sin(degreesnormalized) * (getxrawrot() - xencoderbuffer);
   }
 }
-void updateOdometry() {
-  xcord = xcord +getxcord();
-  ycord = ycord +getycord();
+
+double Odometry::getycord() {
+ return ycord;
+}
+
+double Odometry::getxcord() {
+  return xcord;
+}
+
+void Odometry::updateOdometry() {
+
+  xcord = xcord + getxcord();
+  ycord = ycord + getycord();
+
+  xencoderbuffer = getxrawrot();
+
 }
 
 
