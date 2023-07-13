@@ -10,7 +10,7 @@ class BaseDrive {
     public:
         static void drive(int speed);
         static void driveDistance(float distance, int speed);
-        static void driveController(pros::Controller controller);
+        static void driveController(pros::Controller controller, int type);
 };
 #ifdef __cplusplus
 }

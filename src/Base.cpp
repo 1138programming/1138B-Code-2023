@@ -33,17 +33,22 @@ void Base_Init() {
       float tickstomove = ticksperrotation * rotationRequired;
       left_drivetrain.move_relative(tickstomove, speed);
     }
-    void BaseDrive::driveController(pros::Controller controller) {
-    speed = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
-    turn = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Turn_Speed_Coefficient);
+    void BaseDrive::driveController(pros::Controller controller, int type) {
+      switch (type) {
+        case 1:
+            speed = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
+            turn = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Turn_Speed_Coefficient);
 
-    leftcontrol = (speed + turn); // divides the controller value to get a percent, then multiplies by 600 (max rpm of drive motors), then multiplies by the drive speed coefficient
-    rightcontrol = (speed - turn);
-
-    //tank testing
-    //leftcontrol = turn;
-    //rightcontrol = speed;
-
-    left_drivetrain.move_velocity(leftcontrol);
-    right_drivetrain.move_velocity(rightcontrol);
+            leftcontrol = (speed + turn); // divides the controller value to get a percent, then multiplies by 600 (max rpm of drive motors), then multiplies by the drive speed coefficient
+            rightcontrol = (speed - turn);
+            left_drivetrain.move_velocity(leftcontrol);
+            right_drivetrain.move_velocity(rightcontrol);
+        break;
+        case 2:
+          float left = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
+          float right = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y)*Drive_Speed_Coefficient);
+          left_drivetrain.move_velocity(left);
+          right_drivetrain.move_velocity(right);
+        break;
+      }
     }

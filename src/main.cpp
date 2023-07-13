@@ -110,7 +110,7 @@ void opcontrol() {
   float catarotationdegrees;
   while (true) { 
     //drive
-    BaseDrive::driveController(master);
+    BaseDrive::driveController(master, 1);
    
     //intake/outtake 
 
