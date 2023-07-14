@@ -4,7 +4,6 @@
 #include "Base.h"
 #include "Constants.h"
 #include "NewPID.h"
-#include "NewPID.cpp"
 #include "Odometry.h"
 #include <functional>
 #include <iostream>
@@ -39,7 +38,6 @@ void Base_Init() {
     NewPID DriveDistancePID(0.0,0.0,0.0,0.0,100.0,0.0,1.0);
 
     void BaseDrive::driveDistance(float distance, float speed) {
-      
 
       float distAtCall = Odometry::getxrawrot();
       DriveDistancePID.setSetpoint(distance);
