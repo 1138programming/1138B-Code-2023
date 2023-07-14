@@ -55,8 +55,8 @@ void Base_Init() {
     void BaseDrive::driveController(pros::Controller controller, int type) {
       switch (type) {
         case 1:
-            speed = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * Drive_Speed_Coefficient);
-            turn = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * Turn_Speed_Coefficient);
+              speed = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * 4.72 * Drive_Speed_Coefficient);
+              turn = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) * 4.72* Turn_Speed_Coefficient);
 
             leftcontrol = (speed + turn); // divides the controller value to get a percent, then multiplies by 600 (max rpm of drive motors), then multiplies by the drive speed coefficient
             rightcontrol = (speed - turn);

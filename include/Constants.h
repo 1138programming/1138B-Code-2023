@@ -28,6 +28,6 @@ inline const int CATA_ROT = 16;
 //Base
 inline const int ticksperrotation = 0; //need to test
 inline const float wheelSize = 0; //need to set
-inline const float Drive_Speed_Coefficient = 2;
-inline const float Turn_Speed_Coefficient = 1.75;
+inline const float Drive_Speed_Coefficient = 0.9;
+inline const float Turn_Speed_Coefficient = 0.75;
        
