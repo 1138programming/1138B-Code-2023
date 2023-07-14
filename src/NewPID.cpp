@@ -1,13 +1,13 @@
 #include "main.h"
-#include "PID.h"
+#include "NewPID.h"
 
   
-    double PID::abs(double num) {
+    double NewPID::abs(double num) {
         return num < 0 ? -num : num;
     }
 
 
-     PID::PID(double setpoint, double Kp, double Ki, double Kd, double outputMax, double outputMin, double allowedError) {
+     NewPID::NewPID(double setpoint, double Kp, double Ki, double Kd, double outputMax, double outputMin, double allowedError) {
       
       std::uint32_t iterationTime = 0; // PLEASE change this to use UNIX time on the actual bot code, I'm just doing this to write it rn.
       std::uint32_t lastMillis = 1;
@@ -24,11 +24,11 @@
     
   
 
-    double PID::setSetpoint(double setpoint) {
+    void NewPID::setSetpoint(double setpoint) {
       this->setpoint = setpoint;
     }
 
-    double PID::calculate(double process_var) {
+    double NewPID::calculate(double process_var) {
 
       iterationTime = pros::millis() - lastMillis;
 

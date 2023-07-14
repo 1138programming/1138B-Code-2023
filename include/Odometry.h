@@ -10,18 +10,18 @@ void OdometryI();
 class Odometry {
     public:
         
-        double getxcord(void); 
-        double getycord(void);
-        double getxrawrot(void);
-        double getxcorddiffrence(void);
-        double getycorddiffrence(void);
-        double absD(double num);
-        double getGyro(void);
+        static double getxcord(void); 
+        static double getycord(void);
+        static double getxrawrot(void);
+        static double getxcorddiffrence(void);
+        static double getycorddiffrence(void);
+        static double absD(double num);
+        static double getGyro(void);
         void updateOdometry(void);
-        double xencoderbuffer;
-        double yencoderbuffer;
-        double xcord;
-        double ycord; 
+        static double xencoderbuffer;
+        static double yencoderbuffer;
+        static double xcord;
+        static double ycord; 
 };
 #ifdef __cplusplus
 }

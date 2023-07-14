@@ -50,6 +50,9 @@ double Odometry::getxcorddiffrence() {
   else if (degreesnormalized >=90 && degreesnormalized <= 270) {
     return cos(degreesnormalized) * (getxrawrot() - xencoderbuffer);
   }
+  else {
+    return 0;
+  }
   
 }
 
@@ -61,6 +64,9 @@ double Odometry::getycorddiffrence() {
   }
   else if (degreesnormalized >=90 && degreesnormalized <= 270) {
     return sin(degreesnormalized) * (getxrawrot() - xencoderbuffer);
+  }
+  else {
+    return 0;
   }
 }
 

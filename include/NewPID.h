@@ -1,15 +1,16 @@
 #include "api.h"
-#ifndef PID_h
-#define PID_h
+#ifndef NewPID_H
+#define NewPID_H
+#include "api.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-class PID {
+class NewPID {
     
     public:
-    PID(double setpoint, double Kp, double Ki, double Kd, double outputMax, double outputMin, double allowedError);
-    double setSetpoint(double setpoint);
+    NewPID(double setpoint, double Kp, double Ki, double Kd, double outputMax, double outputMin, double allowedError);
+    void setSetpoint(double setpoint);
     double calculate(double process_var);
   
     private:
