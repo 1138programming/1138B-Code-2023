@@ -41,8 +41,8 @@ void Base_Init() {
 
       float distAtCall = Odometry::getxrawrot();
       DriveDistancePID.setSetpoint(distance);
-      left_drivetrain.move_velocity(DriveDistancePID.calculate(Odometry::getxrawrot() - distAtCall));
-      right_drivetrain.move_velocity(DriveDistancePID.calculate(Odometry::getxrawrot() - distAtCall));
+      left_drivetrain.move_velocity((DriveDistancePID.calculate(Odometry::getxrawrot() - distAtCall) * 6) * Drive_Speed_Coefficient);
+      right_drivetrain.move_velocity((DriveDistancePID.calculate(Odometry::getxrawrot() - distAtCall) * 6) * Drive_Speed_Coefficient);
       
     }
     void BaseDrive::turnDeggrees(float targetDeg, float speed) {

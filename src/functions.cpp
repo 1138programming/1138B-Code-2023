@@ -4,6 +4,7 @@
 #include "functions.h"
 #include "screens.h"
 #include "pagehandler.h"
+#include "NewPID.h"
 
 bool inRange(float low, float high, float x) //check if rotational sensor data is within a range of degrees        
     { 
@@ -37,22 +38,13 @@ pros::Rotation Cata_Rotation (CATA_ROT);
     void Catapult::init() {
         Catapultmotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
     }
-    void Catapult::intake() {
-        //move catapult to intake position
-    
-        float catarotationdegrees = Cata_Rotation.get_angle(); //define the catapult rotation when the button is first pressed
-        while (!inRange(17,18,(Cata_Rotation.get_angle()/100))) {
-            Catapultmotor.move(25); // move catapult until it reaches position from rotation sensor
-            catarotationdegrees = Cata_Rotation.get_angle(); //check the catapult position while moving
-      } 
-    }  
     void Catapult::park() {
         //move catapult to parked position when using only intake/outtake
+        NewPID parkPID(0.0,0.0,0.0,0.0,100.0,0.0,1.0);
         float catarotationdegrees = Cata_Rotation.get_angle(); //define the catapult rotation when the button is first pressed
-            while (!inRange(345, 346, (Cata_Rotation.get_angle()/100))) {
-            Catapultmotor.move_velocity(75); // move catapult until it reaches position from rotation sensor
-            catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
-        }
+        parkPID.setSetpoint(34000);
+        Catapultmotor.move_velocity(parkPID.calculate(catarotationdegrees)); // move catapult until it reaches position from rotation sensor
+        catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
         Catapultmotor.move(0);
     }
     void Catapult::run() {
