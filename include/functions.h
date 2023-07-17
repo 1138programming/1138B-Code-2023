@@ -6,6 +6,9 @@ class Intake {
         static void run();
         static void reverse();
         static void stop();
+        static double getTorque();
+        static double getRPMs();
+        static void init();
 };
 
 class Catapult {

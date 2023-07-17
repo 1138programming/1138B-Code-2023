@@ -26,6 +26,7 @@ void initialize() {
   //pros::delay(1500); //pause to show loading
   pros::delay(500); // Stop the user from doing anything while legacy ports configure
   Catapult::init(); //initilize the catapult
+  Intake::init();
   Base_Init();
 
   // Configure your chassis controls
@@ -115,29 +116,14 @@ void opcontrol() {
     BaseDrive::driveController(master, 1);
    
     //intake/outtake 
-
-    if (master.get_digital(DIGITAL_R2)) { //outtake (push button)
-      intaketoggle = false;
-      Intake::reverse();
-    }
-
-    else if (master.get_digital_new_press(DIGITAL_R1)) { //toggle the intake
+    if (master.get_digital(DIGITAL_R1)) {
       Intake::run();
+    }
+    else if (master.get_digital(DIGITAL_R2)) {
+      Intake::reverse();
     }
     else {
       Intake::stop();
-    }
-    
-    //catapult
-    if (master.get_digital(DIGITAL_L2)) {
-      pageHandler(2);
-      Catapult::park();
-    }
-    else if (master.get_digital(DIGITAL_L1)) {
-      Catapult::run();
-    }
-    else {
-      Catapult::stop(); // holds the catapult in place
     }
     //update cata data on debug
     
