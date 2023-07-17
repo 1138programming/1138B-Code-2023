@@ -16,18 +16,17 @@ bool inRange(float low, float high, float x) //check if rotational sensor data i
       }        
     }     
 //intake/outtake
-float Inatke_Voltage = 100;
-float Outtake_Coefficient = 1;
-float outtake_speed = 127;
+
+pros::Optical Intake_Optical(INTAKE_COLOR_PORT);
 
         void Intake::run() {
-            intakemotors.move(Inatke_Voltage);
+            intakeMotor.move(127);
         }
         void Intake::reverse() {
-            intakemotors.move(-outtake_speed);
+            intakeMotor.move(-outtake_speed);
         }
         void Intake::stop() {
-            intakemotors.move(0);
+            intakeMotor.move(0);
         }
 
 //catapult doesnt work :( 
@@ -39,22 +38,10 @@ pros::Rotation Cata_Rotation (CATA_ROT);
         Catapultmotor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD); // sets the catapult motor to hold
     }
     void Catapult::park() {
-        //move catapult to parked position when using only intake/outtake
-        NewPID parkPID(0.0,0.0,0.0,0.0,100.0,0.0,1.0);
-        float catarotationdegrees = Cata_Rotation.get_angle(); //define the catapult rotation when the button is first pressed
-        parkPID.setSetpoint(34000);
-        Catapultmotor.move_velocity(parkPID.calculate(catarotationdegrees)); // move catapult until it reaches position from rotation sensor
-        catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
-        Catapultmotor.move(0);
+        
     }
     void Catapult::run() {
-        //run the catapult
-        pageHandler(2);
-        catainterupt = false;
-        float catarotationdegrees = Cata_Rotation.get_angle() / 100; //define the catapult rotation when the button is first pressed
-        Catapultmotor.move(Cata_Voltage);
-        catarotationdegrees = Cata_Rotation.get_angle() / 100; //check the catapult position while moving
-        debugValues(1,catarotationdegrees);
+        
     }
     void Catapult::stop() {
         catainterupt = true;

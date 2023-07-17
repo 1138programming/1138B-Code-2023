@@ -79,7 +79,7 @@ void competition_initialize() {
 void autonomous() {
 
 
-  ez::as::auton_selector.call_selected_auton(); // Calls selected auton from autonomous selector.
+  //ez::as::auton_selector.call_selected_auton(); // Calls selected auton from autonomous selector.
 }
 
 
@@ -122,12 +122,9 @@ void opcontrol() {
     }
 
     else if (master.get_digital_new_press(DIGITAL_R1)) { //toggle the intake
-      intaketoggle = !intaketoggle;
-    }
-    if (intaketoggle) { // activates the intake based on toggle status
       Intake::run();
     }
-    else if (!intaketoggle && !master.get_digital(DIGITAL_R2)) {
+    else {
       Intake::stop();
     }
     
@@ -139,9 +136,6 @@ void opcontrol() {
     else if (master.get_digital(DIGITAL_L1)) {
       Catapult::run();
     }
-    else if (master.get_digital(DIGITAL_A)) {
-       Catapult::intake();
-     }
     else {
       Catapult::stop(); // holds the catapult in place
     }

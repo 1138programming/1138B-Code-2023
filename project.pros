@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "new code v3.0",
+    "project_name": "V2 Code",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -190,7 +190,7 @@
     },
     "upload_options": {
       "icon": "pros",
-      "slot": 4,
+      "slot": 2,
       "after": "run"
     }
   }
