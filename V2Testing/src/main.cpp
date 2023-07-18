@@ -1,20 +1,14 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
-/*    Created:      Thu Sep 26 2019                                           */
-/*    Description:  Competition Template                                      */
+/*    Author:       chaseyocum                                                */
+/*    Created:      7/17/2023, 4:36:41 PM                                     */
+/*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Motor3               motor         3               
-// Controller1          controller                    
-// ---- END VEXCODE CONFIGURED DEVICES ----
-
 #include "vex.h"
+#include "drive.h"
 
 using namespace vex;
 
@@ -34,10 +28,7 @@ competition Competition;
 /*---------------------------------------------------------------------------*/
 
 void pre_auton(void) {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
-  Motor3.setVelocity(100,percent);
-  Motor3.setStopping(coast);
+
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -69,29 +60,23 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
+  vex::controller master(primary);
   // User control code here, inside the loop
   while (1) {
+    Drive::controller(master);
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
-    if (Controller1.ButtonR1.pressing()) {
-      Motor3.spin(forward);
-    }
-    else if (Controller1.ButtonR2.pressing()) {
-      Motor3.spin(reverse);
-    }
-    else {
-      Motor3.stop();
-    }
-    }
+  
     // ........................................................................
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-
+    
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
+}
 
 //
 // Main will set up the competition functions and callbacks.

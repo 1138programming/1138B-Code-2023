@@ -7,8 +7,7 @@
 *.elf
 
 # PROS
-bin/
-.vscode/
+bin//
 .cache/
 compile_commands.json
 temp.log
