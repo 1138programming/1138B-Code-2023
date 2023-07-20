@@ -106,12 +106,16 @@ PORT3,     -PORT4,
 
 );
 
-int current_auton_selection = 0;
+int current_auton_selection = 1;
 bool auto_started = false;
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+  LeftFront.setStopping(brake);
+  LeftBack.setStopping(brake);
+  RightFront.setStopping(brake);
+  RightBack.setStopping(brake);
   IntakeControls::init();
   default_constants();
 
@@ -210,7 +214,21 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-
+    if (Controller1.ButtonR1.pressing()) {
+        Intake.spin(forward,100,percent);
+    }
+    else if (Controller1.ButtonR2.pressing()) {
+      Intake.spin(reverse,100,percent);
+    }
+    else {
+      Intake.stop(coast);
+    }
+    if (Controller1.ButtonY.pressing()) {
+      IntakeSolenoid.set(true);
+    }
+    else if (Controller1.ButtonB.pressing()) {
+      IntakeSolenoid.set(false);
+    }
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();

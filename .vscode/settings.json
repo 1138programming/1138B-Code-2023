@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.embeddedhtml": "html",
-        "*.plist": "xml",
-        "memory": "cpp",
-        "regex": "cpp"
-    }
-}
