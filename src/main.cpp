@@ -1,5 +1,8 @@
 #include "vex.h"
 #include "functions.h"
+#include "v5lvgl.h"
+#include "screen.h"
+#include "pagehandler.h"
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
@@ -112,15 +115,18 @@ bool auto_started = false;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+  v5_lv_init();
+  pageHandler(0);
   LeftFront.setStopping(brake);
   LeftBack.setStopping(brake);
   RightFront.setStopping(brake);
   RightBack.setStopping(brake);
+  Catapult.setMaxTorque(100,percent);
   IntakeControls::init();
   default_constants();
 
-  while(auto_started == false){            //Changing the names below will only change their names on the
-    Brain.Screen.clearScreen();            //brain screen for auton selection.
+  /*while(auto_started == false){            //Changing the names below will only change their names on the
+    //Brain.Screen.clearScreen();            //brain screen for auton selection.
     switch(current_auton_selection){       //Tap the brain screen to cycle through autons.
       case 0:
         Brain.Screen.printAt(50, 50, "Drive Test");
@@ -157,40 +163,16 @@ void pre_auton(void) {
       current_auton_selection = 0;
     }
     task::sleep(10);
-  }
+  }*/
 }
 
 void autonomous(void) {
   auto_started = true;
-  switch(current_auton_selection){  
-    case 0:
-      drive_test(); //This is the default auton, if you don't select from the brain.
-      break;        //Change these to be your own auton functions in order to use the auton selector.
-    case 8:         //Tap the screen to cycle through autons.
-      drive_test();
-      break;
-    case 2:
-      turn_test();
-      break;
-    case 3:
-      swing_test();
-      break;
-    case 4:
-      full_test();
-      break;
-    case 5:
-      odom_test();
-      break;
-    case 6:
-      tank_odom_test();
-      break;
-    case 7:
-      holonomic_odom_test();
-      break;
+  switch(getCurrentAuton()){  
     case 1:
       ThreeBall();
     break;
- }
+  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -205,6 +187,7 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  bool WingExpand;
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -229,10 +212,29 @@ void usercontrol(void) {
     else if (Controller1.ButtonB.pressing()) {
       IntakeSolenoid.set(false);
     }
+    if (Controller1.ButtonDown.pressing()) {
+      Catapult.spin(forward, 75, percent);
+    }
+    else {
+      Catapult.stop(coast);
+    }
+    if (Controller1.ButtonL1.pressing()) {
+      Wings.set(true);
+      WingExpand = true;
+    }
+    else if (Controller1.ButtonL2.pressing()) {
+      Wings.set(false);
+      WingExpand = false;
+    }
+    
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
+    if (!WingExpand) {
     chassis.control_arcade();
-
+    }
+    else if (WingExpand) {
+      chassis.control_arcade_reverse();
+    }
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }

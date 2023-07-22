@@ -84,27 +84,27 @@ void scoreInGoal() {
 }
 
 void ThreeBall() {
-  chassis.turn_settle_time = 0.5;
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(12, .25, .02, 5, 15);
-  IntakeSolenoid.set(true);
-  wait(2.5, seconds);
-  IntakeSolenoid.set(false);
-  IntakeControls::run();
   chassis.drive_distance(52);
   chassis.turn_to_angle(90);
-  chassis.drive_distance(25);
-  scoreInGoal();
+  IntakeControls::back();
+  IntakeSolenoid.set(true);
+  chassis.drive_distance(11);
+  chassis.drive_distance(-11);
   chassis.turn_to_angle(290);
-  chassis.drive_distance(35);
+  chassis.drive_distance(12);
+  IntakeSolenoid.set(false);
   IntakeControls::run();
   chassis.turn_to_angle(90);
-  chassis.drive_distance(30); 
+  chassis.drive_distance(14); 
   scoreInGoal();
   chassis.turn_to_angle(270);
-  chassis.drive_distance(50);
+  chassis.drive_distance(30);
   IntakeControls::run();
   chassis.turn_to_angle(90);
-  chassis.drive_distance(50);
+  chassis.drive_distance(30);
 
   scoreInGoal();
 }

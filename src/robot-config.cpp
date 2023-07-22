@@ -15,7 +15,9 @@ motor RightFront = motor(PORT4, ratio6_1, false);
 motor LeftBack = motor(PORT9, ratio6_1, true);
 motor LeftFront = motor(PORT10, ratio6_1, true);
 motor Intake = motor(PORT7, ratio6_1, false);
+motor Catapult = motor(PORT18, ratio36_1, false);
 digital_out IntakeSolenoid = digital_out(Brain.ThreeWirePort.A);
+digital_out Wings = digital_out(Brain.ThreeWirePort.D);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
