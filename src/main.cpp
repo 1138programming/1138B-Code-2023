@@ -91,7 +91,7 @@ PORT3,     -PORT4,
 3,
 
 //Input the Forward Tracker diameter (reverse it to make the direction switch):
-2.75,
+3.25,
 
 //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
 //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
@@ -124,46 +124,6 @@ void pre_auton(void) {
   Catapult.setMaxTorque(100,percent);
   IntakeControls::init();
   default_constants();
-
-  /*while(auto_started == false){            //Changing the names below will only change their names on the
-    //Brain.Screen.clearScreen();            //brain screen for auton selection.
-    switch(current_auton_selection){       //Tap the brain screen to cycle through autons.
-      case 0:
-        Brain.Screen.printAt(50, 50, "Drive Test");
-        break;
-      case 8:
-        Brain.Screen.printAt(50, 50, "Drive Test");
-        break;
-      case 2:
-        Brain.Screen.printAt(50, 50, "Turn Test");
-        break;
-      case 3:
-        Brain.Screen.printAt(50, 50, "Swing Test");
-        break;
-      case 4:
-        Brain.Screen.printAt(50, 50, "Full Test");
-        break;
-      case 5:
-        Brain.Screen.printAt(50, 50, "Odom Test");
-        break;
-      case 6:
-        Brain.Screen.printAt(50, 50, "Tank Odom Test");
-        break;
-      case 7:
-        Brain.Screen.printAt(50, 50, "Holonomic Odom Test");
-        break;
-      case 1:
-        Brain.Screen.printAt(50,50,"ThreeBall");
-        break;
-    }
-    if(Brain.Screen.pressing()){
-      while(Brain.Screen.pressing()) {}
-      current_auton_selection ++;
-    } else if (current_auton_selection == 9){
-      current_auton_selection = 0;
-    }
-    task::sleep(10);
-  }*/
 }
 
 void autonomous(void) {
