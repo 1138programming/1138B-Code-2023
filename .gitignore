@@ -15,5 +15,4 @@ temp.errors
 *.ini
 .d//
 .DS_Store
-build/
-.vscode/
+build//

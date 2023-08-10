@@ -1,3 +1,40 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Inertial5            inertial      5               
+// Controller1          controller                    
+// RightBack            motor         3               
+// RightFront           motor         4               
+// LeftBack             motor         9               
+// LeftFront            motor         10              
+// Intake               motor         7               
+// IntakeSolenoid       digital_out   A               
+// Eye                  vision        6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Inertial5            inertial      5               
+// Controller1          controller                    
+// RightBack            motor         3               
+// RightFront           motor         4               
+// LeftBack             motor         9               
+// LeftFront            motor         10              
+// Intake               motor         7               
+// IntakeSolenoid       digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Inertial6            inertial      6               
+// Controller1          controller                    
+// RightBack            motor         3               
+// RightFront           motor         4               
+// LeftBack             motor         9               
+// LeftFront            motor         10              
+// Intake               motor         7               
+// IntakeSolenoid       digital_out   A               
+// ---- END VEXCODE CONFIGURED DEVICES ----
 #include "vex.h"
 #include "functions.h"
 #include "v5lvgl.h"

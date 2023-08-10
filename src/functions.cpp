@@ -2,6 +2,7 @@
 #include "functions.h"
 int IntakeOutakeRots = 5;
 
+
 void IntakeControls::init() {
   Intake.setVelocity(100, percent);
 }
