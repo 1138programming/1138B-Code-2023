@@ -13,7 +13,7 @@ compile_commands.json
 temp.log
 temp.errors
 *.ini
-.d/
-.vscode/
+.d//
 .DS_Store
 build/
+.vscode/
