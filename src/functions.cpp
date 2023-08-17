@@ -6,8 +6,11 @@ void IntakeControls::init() {
   Intake.setVelocity(100, percent);
 }
 void IntakeControls::run() {
-  Intake.spinFor(forward, (IntakeOutakeRots * 360), degrees);
+  Intake.spin(forward,100,percent);
 }
 void IntakeControls::back() {
-  Intake.spinFor(reverse, (IntakeOutakeRots * 360), degrees);
+  Intake.spin(reverse,100,percent);
+}
+void IntakeControls::stop() {
+  Intake.stop();
 }

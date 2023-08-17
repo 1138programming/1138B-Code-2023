@@ -87,7 +87,7 @@ void ThreeBall() {
   chassis.turn_settle_time = 0.2;
   chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(12, .25, .02, 5, 15);
-  chassis.drive_distance(52);
+  chassis.drive_distance(50);
   chassis.turn_to_angle(90);
   IntakeControls::back();
   IntakeSolenoid.set(true);
@@ -109,5 +109,20 @@ void ThreeBall() {
   scoreInGoal();
 }
 
-void pidTest() {
+void ThreeBallV2() {
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.set_turn_constants(12, .25, .02, 5, 15);
+  chassis.drive_distance(50);
+  chassis.turn_to_angle(90);
+  IntakeSolenoid.set(true);
+  chassis.drive_distance(2.5);
+  chassis.drive_distance(-2.5);
+  chassis.turn_to_angle(305);
+  IntakeControls::run();
+  chassis.drive_distance(8);
+  IntakeControls::stop();
+  chassis.drive_distance(-3);
+  chassis.turn_to_angle(90);
+
 }
