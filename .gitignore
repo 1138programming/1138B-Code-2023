@@ -5,6 +5,8 @@
 # Executables
 *.bin
 *.elf
+*.a
+*.map
 
 # PROS
 bin//

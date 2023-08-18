@@ -123,7 +123,12 @@ void ThreeBallV2() {
   IntakeControls::run();
   chassis.drive_distance(8);
   IntakeControls::stop();
-  chassis.drive_distance(-3);
+  chassis.drive_distance(-3); 
   chassis.turn_to_angle(90);
 
+}
+
+void DriveForward() {
+  IntakeSolenoid.set(true);
+  chassis.drive_distance(40);
 }
