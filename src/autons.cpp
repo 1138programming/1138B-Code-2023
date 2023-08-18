@@ -87,6 +87,7 @@ void ThreeBall() {
   chassis.turn_settle_time = 0.2;
   chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(12, .25, .02, 5, 15);
+  chassis.set_drive_constants(12, .25, .02, 5, 15);
   chassis.drive_distance(50);
   chassis.turn_to_angle(90);
   IntakeControls::back();
