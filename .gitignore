@@ -15,6 +15,9 @@ compile_commands.json
 temp.log
 temp.errors
 *.ini
-.d//
+.d/
 .DS_Store
 build//
+.vscode/
+.vscode/vex_project_settings.json
+.vscode/c_cpp_properties.json

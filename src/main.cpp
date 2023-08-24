@@ -3,6 +3,7 @@
 #include "v5lvgl.h"
 #include "screen.h"
 #include "pagehandler.h"
+#include "callbacks.h"
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
@@ -117,6 +118,7 @@ void pre_auton(void) {
   vexcodeInit();
   v5_lv_init();
   pageHandler(0);
+  Competition.bStopAllTasksBetweenModes = true;
   LeftFront.setStopping(brake);
   LeftBack.setStopping(brake);
   RightFront.setStopping(brake);
@@ -127,6 +129,7 @@ void pre_auton(void) {
 }
 
 void autonomous(void) {
+  Competition.bStopAllTasksBetweenModes = true;
   auto_started = true;
   switch(getCurrentAuton()){  
     case 1:
@@ -146,8 +149,10 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
+  Competition.bStopAllTasksBetweenModes = true;
   // User control code here, inside the loop
-  bool WingExpand;
+  thread MechsThread = thread(MechsCallback);
+  MechsThread.detach();
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -157,42 +162,13 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-    if (Controller1.ButtonR1.pressing()) {
-        Intake.spin(forward,100,percent);
-    }
-    else if (Controller1.ButtonR2.pressing()) {
-      Intake.spin(reverse,100,percent);
-    }
-    else {
-      Intake.stop(coast);
-    }
-    if (Controller1.ButtonY.pressing()) {
-      IntakeSolenoid.set(true);
-    }
-    else if (Controller1.ButtonB.pressing()) {
-      IntakeSolenoid.set(false);
-    }
-    if (Controller1.ButtonDown.pressing()) {
-      Catapult.spin(forward, 75, percent);
-    }
-    else {
-      Catapult.stop(coast);
-    }
-    if (Controller1.ButtonL1.pressing()) {
-      Wings.set(true);
-      WingExpand = true;
-    }
-    else if (Controller1.ButtonL2.pressing()) {
-      Wings.set(false);
-      WingExpand = false;
-    }
     
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    if (!WingExpand) {
+    if (Wings.value() == 0) {
     chassis.control_arcade();
     }
-    else if (WingExpand) {
+    else if (Wings.value() == 1) {
       chassis.control_arcade_reverse();
     }
     wait(20, msec); // Sleep the task for a short amount of time to
