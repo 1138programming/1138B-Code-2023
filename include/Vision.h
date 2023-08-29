@@ -12,7 +12,7 @@ extern "C" {
        private:
         long Count;
         int Obxcord;
-        int Obycord;
+        static double Obycord;
     };
 #ifdef __cplusplus
 }

@@ -72,9 +72,20 @@ void autonSelector() {
     lv_obj_align(AutonButtons, LV_ALIGN_CENTER, 0, 0);
     lv_obj_add_style(AutonButtons, &AutonStyle, LV_STATE_FOCUS_KEY);
 }
+void debugScreen() {
+    lv_style_init(&AutonStyle);
+    lv_style_set_text_color(&AutonStyle, White);
+    lv_style_set_bg_opa(&AutonStyle, LV_OPA_TRANSP);
+    lv_style_set_border_width(&AutonStyle, 0);
+    lv_style_set_outline_width(&AutonStyle, 0);
+    lv_obj_t* bg = lv_img_create(lv_scr_act());
+    lv_img_set_src(bg, &background);
+}
+
 
 lv_obj_t* BravoLogo;
 lv_obj_t* InitButtons;
+lv_obj_t* Debug;
 // Define the button sequence to detect
 lv_obj_t* BTN1;
 lv_obj_t* BTN2;
@@ -129,6 +140,10 @@ static void buttonPressCallback(lv_event_t* event) {
         else {
             // Button press not in the expected sequence
             currentStep = 0; // Reset the sequence tracking
+            if (*btndata == 5) {
+                pageHandler(5);
+            }
+
         }
     }
 }
@@ -136,10 +151,16 @@ static void buttonPressCallback(lv_event_t* event) {
 void initScreen() {
     // ... (your existing code to create buttons and customize style)
     // Apply the style to the button matrix
+    
+
     lv_obj_t* BG = lv_img_create(lv_scr_act());
     lv_img_set_src(BG, &background);
     BravoLogo = lv_img_create(lv_scr_act());
     lv_img_set_src(BravoLogo, &LogoScreen);
+    
+    //debug
+    Debug = lv_btn_create(lv_scr_act());
+    lv_obj_set_size(BTN1, 75, 75);
 
     //button1
     BTN1 = lv_btn_create(lv_scr_act());
@@ -166,17 +187,17 @@ void initScreen() {
     lv_obj_align(BTN4, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
     
     static int btn4_data = 3;
+    static int debug_data = 5;
     // Set button press callbacks for each button
     lv_obj_add_event_cb(BTN1, buttonPressCallback, LV_EVENT_ALL, &btn1_data);
     lv_obj_add_event_cb(BTN2, buttonPressCallback, LV_EVENT_ALL, &btn2_data);
     lv_obj_add_event_cb(BTN3, buttonPressCallback, LV_EVENT_ALL, &btn3_data);
     lv_obj_add_event_cb(BTN4, buttonPressCallback, LV_EVENT_ALL, &btn4_data);
+    lv_obj_add_event_cb(Debug, buttonPressCallback, LV_EVENT_ALL, &debug_data);
 
     // Create and start the timer (5 seconds interval)
     sequenceTimer = lv_timer_create(timerCallback, 5000, NULL); // 5000 ms = 5 seconds
     lv_timer_enable(sequenceTimer);
 }
 
-void PageSelector() {
 
-}

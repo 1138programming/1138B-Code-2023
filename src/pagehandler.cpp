@@ -9,6 +9,9 @@ void pageHandler(int page) {
     case 1:
         autonSelector();
         break;
+    case 2:
+        debugScreen();
+        break;
         
     }
 }

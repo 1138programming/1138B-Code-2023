@@ -20,6 +20,7 @@ digital_out IntakeSolenoid = digital_out(Brain.ThreeWirePort.A);
 digital_out Wings = digital_out(Brain.ThreeWirePort.D);
 /*vex-vision-config:begin*/
 vision Eye = vision (PORT6, 50);
+signature Vision5__SIG_1 = signature (1, -6217, -5117, -5667, -5595, -4337, -4966, 2.5, 0);
 /*vex-vision-config:end*/
 
 // VEXcode generated functions
