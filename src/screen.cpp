@@ -73,18 +73,19 @@ void autonSelector() {
     lv_obj_add_style(AutonButtons, &AutonStyle, LV_STATE_FOCUS_KEY);
 }
 void debugScreen() {
-    lv_style_init(&AutonStyle);
-    lv_style_set_text_color(&AutonStyle, White);
-    lv_style_set_bg_opa(&AutonStyle, LV_OPA_TRANSP);
-    lv_style_set_border_width(&AutonStyle, 0);
-    lv_style_set_outline_width(&AutonStyle, 0);
-    lv_obj_t* bg = lv_img_create(lv_scr_act());
-    lv_img_set_src(bg, &background);
+    if (lv_style_is_empty(&AutonStyle)) {
+        lv_style_set_text_color(&AutonStyle, White);
+        lv_style_set_bg_opa(&AutonStyle, LV_OPA_TRANSP);
+        lv_style_set_border_width(&AutonStyle, 0);
+        lv_style_set_outline_width(&AutonStyle, 0);
+    }
+    lv_obj_add_style(AutonTitle, &AutonStyle, 0);
+    lv_obj_t* bge = lv_img_create(lv_scr_act());
+    lv_img_set_src(bge, &background);
 }
 
 
 lv_obj_t* BravoLogo;
-lv_obj_t* InitButtons;
 lv_obj_t* Debug;
 // Define the button sequence to detect
 lv_obj_t* BTN1;
@@ -141,7 +142,7 @@ static void buttonPressCallback(lv_event_t* event) {
             // Button press not in the expected sequence
             currentStep = 0; // Reset the sequence tracking
             if (*btndata == 5) {
-                pageHandler(5);
+                pageHandler(2);
             }
 
         }
@@ -149,6 +150,7 @@ static void buttonPressCallback(lv_event_t* event) {
 }
 
 void initScreen() {
+
     // ... (your existing code to create buttons and customize style)
     // Apply the style to the button matrix
     
@@ -160,7 +162,10 @@ void initScreen() {
     
     //debug
     Debug = lv_btn_create(lv_scr_act());
+    lv_obj_add_style(Debug, &AutonStyle, LV_STATE_FOCUS_KEY);
     lv_obj_set_size(BTN1, 75, 75);
+    lv_obj_align(BTN1, LV_ALIGN_CENTER, 0, 0);
+
 
     //button1
     BTN1 = lv_btn_create(lv_scr_act());
