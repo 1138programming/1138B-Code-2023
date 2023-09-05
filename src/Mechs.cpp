@@ -18,7 +18,7 @@ void MechsCallback() {
           IntakeSolenoid.set(false);
         }
         if (Controller1.ButtonDown.pressing()) {
-          Catapult.spin(forward, 75, percent);
+          Catapult.spin(forward, 40, percent);
         }
         else {
           Catapult.stop(coast);
