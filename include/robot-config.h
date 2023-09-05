@@ -10,7 +10,7 @@ extern motor RightFront;
 extern motor LeftBack;
 extern motor LeftFront;
 extern motor Intake;
-extern motor Catapult;
+extern motor_group Catapult;
 extern digital_out IntakeSolenoid;
 extern digital_out Wings;
 

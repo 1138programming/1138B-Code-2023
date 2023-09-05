@@ -14,8 +14,10 @@ motor RightBack = motor(PORT3, ratio6_1, false);
 motor RightFront = motor(PORT4, ratio6_1, false);
 motor LeftBack = motor(PORT9, ratio6_1, true);
 motor LeftFront = motor(PORT10, ratio6_1, true);
-motor Intake = motor(PORT7, ratio6_1, false);
-motor Catapult = motor(PORT18, ratio36_1, false);
+motor Intake = motor(PORT6, ratio6_1, false);
+motor Catapult1 = motor(PORT18, ratio36_1, false);
+motor Catapult2 = motor(PORT19, ratio36_1, true);
+motor_group Catapult = motor_group(Catapult1, Catapult2);
 digital_out IntakeSolenoid = digital_out(Brain.ThreeWirePort.A);
 digital_out Wings = digital_out(Brain.ThreeWirePort.D);
 
