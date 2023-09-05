@@ -14,6 +14,7 @@ void initscreen() {
     lv_img_set_src(img, &LogoScreen);
 }
 lv_obj_t* AutonTitle;
+lv_obj_t* DebugNote;
 static lv_style_t AutonStyle;
 int CurrentAuton = 1;
 int getCurrentAuton() {
@@ -73,15 +74,10 @@ void autonSelector() {
     lv_obj_add_style(AutonButtons, &AutonStyle, LV_STATE_FOCUS_KEY);
 }
 void debugScreen() {
-    if (lv_style_is_empty(&AutonStyle)) {
-        lv_style_set_text_color(&AutonStyle, White);
-        lv_style_set_bg_opa(&AutonStyle, LV_OPA_TRANSP);
-        lv_style_set_border_width(&AutonStyle, 0);
-        lv_style_set_outline_width(&AutonStyle, 0);
-    }
-    lv_obj_add_style(AutonTitle, &AutonStyle, 0);
+    
     lv_obj_t* bge = lv_img_create(lv_scr_act());
     lv_img_set_src(bge, &background);
+    DebugNote = lv_label_create(lv_scr_act());
 }
 
 
@@ -163,8 +159,8 @@ void initScreen() {
     //debug
     Debug = lv_btn_create(lv_scr_act());
     lv_obj_add_style(Debug, &AutonStyle, LV_STATE_FOCUS_KEY);
-    lv_obj_set_size(BTN1, 75, 75);
-    lv_obj_align(BTN1, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_size(Debug, 75, 75);
+    lv_obj_align(Debug, LV_ALIGN_CENTER, 0, 0);
 
 
     //button1
