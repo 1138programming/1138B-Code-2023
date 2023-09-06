@@ -11,7 +11,7 @@ extern "C" {
        static double Getdist();
        private:
         long Count;
-        int Obxcord;
+        static double Obxcord;
         static double Obycord;
     };
 #ifdef __cplusplus

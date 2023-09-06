@@ -1,5 +1,6 @@
 #include "vex.h"
 #include "functions.h"
+#include "Vision.h"
 void default_constants(){
   chassis.set_drive_constants(10, 1.5, 0, 10, 0);
   chassis.set_heading_constants(6, .4, 0, 1, 0);
@@ -116,6 +117,13 @@ void driveForward() {
   chassis.set_turn_constants(12, .25, .02, 5, 15);
   chassis.set_drive_constants(12, .25, .02, 5, 15);
   chassis.drive_distance(52);
+}
+void VisionOdomTest() {
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.set_turn_constants(12, .25, .02, 5, 15);
+  chassis.set_drive_constants(12, .25, .02, 5, 15);
+  chassis.drive_distance(Vision::Getdist());
 }
 
 void pidTest() {

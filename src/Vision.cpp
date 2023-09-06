@@ -1,19 +1,20 @@
 #include "vex.h"
 #include "Vision.h"
-#include "math.h"
+#include "Constants.h"
+#include <math.h>      
 
 Vision::Vision() {
     
     Eye.takeSnapshot(Eye__SIG_1);
 
     Obycord = Eye.objects[0].height;
+    Obxcord = Eye.objects[0].angle; 
     Count = Eye.objectCount;
 
 }
 
 double Vision::Getdist() {
-    double height = 8;
-    double FOV = 20;
-    return tan(Obycord * (400/FOV))*height;
-    
+
+    return tan(Obycord * (400/FOV))*Height; 
 };
+
