@@ -83,6 +83,7 @@ void debugScreen() {
 
 lv_obj_t* BravoLogo;
 lv_obj_t* Debug;
+lv_obj_t* Autonbtn;
 // Define the button sequence to detect
 lv_obj_t* BTN1;
 lv_obj_t* BTN2;
@@ -117,38 +118,40 @@ static void buttonPressCallback(lv_event_t* event) {
         lv_obj_t* button = lv_event_get_target(event);
         int* btndata;
         btndata = (int*)lv_event_get_user_data(event);
-        //lv_log("%d", *btndata);
-        if (*btndata == buttonSequence[currentStep]) {
-            currentStep++;
-            if (currentStep == sizeof(buttonSequence) / sizeof(buttonSequence[0])) {
-                // Sequence completed within 5 seconds
-                // Perform the desired action here
-                // For example, you can toggle a LED (replace this with your desired action)
-                //lv_led_on(BTN4);
-                LV_LOG("OK");
-
-                lv_obj_fade_out(BravoLogo, 500, 0);
-                FadeTimer = lv_timer_create(FadetimerCallback, 500, NULL); // 5000 ms = 5 seconds
-                lv_timer_enable(FadeTimer);
-                //pageHandler(1);
-                currentStep = 0; // Reset the sequence tracking for the next time
-            }
+        LV_LOG("%d", *btndata);
+    //     if (*btndata == buttonSequence[currentStep]) {
+    //         currentStep++;
+    //         if (currentStep == sizeof(buttonSequence) / sizeof(buttonSequence[0])) {
+    //             // Sequence completed within 5 seconds
+    //             // Perform the desired action here
+    //             // For example, you can toggle a LED (replace this with your desired action)
+    //             //lv_led_on(BTN4);
+    //             LV_LOG("OK");
+        if (*btndata == 3) {
+        lv_obj_fade_out(BravoLogo, 500, 0);
+        FadeTimer = lv_timer_create(FadetimerCallback, 500, NULL); // 5000 ms = 5 seconds
+        lv_timer_enable(FadeTimer);
+        pageHandler(1);
         }
-        else {
-            // Button press not in the expected sequence
-            currentStep = 0; // Reset the sequence tracking
-            if (*btndata == 5) {
+    //             currentStep = 0; // Reset the sequence tracking for the next time
+    //         }
+        // Button press not in the expected sequence
+
+        else  if (*btndata == 5) {
                 pageHandler(2);
-            }
-
         }
+
     }
+        
+          
+
+        
+    
 }
 
 void initScreen() {
 
-    // ... (your existing code to create buttons and customize style)
-    // Apply the style to the button matrix
+   
     
 
     lv_obj_t* BG = lv_img_create(lv_scr_act());
@@ -161,44 +164,50 @@ void initScreen() {
     lv_obj_add_style(Debug, &AutonStyle, LV_STATE_FOCUS_KEY);
     lv_obj_set_size(Debug, 75, 75);
     lv_obj_align(Debug, LV_ALIGN_CENTER, 0, 0);
+    
+    // Auton button 
+    Autonbtn = lv_btn_create(lv_scr_act());
+    lv_obj_add_style(Autonbtn, &AutonStyle, LV_STATE_FOCUS_KEY);
+    lv_obj_set_size(Autonbtn, 75, 75);
+    lv_obj_align(Autonbtn, LV_ALIGN_CENTER, 50, 0);
 
 
     //button1
-    BTN1 = lv_btn_create(lv_scr_act());
-    lv_obj_remove_style_all(BTN1);
-    lv_obj_set_size(BTN1, 75, 75);
-    lv_obj_align(BTN1, LV_ALIGN_TOP_LEFT, 0, 0);
+    // BTN1 = lv_btn_create(lv_scr_act());
+    // lv_obj_remove_style_all(BTN1);
+    // lv_obj_set_size(BTN1, 75, 75);
+    // lv_obj_align(BTN1, LV_ALIGN_TOP_LEFT, 0, 0);
     
-    static int btn1_data = 0;
-    BTN2 = lv_btn_create(lv_scr_act());
-    lv_obj_remove_style_all(BTN2);
-    lv_obj_set_size(BTN2, 75, 75);
-    lv_obj_align(BTN2, LV_ALIGN_TOP_RIGHT, 0, 0);
+    // static int btn1_data = 0;
+    // BTN2 = lv_btn_create(lv_scr_act());
+    // lv_obj_remove_style_all(BTN2);
+    // lv_obj_set_size(BTN2, 75, 75);
+    // lv_obj_align(BTN2, LV_ALIGN_TOP_RIGHT, 0, 0);
     
-    static int btn2_data = 1;
-    BTN3 = lv_btn_create(lv_scr_act());
-    lv_obj_remove_style_all(BTN3);
-    lv_obj_set_size(BTN3, 75, 75);
-    lv_obj_align(BTN3, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+    // static int btn2_data = 1;
+    // BTN3 = lv_btn_create(lv_scr_act());
+    // lv_obj_remove_style_all(BTN3);
+    // lv_obj_set_size(BTN3, 75, 75);
+    // lv_obj_align(BTN3, LV_ALIGN_BOTTOM_LEFT, 0, 0);
     
-    static int btn3_data = 2;
-    BTN4 = lv_btn_create(lv_scr_act());
-    lv_obj_remove_style_all(BTN4);
-    lv_obj_set_size(BTN4, 75, 75);
-    lv_obj_align(BTN4, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+    // static int btn3_data = 2;
+    // BTN4 = lv_btn_create(lv_scr_act());
+    // lv_obj_remove_style_all(BTN4);
+    // lv_obj_set_size(BTN4, 75, 75);
+    // lv_obj_align(BTN4, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
     
-    static int btn4_data = 3;
+    static int AutonData = 3;
     static int debug_data = 5;
     // Set button press callbacks for each button
-    lv_obj_add_event_cb(BTN1, buttonPressCallback, LV_EVENT_ALL, &btn1_data);
-    lv_obj_add_event_cb(BTN2, buttonPressCallback, LV_EVENT_ALL, &btn2_data);
-    lv_obj_add_event_cb(BTN3, buttonPressCallback, LV_EVENT_ALL, &btn3_data);
-    lv_obj_add_event_cb(BTN4, buttonPressCallback, LV_EVENT_ALL, &btn4_data);
+    // lv_obj_add_event_cb(BTN1, buttonPressCallback, LV_EVENT_ALL, &btn1_data);
+    // lv_obj_add_event_cb(BTN2, buttonPressCallback, LV_EVENT_ALL, &btn2_data);
+    // lv_obj_add_event_cb(BTN3, buttonPressCallback, LV_EVENT_ALL, &btn3_data);
+    lv_obj_add_event_cb(BTN4, buttonPressCallback, LV_EVENT_ALL, &AutonData);
     lv_obj_add_event_cb(Debug, buttonPressCallback, LV_EVENT_ALL, &debug_data);
 
     // Create and start the timer (5 seconds interval)
-    sequenceTimer = lv_timer_create(timerCallback, 5000, NULL); // 5000 ms = 5 seconds
-    lv_timer_enable(sequenceTimer);
+    // sequenceTimer = lv_timer_create(timerCallback, 5000, NULL); // 5000 ms = 5 seconds
+    // lv_timer_enable(sequenceTimer);
 }
 
 
