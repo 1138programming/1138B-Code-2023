@@ -152,8 +152,8 @@ bool auto_started = false;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  //v5_lv_init();
-  //pageHandler(0);
+  v5_lv_init();
+  pageHandler(0);
   LeftFront.setStopping(brake);
   LeftBack.setStopping(brake);
   RightFront.setStopping(brake);
