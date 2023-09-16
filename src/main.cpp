@@ -85,10 +85,10 @@ ZERO_TRACKER_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(LeftFront,LeftBack),
+motor_group(LeftFront,LeftBack, LeftTop),
 
 //Right Motors:
-motor_group(RightFront,RightBack),
+motor_group(RightFront,RightBack, RightTop),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
 PORT5,
@@ -152,8 +152,8 @@ bool auto_started = false;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  v5_lv_init();
-  pageHandler(0);
+  //v5_lv_init();
+  //pageHandler(0);
   LeftFront.setStopping(brake);
   LeftBack.setStopping(brake);
   RightFront.setStopping(brake);
@@ -184,7 +184,11 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  //pneumatic toggles
+    
   bool WingExpand;
+  bool CurrentState;
+  bool IntakeObject;
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -203,33 +207,32 @@ void usercontrol(void) {
     else {
       Intake.stop(coast);
     }
-    if (Controller1.ButtonY.pressing()) {
-      IntakeSolenoid.set(true);
-    }
-    else if (Controller1.ButtonB.pressing()) {
-      IntakeSolenoid.set(false);
-    }
     if (Controller1.ButtonDown.pressing()) {
       Catapult.spin(forward, 75, percent);
     }
     else {
       Catapult.stop(coast);
     }
-    if (Controller1.ButtonL1.pressing()) {
-      Wings.set(true);
-      WingExpand = true;
-    }
-    else if (Controller1.ButtonL2.pressing()) {
-      Wings.set(false);
-      WingExpand = false;
-    }
+
+    //toggles
+    Controller1.ButtonL1.pressed(LeftWingCB);
+    Controller1.ButtonL2.pressed(RightWingCB);
+    Controller1.ButtonRight.pressed(BothWingsCB);
+    Controller1.ButtonY.pressed(HangCB);
+    Controller1.ButtonDown.pressed(Intake2Wings);
+
+    //debug data
+    Controller1.Screen.setCursor(1,1);
+    Controller1.Screen.print(IntakeSensor.isNearObject());
+    
+    
     
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    if (!WingExpand) {
+    if (WingLeft.value() == false && WingRight.value() == false) {
     chassis.control_arcade();
     }
-    else if (WingExpand) {
+    else {
       chassis.control_arcade_reverse();
     }
     wait(20, msec); // Sleep the task for a short amount of time to
