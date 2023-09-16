@@ -118,7 +118,7 @@ static void buttonPressCallback(lv_event_t* event) {
         lv_obj_t* button = lv_event_get_target(event);
         int* btndata;
         btndata = (int*)lv_event_get_user_data(event);
-        LV_LOG("%d", *btndata);
+        // LV_LOG("%d", *btndata);
     //     if (*btndata == buttonSequence[currentStep]) {
     //         currentStep++;
     //         if (currentStep == sizeof(buttonSequence) / sizeof(buttonSequence[0])) {
@@ -161,13 +161,13 @@ void initScreen() {
     
     //debug
     Debug = lv_btn_create(lv_scr_act());
-    lv_obj_add_style(Debug, &AutonStyle, LV_STATE_FOCUS_KEY);
+  
     lv_obj_set_size(Debug, 75, 75);
     lv_obj_align(Debug, LV_ALIGN_CENTER, 0, 0);
     
     // Auton button 
     Autonbtn = lv_btn_create(lv_scr_act());
-    lv_obj_add_style(Autonbtn, &AutonStyle, LV_STATE_FOCUS_KEY);
+    
     lv_obj_set_size(Autonbtn, 75, 75);
     lv_obj_align(Autonbtn, LV_ALIGN_CENTER, 50, 0);
 
@@ -202,7 +202,7 @@ void initScreen() {
     // lv_obj_add_event_cb(BTN1, buttonPressCallback, LV_EVENT_ALL, &btn1_data);
     // lv_obj_add_event_cb(BTN2, buttonPressCallback, LV_EVENT_ALL, &btn2_data);
     // lv_obj_add_event_cb(BTN3, buttonPressCallback, LV_EVENT_ALL, &btn3_data);
-    lv_obj_add_event_cb(BTN4, buttonPressCallback, LV_EVENT_ALL, &AutonData);
+    lv_obj_add_event_cb(Autonbtn, buttonPressCallback, LV_EVENT_ALL, &AutonData);
     lv_obj_add_event_cb(Debug, buttonPressCallback, LV_EVENT_ALL, &debug_data);
 
     // Create and start the timer (5 seconds interval)
