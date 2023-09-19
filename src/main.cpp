@@ -207,8 +207,8 @@ void usercontrol(void) {
     else {
       Intake.stop(coast);
     }
-    if (Controller1.ButtonDown.pressing()) {
-      Catapult.spin(forward, 75, percent);
+    if (Controller1.ButtonB.pressing()) {
+      Catapult.spin(forward, 100, percent);
     }
     else {
       Catapult.stop(coast);
