@@ -27,7 +27,7 @@ static void AutonHandler(lv_event_t* e)
     if (code == LV_EVENT_VALUE_CHANGED) {
         uint32_t id = lv_btnmatrix_get_selected_btn(obj);
         const char* txt = lv_btnmatrix_get_btn_text(obj, id);
-        if (txt == "1") {
+        if (txt, "1") {
             CurrentAuton = 1;
         }
         lv_label_set_text_fmt(AutonTitle, "Current Auton is: %s", txt);
@@ -161,15 +161,14 @@ void initScreen() {
     
     //debug
     Debug = lv_btn_create(lv_scr_act());
-  
-    lv_obj_set_size(Debug, 75, 75);
-    lv_obj_align(Debug, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_set_size(Debug, 50,40);
+    lv_obj_align(Debug, LV_ALIGN_CENTER, -200, 0);
     
+
     // Auton button 
     Autonbtn = lv_btn_create(lv_scr_act());
-    
-    lv_obj_set_size(Autonbtn, 75, 75);
-    lv_obj_align(Autonbtn, LV_ALIGN_CENTER, 50, 0);
+    lv_obj_set_size(Autonbtn, 50, 40);
+    lv_obj_align(Autonbtn, LV_ALIGN_CENTER, 100, 0);
 
 
     //button1

@@ -7,8 +7,6 @@ class IntakeControls {
     static void back();    
 };
 
-extern void RightWingCB();
-extern void LeftWingCB();
 extern void HangCB();
-extern void BothWingsCB();
-extern void Intake2Wings();
+extern void WingsCB();
+extern void Turn180();

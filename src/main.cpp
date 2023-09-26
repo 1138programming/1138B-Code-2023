@@ -215,11 +215,9 @@ void usercontrol(void) {
     }
 
     //toggles
-    Controller1.ButtonL1.pressed(LeftWingCB);
-    Controller1.ButtonL2.pressed(RightWingCB);
-    Controller1.ButtonRight.pressed(BothWingsCB);
+    Controller1.ButtonL1.pressed(WingsCB);
     Controller1.ButtonY.pressed(HangCB);
-    Controller1.ButtonDown.pressed(Intake2Wings);
+    Controller1.ButtonL2.pressed(Turn180);
 
     //debug data
     Controller1.Screen.setCursor(1,1);
@@ -229,7 +227,7 @@ void usercontrol(void) {
     
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    if (WingLeft.value() == false && WingRight.value() == false) {
+    if (Wings.value() == false) {
     chassis.control_arcade();
     }
     else {
@@ -247,12 +245,15 @@ int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
-
+  
+  
+  
   // Run the pre-autonomous function.
   pre_auton();
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
+    
     wait(100, msec);
   }
 }

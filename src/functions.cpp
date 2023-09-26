@@ -13,25 +13,18 @@ void IntakeControls::run() {
 void IntakeControls::back() {
   Intake.spinFor(reverse, (IntakeOutakeRots * 360), degrees);
 }
-void RightWingCB() {
-  CurrentState = WingRight.value();
-  WingRight.set(!CurrentState);
+void WingsCB() {
+  CurrentState = Wings.value();
+  Wings.set(!CurrentState);
 }
-void LeftWingCB() {
-  CurrentState = WingLeft.value();
-  WingLeft.set(!CurrentState);
-}
-void BothWingsCB() {
-  RightWingCB();
-  LeftWingCB();
-}
+
 void HangCB() {
   CurrentState = Hang.value();
   Hang.set(!CurrentState);
 }
 
 //macros
-float calculateTurnHeading(float currentHeading) {
+float calculateOppositeHeading(float currentHeading) {
     // Ensure that currentHeading is within the range [0, 360)
     currentHeading = fmod(currentHeading, 360.0);
 
@@ -46,9 +39,8 @@ float calculateTurnHeading(float currentHeading) {
     return turnHeading;
 }
 
-void Intake2Wings() {
-  IntakeControls::back();
+void Turn180() {
   chassis.turn_max_voltage = 12;
-  chassis.turn_to_angle(calculateTurnHeading(chassis.get_absolute_heading()));
-  BothWingsCB();
+  chassis.turn_to_angle(calculateOppositeHeading(chassis.get_absolute_heading()));
 }
+
