@@ -4,7 +4,8 @@ class IntakeControls {
   public:
     static void init();
     static void run();
-    static void back();    
+    static void back(); 
+    static void stop();   
 };
 
 extern void HangCB();

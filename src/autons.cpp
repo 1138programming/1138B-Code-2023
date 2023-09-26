@@ -125,6 +125,33 @@ void VisionOdomTest() {
   chassis.set_drive_constants(12, .25, .02, 5, 15);
   chassis.drive_distance(Vision::Getdist());
 }
+void ThreeBallV2() {
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.set_turn_constants(12, .25, .02, 5, 15);
+  chassis.drive_distance(52);
+  chassis.turn_to_angle(90);
+  
+  chassis.drive_distance(6.25);
+  chassis.drive_distance(-2.5);
+  chassis.turn_to_angle(326);
+  
+  IntakeControls::run();
+  chassis.drive_distance(8);
+  
+  chassis.turn_to_angle(90);
+  
+  chassis.drive_distance(11.5);
+  chassis.drive_distance(-25);
+  chassis.turn_to_angle(295);
+  IntakeControls::run();
+
+  chassis.drive_distance(3);
+  IntakeControls::stop();
+  chassis.turn_to_angle(94);
+  
+  chassis.drive_distance(27);
+}
 
 void pidTest() {
 }

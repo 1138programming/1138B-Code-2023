@@ -13,6 +13,9 @@ void IntakeControls::run() {
 void IntakeControls::back() {
   Intake.spinFor(reverse, (IntakeOutakeRots * 360), degrees);
 }
+void IntakeControls::stop() {
+  Intake.stop();
+}
 void WingsCB() {
   CurrentState = Wings.value();
   Wings.set(!CurrentState);
