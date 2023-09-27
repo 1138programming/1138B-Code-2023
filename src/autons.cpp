@@ -116,7 +116,7 @@ void driveForward() {
   chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(12, .25, .02, 5, 15);
   chassis.set_drive_constants(12, .25, .02, 5, 15);
-  chassis.drive_distance(52);
+  chassis.drive_distance(-52);
 }
 void VisionOdomTest() {
   chassis.turn_settle_time = 0.2;
