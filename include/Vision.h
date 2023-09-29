@@ -8,11 +8,18 @@ extern "C" {
         Vision();
        public:
        static double Getoffset();
-       static double Getdist();
+       static double Getdist(int Obnum);
+       static void Update();
+       static double GetTrtgtDisyt();
+       static double GetxCord();
        private:
-        long Count;
+        static long Count;
         static double Obxcord;
         static double Obycord;
+        static double LargestDist;
+        static int IndexofTarget;
+        
+        
     };
 #ifdef __cplusplus
 }

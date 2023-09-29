@@ -78,6 +78,7 @@ void debugScreen() {
     lv_obj_t* bge = lv_img_create(lv_scr_act());
     lv_img_set_src(bge, &background);
     DebugNote = lv_label_create(lv_scr_act());
+    lv_label_set_text_fmt(AutonTitle, "AutonDist", 0);
 }
 
 
@@ -163,6 +164,8 @@ void initScreen() {
     Debug = lv_btn_create(lv_scr_act());
     lv_obj_set_size(Debug, 50,40);
     lv_obj_align(Debug, LV_ALIGN_CENTER, -200, 0);
+    lv_obj_t* Debuglabel = lv_label_create(Debug);
+    lv_label_set_text(Debuglabel,"Debug");
     
 
     // Auton button 
