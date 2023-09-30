@@ -91,7 +91,7 @@ motor_group(LeftFront,LeftBack, LeftTop),
 motor_group(RightFront,RightBack, RightTop),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT5,
+PORT15,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -208,7 +208,7 @@ void usercontrol(void) {
       Intake.stop(coast);
     }
     if (Controller1.ButtonB.pressing()) {
-      Catapult.spin(forward, 100, percent);
+      Catapult.spin(forward, 85, percent);
     }
     else {
       Catapult.stop(coast);
@@ -224,15 +224,9 @@ void usercontrol(void) {
     Controller1.Screen.print(IntakeSensor.isNearObject());
     
     
-    
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    if (Wings.value() == false) {
     chassis.control_arcade();
-    }
-    else {
-      chassis.control_arcade_reverse();
-    }
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
