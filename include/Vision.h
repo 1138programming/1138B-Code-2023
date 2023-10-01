@@ -9,9 +9,11 @@ extern "C" {
        public:
        static double Getoffset();
        static double Getdist(int Obnum);
-       static void Update();
-       static double GetTrtgtDisyt();
-       static double GetxCord();
+       static void Update(signature Sig);
+       static double GetTrtgtDist();
+       static double GetTrtgtxCord();
+       static double GetTrtgtyCord();
+       static bool ObjectsExist();
        private:
         static long Count;
         static double Obxcord;

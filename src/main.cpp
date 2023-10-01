@@ -37,6 +37,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 #include "vex.h"
 #include "functions.h"
+#include "Vision.h"
 #include "v5lvgl.h"
 #include "screen.h"
 #include "pagehandler.h"
@@ -237,6 +238,8 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
+
+  chassis.set_coordinates(0, 0, 0);
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
   

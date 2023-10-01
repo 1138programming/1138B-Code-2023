@@ -1,8 +1,10 @@
 ﻿#include "v5lvgl.h"
 #include "screen.h"
 #include "pagehandler.h"
+#include "Vision.h"
 extern "C" {
 #include "images.h"
+
 }
 static const char* btn_map[] = { "1", "2", "\n", "3", "4", NULL };
 lv_color32_t White = LV_COLOR_MAKE(255, 255, 255);
@@ -78,7 +80,13 @@ void debugScreen() {
     lv_obj_t* bge = lv_img_create(lv_scr_act());
     lv_img_set_src(bge, &background);
     DebugNote = lv_label_create(lv_scr_act());
-    lv_label_set_text_fmt(AutonTitle, "AutonDist", 0);
+    lv_label_set_text_fmt(DebugNote, "AutonDist", Vision::GetTrtgtDist());
+    lv_obj_t* backd = lv_btn_create(lv_scr_act());
+    lv_obj_set_size(backd, 40, 40);
+    lv_obj_t* backlabeld = lv_label_create(backd);
+    lv_label_set_text(backlabeld,"<-");
+    lv_obj_align(backd, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_add_event_cb(backd, BackHandler, LV_EVENT_PRESSED, NULL);
 }
 
 

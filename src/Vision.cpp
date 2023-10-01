@@ -15,8 +15,8 @@ Vision::Vision() {
     
     
 }
-void Vision::Update() {
-
+void Vision::Update(signature Sig) {
+    Eye.takeSnapshot(Sig);
     double Objectssize[Count];
     for (int i = 0; i < Count; i++) {
         if (Vision::Getdist(i) > LargestDist) {
@@ -27,17 +27,24 @@ void Vision::Update() {
     }
 
 }
+bool Vision::ObjectsExist() {
+    return Eye.objectCount > 0;
+}
 
 double Vision::Getdist(int Obnum) {
 
-    return tan(Eye.objects[Obnum].height * (400/FOV))*Height; 
-};
+    return tan(Eye.objects[Obnum].height * (Vres/VFOV))*Height; 
+}
 
-double Vision::GetTrtgtDisyt() {
+double Vision::GetTrtgtDist() {
     return Vision::Getdist(IndexofTarget);
 }
-double Vision::GetxCord() {
-    return Eye.objects[IndexofTarget].angle; 
+double Vision::GetTrtgtxCord() {
+    return Eye.objects[IndexofTarget].angle * (Hres/HFOV); 
 }
+double Vision::GetTrtgtyCord() {
+    return Eye.objects[IndexofTarget].angle * (Hres/HFOV); 
+}
+     
 
 
