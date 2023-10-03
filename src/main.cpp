@@ -168,7 +168,7 @@ void autonomous(void) {
   auto_started = true;
   switch(getCurrentAuton()){  
     case 1:
-      driveForward();
+      LetMeCook();
     break;
   }
 }
@@ -186,7 +186,6 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   //pneumatic toggles
-    
   bool WingExpand;
   bool CurrentState;
   bool IntakeObject;
@@ -200,10 +199,10 @@ void usercontrol(void) {
     // update your motors, etc.
     // ........................................................................
     if (Controller1.ButtonR1.pressing()) {
-        Intake.spin(forward,100,percent);
+      Intake.spin(reverse,100,percent);
     }
     else if (Controller1.ButtonR2.pressing()) {
-      Intake.spin(reverse,100,percent);
+      Intake.spin(forward,100,percent);
     }
     else {
       Intake.stop(coast);
@@ -247,7 +246,6 @@ int main() {
   
   // Run the pre-autonomous function.
   pre_auton();
-
   // Prevent main from exiting with an infinite loop.
   while (true) {
     
