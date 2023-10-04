@@ -6,7 +6,7 @@ inline const double Vres = 212;
 inline const double IntakeStoppingDist = 20;
 inline const double Height = 20;
 inline const double Angle = 20;
-
+inline void* voidh;
 // Base
 
 // Mech
