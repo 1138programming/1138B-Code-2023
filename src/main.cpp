@@ -169,10 +169,6 @@ void autonomous(void) {
   switch(getCurrentAuton()){  
     case 1:
       LetMeCook();
-    case 2:
-      VisionOdomTest();
-    case 3:
-      odom_test();
     break;
   }
 }
