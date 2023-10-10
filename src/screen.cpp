@@ -1,7 +1,7 @@
 ﻿#include "v5lvgl.h"
 #include "screen.h"
 #include "pagehandler.h"
-
+#include "Vision.h"
 extern "C" {
 #include "images.h"
 
