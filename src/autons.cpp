@@ -129,7 +129,7 @@ void VisionOdomTest() {
   Vision::Update(Eye__SIG_1);
   double currentHeading = fmod(chassis.get_absolute_heading(), 360.0);
   chassis.turn_to_angle(currentHeading + Vision::GetTrtgtxCord() );
-  while (Vision::GetTrtgtDist(voidh) > IntakeStoppingDist && chassis.get_Y_position() < 60) {
+  while (Vision::GetTrtgtDist() > IntakeStoppingDist && chassis.get_Y_position() < 60) {
     Vision::Update(Eye__SIG_1);
     chassis.drive_distance(10);
   }

@@ -10,7 +10,7 @@
        static double Getoffset();
        static double Getdist(int Obnum);
        static void Update(signature Sig);
-       static double GetTrtgtDist(void* you);
+       static double GetTrtgtDist();
        static double GetTrtgtxCord();
        static double GetTrtgtyCord();
        static bool ObjectsExist();
