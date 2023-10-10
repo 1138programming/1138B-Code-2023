@@ -36,9 +36,9 @@ double Vision::Getdist(int Obnum) {
     return tan(Eye.objects[Obnum].height * (Vres/VFOV))*Height; 
 }
 
-double Vision::GetTrtgtDist(void* you) {
-    Vision* youClass = (Vision*) you;
-    return Vision::Getdist(youClass->IndexofTarget);
+double Vision::GetTrtgtDist() {
+    
+    return Vision::Getdist(IndexofTarget);
 }
 double Vision::GetTrtgtxCord() {
     return Eye.objects[IndexofTarget].angle * (Hres/HFOV); 

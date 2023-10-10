@@ -134,6 +134,7 @@ void VisionOdomTest() {
     chassis.drive_distance(10);
   }
   IntakeControls::run();
+  wait(100,msec);
   while (!Vision::ObjectsExist()) {
     Vision::Update(Eye__SIG_1);
     currentHeading = fmod(chassis.get_absolute_heading(), 360.0);
@@ -141,11 +142,12 @@ void VisionOdomTest() {
   }
   currentHeading = fmod(chassis.get_absolute_heading(), 360.0);
   chassis.turn_to_angle(currentHeading + Vision::GetTrtgtxCord() );
-  while (Vision::GetTrtgtDist(voidh) > IntakeStoppingDist && chassis.get_Y_position() < 60) {
+  while (Vision::GetTrtgtDist() > IntakeStoppingDist && chassis.get_Y_position() < 60) {
     Vision::Update(Eye__SIG_1);
     chassis.drive_distance(10);
   }
   IntakeControls::back();
+  wait(100,msec);
 
 }
 void ThreeBallV2() {
@@ -193,6 +195,33 @@ void LetMeCook() {
   chassis.turn_to_angle(270); // turn so the back faces the goal 
   chassis.drive_distance(-20); // drive into the goal
   
+
+}
+
+void AttackingMatchAutonSkeletoncode() {
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.set_turn_constants(6, .25, .02, 5, 15);
+}
+void DefendingMatchAutonSkeletoncode() {
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.set_turn_constants(6, .25, .02, 5, 15);
+  chassis.drive_distance(52);
+  turnrelativeangle(-90); //switced on left or right sides
+  chassis.drive_distance(10);
+  IntakeControls::run();
+  wait(100,msec);
+  Wings.set(true); 
+  wait(100,msec); // drop wings and give them time to drop
+  chassis.drive_distance(-20);
+  chassis.drive_to_point(10,5); // replace with x and y positions of match load zone triball, relative to start position of robot
+  turnrelativeangle(90); //need to test this 
+  chassis.drive_distance(30); // Score last two triballs
+
+
+}
+void SkillsAutonSkeletoncode() {
 
 }
 

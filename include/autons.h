@@ -18,4 +18,7 @@ void ThreeBall();
 void ThreeBallV2();
 void driveForward();
 void VisionOdomTest();
+void AttackingMatchAutonSkeletoncode();
+void DefendingMatchAutonSkeletoncode();
+void SkillsAutonSkeletoncode();
 void LetMeCook();
