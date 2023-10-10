@@ -37,6 +37,7 @@ double Vision::Getdist(int Obnum) {
 }
 
 double Vision::GetTrtgtDist() {
+    
     return Vision::Getdist(IndexofTarget);
 }
 double Vision::GetTrtgtxCord() {

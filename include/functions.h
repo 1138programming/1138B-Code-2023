@@ -11,3 +11,4 @@ class IntakeControls {
 extern void HangCB();
 extern void WingsCB();
 extern void Turn180();
+extern void turnrelativeangle(float angle);

@@ -80,7 +80,8 @@ void debugScreen() {
     lv_obj_t* bge = lv_img_create(lv_scr_act());
     lv_img_set_src(bge, &background);
     DebugNote = lv_label_create(lv_scr_act());
-    lv_label_set_text_fmt(DebugNote, "AutonDist", 0);
+
+    lv_label_set_text_fmt(DebugNote, "AutonDist", Vision::GetTrtgtDist());
     lv_obj_t* backd = lv_btn_create(lv_scr_act());
     lv_obj_set_size(backd, 40, 40);
     lv_obj_t* backlabeld = lv_label_create(backd);
