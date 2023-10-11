@@ -1,11 +1,15 @@
 ﻿#include "v5lvgl.h"
 #include "screen.h"
-#include "pagehandler.h"
 #include "Vision.h"
+#include "pagehandler.h"
+#include "robot-config.h"
+#include "Constants.h"
 extern "C" {
 #include "images.h"
 
 }
+
+
 static const char* btn_map[] = { "1", "2", "\n", "3", "4", NULL };
 lv_color32_t White = LV_COLOR_MAKE(255, 255, 255);
 void clearScreen() {
@@ -14,6 +18,7 @@ void clearScreen() {
 void initscreen() {
     lv_obj_t* img = lv_img_create(lv_scr_act());
     lv_img_set_src(img, &LogoScreen);
+   
 }
 lv_obj_t* AutonTitle;
 lv_obj_t* DebugNote;

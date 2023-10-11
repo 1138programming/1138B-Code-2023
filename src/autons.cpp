@@ -170,7 +170,7 @@ void ThreeBallV2() {
   chassis.drive_distance(27);
 }
 
-void LetMeCook() {
+void AttackingMatchAutonSkeletoncodeRouteTwo() {
   chassis.turn_settle_time = 0.2;
   chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(6, .25, .02, 5, 15);
@@ -196,10 +196,12 @@ void LetMeCook() {
 
 }
 
-void AttackingMatchAutonSkeletoncode() {
+void AttackingMatchAutonSkeletoncodeRouteOne() {
   chassis.turn_settle_time = 0.2;
   chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(6, .25, .02, 5, 15);
+  chassis.drive_distance(52);
+  turnrelativeangle(90);
 }
 void DefendingMatchAutonSkeletoncode() {
   chassis.turn_settle_time = 0.2;
