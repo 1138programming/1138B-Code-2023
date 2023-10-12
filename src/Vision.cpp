@@ -4,6 +4,12 @@
 #include "robot-config.h"
 #include <math.h>      
 
+long Vision::Count;
+double Vision::Obxcord;
+double Vision::Obycord;
+double Vision::LargestDist;
+int Vision::IndexofTarget;
+
 Vision::Vision() {
     IndexofTarget = 0;
     

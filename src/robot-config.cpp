@@ -23,7 +23,7 @@ digital_out Wings = digital_out(Brain.ThreeWirePort.H);
 digital_out Hang = digital_out(Brain.ThreeWirePort.A);
 /*vex-vision-config:begin*/
 vision Eye = vision (PORT20, 50);
-signature Vision5__SIG_1 = signature (1, -6217, -5117, -5667, -5595, -4337, -4966, 2.5, 0);
+signature Eye__SIG_1 = signature (1, -6217, -5117, -5667, -5595, -4337, -4966, 2.5, 0);
 /*vex-vision-config:end*/
 
 // VEXcode generated functions

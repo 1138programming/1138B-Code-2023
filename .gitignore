@@ -16,3 +16,7 @@ temp.errors
 .d//
 .DS_Store
 build//
+
+# VSCode
+.vscode/settings.json
+.vscode/c_cpp_properties.json
