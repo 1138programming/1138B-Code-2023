@@ -169,6 +169,8 @@ void autonomous(void) {
   switch(getCurrentAuton()){  
     case 1:
       AttackingMatchAutonSkeletoncodeRouteTwo();
+    case 2:
+      DefendingMatchAutonSkeletoncode();
     break;
   }
 }
@@ -226,7 +228,7 @@ void usercontrol(void) {
     
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
-    chassis.control_tank();
+    chassis.control_arcade();
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }

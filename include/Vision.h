@@ -1,7 +1,7 @@
 #ifndef Vision_h
 #define Vision_H
 #ifdef __cplusplus
-extern "C" {
+
 #endif
 #include "vex.h"
     class Vision {
@@ -15,15 +15,15 @@ extern "C" {
        static double GetTrtgtyCord();
        static bool ObjectsExist();
        private:
-        inline static long Count;
-        inline static double Obxcord;
-        inline static double Obycord;
-        inline static double LargestDist;
-        inline static int IndexofTarget;
+        static long Count;
+        static double Obxcord;
+        static double Obycord;
+        static double LargestDist;
+        static int IndexofTarget;
         
         
     };
 #ifdef __cplusplus
-}
+
 #endif
 #endif 

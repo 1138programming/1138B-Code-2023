@@ -1,11 +1,12 @@
 #include "vex.h"
 #include "Vision.h"
 #include "Constants.h"
+#include "robot-config.h"
 #include <math.h>      
 
 Vision::Vision() {
     IndexofTarget = 0;
-    Eye.takeSnapshot(Eye__SIG_1);
+    
 
     Obycord = Eye.objects[IndexofTarget].height;
     Obxcord = Eye.objects[IndexofTarget].angle; 
@@ -37,7 +38,6 @@ double Vision::Getdist(int Obnum) {
 }
 
 double Vision::GetTrtgtDist() {
-    
     return Vision::Getdist(IndexofTarget);
 }
 double Vision::GetTrtgtxCord() {

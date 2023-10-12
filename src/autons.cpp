@@ -132,7 +132,6 @@ void VisionOdomTest() {
     chassis.drive_distance(10);
   }
   IntakeControls::run();
-  wait(100,msec);
   while (!Vision::ObjectsExist()) {
     Vision::Update(Eye__SIG_2);
     currentHeading = fmod(chassis.get_absolute_heading(), 360.0);
@@ -141,11 +140,10 @@ void VisionOdomTest() {
   currentHeading = fmod(chassis.get_absolute_heading(), 360.0);
   chassis.turn_to_angle(currentHeading + Vision::GetTrtgtxCord() );
   while (Vision::GetTrtgtDist() > IntakeStoppingDist && chassis.get_Y_position() < 60) {
-    Vision::Update(Eye__SIG_1);
+    Vision::Update(Eye__SIG_2);
     chassis.drive_distance(10);
   }
   IntakeControls::back();
-  wait(100,msec);
 
 }
 void ThreeBallV2() {
