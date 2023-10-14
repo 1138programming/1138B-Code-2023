@@ -22,3 +22,4 @@ void AttackingMatchAutonSkeletoncodeRouteOne();
 void DefendingMatchAutonSkeletoncode();
 void SkillsAutonSkeletoncode();
 void AttackingMatchAutonSkeletoncodeRouteTwo();
+void WinPointAuton();

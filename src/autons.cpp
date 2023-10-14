@@ -190,10 +190,6 @@ void AttackingMatchAutonSkeletoncodeRouteTwo() {
   chassis.drive_distance(-14); // drive back towards the end of the field
   chassis.turn_to_angle(270); // turn so the back faces the goal 
   chassis.drive_distance(-20); // drive into the goal
-
-  
-  
-
 }
 
 void AttackingMatchAutonSkeletoncodeRouteOne() {
@@ -244,6 +240,22 @@ void DefendingMatchAutonSkeletoncode() {
 void SkillsAutonSkeletoncode() {
   Catapult.spinFor(100,msec);
 
+}
+
+void WinPointAuton() {
+  //setup
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.set_turn_constants(6, .25, .02, 5, 15);
+  chassis.drive_distance(52); //drive to the goal
+  chassis.turn_to_angle(270); // turn to the goal
+  chassis.drive_timeout = 5;
+  chassis.drive_distance(14); // score
+  chassis.drive_timeout = 0;
+  chassis.drive_distance(-14); //backup
+  chassis.turn_to_angle(170);
+  chassis.drive_distance(45,270);
+  chassis.drive_distance(15,90);
 }
 
 void pidTest() {
