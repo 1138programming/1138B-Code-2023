@@ -190,6 +190,8 @@ void AttackingMatchAutonSkeletoncodeRouteTwo() {
   chassis.drive_distance(-14); // drive back towards the end of the field
   chassis.turn_to_angle(270); // turn so the back faces the goal 
   chassis.drive_distance(-20); // drive into the goal
+
+  
   
 
 }
@@ -204,22 +206,43 @@ void AttackingMatchAutonSkeletoncodeRouteOne() {
 void DefendingMatchAutonSkeletoncode() {
   chassis.turn_settle_time = 0.2;
   chassis.drive_settle_time = 0.2;
+  chassis.drive_max_voltage = 10;
+  
   chassis.set_turn_constants(6, .25, .02, 5, 15);
+  // chassis.drive_timeout = .10;
+  // chassis.set_drive_constants(6, .25, .02, 5, 15);
+  Wings.set(false);
+  // chassis.turn_to_angle(315);
   chassis.drive_distance(52);
-  turnrelativeangle(-90); //switced on left or right sides
-  chassis.drive_distance(10);
-  IntakeControls::run();
-  wait(100,msec);
-  Wings.set(true); 
-  wait(100,msec); // drop wings and give them time to drop
+  chassis.turn_to_angle(270);
+  // chassis.drive_settle_time = 2;
+ 
+  chassis.drive_distance(16); // push it in
+  //second
+  chassis.turn_to_angle(280);
+  // turnrelativeangle(130);
   chassis.drive_distance(-20);
-  chassis.drive_to_point(10,5); // replace with x and y positions of match load zone triball, relative to start position of robot
-  turnrelativeangle(90); //need to test this 
-  chassis.drive_distance(30); // Score last two triballs
+  chassis.drive_distance(-10);
+  Wings.set(true);
+  chassis.turn_to_angle(310);
+  chassis.drive_distance(-18);
+  chassis.turn_to_angle(270);
+  chassis.drive_distance(-30);
+  // IntakeControls::run();
+  // wait(2500,msec);
+  // Wings.set(true);
+  
+  // chassis.turn_to_angle(45);
+  // chassis.drive_distance(-5);
+  // chassis.turn_to_angle(90);
+  // chassis.drive_distance(-20);
+  // chassis.drive_distance(40); // Score last two triballs
+
 
 
 }
 void SkillsAutonSkeletoncode() {
+  Catapult.spinFor(100,msec);
 
 }
 

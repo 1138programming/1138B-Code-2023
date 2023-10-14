@@ -1,4 +1,5 @@
-﻿#include "v5lvgl.h"
+﻿#include "vex.h"
+#include "v5lvgl.h"
 #include "screen.h"
 #include "Vision.h"
 #include "pagehandler.h"
@@ -81,6 +82,7 @@ void autonSelector() {
     lv_obj_add_style(AutonButtons, &AutonStyle, LV_STATE_FOCUS_KEY);
 }
 void debugScreen() {
+    
     Vision::Update(Eye__SIG_1);
     lv_obj_t* bge = lv_img_create(lv_scr_act());
     lv_img_set_src(bge, &background);
