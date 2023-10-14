@@ -168,7 +168,7 @@ void autonomous(void) {
   auto_started = true;
   switch(getCurrentAuton()){  
     case 1:
-      DefendingMatchAutonSkeletoncode();
+      WinPointAuton();
     // case 2:
     //   AttackingMatchAutonSkeletoncodeRouteTwo();
     break;
