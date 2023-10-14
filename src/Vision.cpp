@@ -2,7 +2,9 @@
 #include "Vision.h"
 #include "Constants.h"
 #include "robot-config.h"
-#include <math.h>      
+#include <math.h>   
+
+
 
 long Vision::Count;
 double Vision::Obxcord;
@@ -11,6 +13,8 @@ double Vision::LargestDist;
 int Vision::IndexofTarget;
 
 Vision::Vision() {
+
+
     IndexofTarget = 0;
     
 

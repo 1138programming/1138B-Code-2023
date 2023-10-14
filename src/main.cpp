@@ -168,9 +168,9 @@ void autonomous(void) {
   auto_started = true;
   switch(getCurrentAuton()){  
     case 1:
-      AttackingMatchAutonSkeletoncodeRouteTwo();
-    case 2:
       DefendingMatchAutonSkeletoncode();
+    // case 2:
+    //   AttackingMatchAutonSkeletoncodeRouteTwo();
     break;
   }
 }

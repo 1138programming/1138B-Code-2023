@@ -15,11 +15,11 @@
        static double GetTrtgtyCord();
        static bool ObjectsExist();
        private:
-        static long Count;
-        static double Obxcord;
-        static double Obycord;
-        static double LargestDist;
-        static int IndexofTarget;
+        static inline long Count;
+        static inline double Obxcord;
+        static inline double Obycord;
+        static inline double LargestDist;
+        static inline int IndexofTarget;
         
         
     };
