@@ -168,9 +168,9 @@ void autonomous(void) {
   auto_started = true;
   switch(getCurrentAuton()){  
     case 1:
-      WinPointAuton();
+      JustdowinpointOffWorking();
     // case 2:
-    //   AttackingMatchAutonSkeletoncodeRouteTwo();
+    //   AttackingMatchAutonSkeletoncodeRouteTwo();       
     break;
   }
 }
@@ -241,6 +241,8 @@ int main() {
   // Set up callbacks for autonomous and driver control periods.
 
   chassis.set_coordinates(0, 0, 0);
+  Inertial5.resetHeading();
+  Inertial5.calibrate();
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
   

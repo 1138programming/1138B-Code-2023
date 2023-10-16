@@ -38,6 +38,9 @@ static void AutonHandler(lv_event_t* e)
         if (txt, "1") {
             CurrentAuton = 1;
         }
+        if (txt, "2") {
+            CurrentAuton = 2;
+        }
         lv_label_set_text_fmt(AutonTitle, "Current Auton is: %s", txt);
         //LV_UNUSED(txt);
         //LV_LOG_USER("Current auton is: %s\n", txt);
@@ -177,7 +180,7 @@ void initScreen() {
     
     //debug
     Debug = lv_btn_create(lv_scr_act());
-    lv_obj_set_size(Debug, 50,40);
+    lv_obj_set_size(Debug, 100,40);
     lv_obj_align(Debug, LV_ALIGN_CENTER, -200, 0);
     lv_obj_t* Debuglabel = lv_label_create(Debug);
     lv_label_set_text(Debuglabel,"Debug");
@@ -185,8 +188,10 @@ void initScreen() {
 
     // Auton button 
     Autonbtn = lv_btn_create(lv_scr_act());
-    lv_obj_set_size(Autonbtn, 50, 40);
-    lv_obj_align(Autonbtn, LV_ALIGN_CENTER, 100, 0);
+    lv_obj_set_size(Autonbtn, 100, 40);
+    lv_obj_align(Autonbtn, LV_ALIGN_CENTER, 200, 0);
+    lv_obj_t* Autonlabel = lv_label_create(Autonbtn);
+    lv_label_set_text(Autonlabel,"Auton");
 
 
     //button1

@@ -199,46 +199,134 @@ void AttackingMatchAutonSkeletoncodeRouteOne() {
   chassis.drive_distance(52);
   turnrelativeangle(90);
 }
-void DefendingMatchAutonSkeletoncode() {
+void OffMatchAutonSkeletoncode() {
   chassis.turn_settle_time = 0.2;
   chassis.drive_settle_time = 0.2;
   chassis.drive_max_voltage = 10;
   
   chassis.set_turn_constants(6, .25, .02, 5, 15);
-  // chassis.drive_timeout = .10;
-  // chassis.set_drive_constants(6, .25, .02, 5, 15);
+
   Wings.set(false);
-  // chassis.turn_to_angle(315);
-  chassis.drive_distance(52);
+
+  chassis.drive_to_point(0,-45);
+
   chassis.turn_to_angle(270);
-  // chassis.drive_settle_time = 2;
- 
+
   chassis.drive_distance(16); // push it in
   //second
-  chassis.turn_to_angle(280);
-  // turnrelativeangle(130);
-  chassis.drive_distance(-20);
-  chassis.drive_distance(-10);
-  Wings.set(true);
-  chassis.turn_to_angle(310);
-  chassis.drive_distance(-18);
-  chassis.turn_to_angle(270);
-  chassis.drive_distance(-30);
-  // IntakeControls::run();
-  // wait(2500,msec);
-  // Wings.set(true);
+  chassis.drive_distance(-25);
+ 
+  chassis.turn_to_angle(315);
+  chassis.drive_distance(-52);
+   Wings.set(true);
+  chassis.drive_distance(-13);
+ 
   
+  chassis.drive_distance(-10,270);
+  Turn180();
+  chassis.drive_distance(-30);
+ 
+
+
+
+}
+void JustdowinpointOffWorking() {
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.drive_max_voltage = 10;
+  chassis.set_turn_constants(6, .25, .02, 5, 15);
+  // chassis.turn_to_angle(280);
+  // chassis.drive_distance(-17);
   // chassis.turn_to_angle(45);
-  // chassis.drive_distance(-5);
-  // chassis.turn_to_angle(90);
-  // chassis.drive_distance(-20);
-  // chassis.drive_distance(40); // Score last two triballs
+  Wings.set(true);
+  
+
+  chassis.drive_distance(-12);
+
+
+  // chassis.drive_distance(-18);
+  chassis.drive_distance(-10,315);
+  
+  chassis.drive_distance(-13);
+
+  chassis.drive_distance(9);
+  chassis.drive_distance(-12);
+  chassis.drive_distance(9);
+  chassis.drive_distance(-12);
+  // chassis.drive_with_voltage(-10,-10);
+  // wait(500,msec);
+  // chassis.drive_with_voltage(0,0);
+  // chassis.drive_distance(9);
+  // chassis.drive_with_voltage(-10,-10);
+  // wait(500,msec);
+  // chassis.drive_with_voltage(0,0);
+
+
+//   chassis.turn_to_angle(9);
+//   // // chassis.drive_distance(10);
+//   // turnrelativeangle(10);
+//   chassis.drive_distance(35);
+//   Wings.set(false);
+//  chassis.turn_to_angle(45);
+//   Turn180(); 
+//   chassis.drive_distance(-23);
+
+}
+void JustdowinpointDeffworking() { // maybe
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_settle_time = 0.2;
+  chassis.drive_max_voltage = 10;
+ chassis.set_turn_constants(6, .25, .02, 5, 15);
+  // chassis.turn_to_angle(280);
+  // chassis.drive_distance(-17);
+  // chassis.turn_to_angle(45);
+  chassis.drive_distance(43,1); //42,0
+
+   chassis.drive_with_voltage(8,8);
+   wait(500,msec);
+   chassis.drive_with_voltage(0,0);
+   wait(50,msec);
+  //  chassis.drive_distance(-6);
+  //  chassis.drive_with_voltage(8,8);
+  // wait(500,msec);
+  // chassis.drive_with_voltage(0,0);
+  // wait(50,msec);
+  chassis.drive_distance(-2);
+  chassis.turn_to_angle(30);
+  chassis.drive_distance(-20,2);
+ 
+  Wings.set(true);
+  
+  
+  chassis.drive_distance(-24,356);
+  
+  
+  // chassis.drive_distance(-18);
+  // chassis.drive_distance(-10,40);
+  
+  // chassis.drive_distance(-12);
+  // chassis.drive_distance(8);
+  // chassis.drive_distance(-12);
+  // chassis.drive_distance(-18);
+  // turnrelativeangle(-45);
+
+  // chassis.drive_distance(25);
+
+  Wings.set(false);
+ chassis.turn_to_angle(303);
+ chassis.drive_distance(-39);
+
+  
+  
 
 
 
 }
 void SkillsAutonSkeletoncode() {
-  Catapult.spinFor(100,msec);
+  chassis.drive_distance(20);
+  chassis.drive_distance(-20);
+  chassis.turn_to_angle(315);
+  Catapult.spin(forward, 85, percent);
 
 }
 
