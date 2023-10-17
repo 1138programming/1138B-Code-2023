@@ -39,8 +39,8 @@
 #include "functions.h"
 #include "Vision.h"
 #include "v5lvgl.h"
-#include "screen.h"
-#include "pagehandler.h"
+#include "display/screen.h"
+#include "display/pagehandler.h"
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
