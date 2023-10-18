@@ -18,6 +18,7 @@ extern motor Catapult;
 extern optical IntakeSensor;
 extern digital_out Wings;
 extern digital_out Hang;
+extern digital_out Blocker;
 extern signature Eye__SIG_1;
 extern signature Eye__SIG_2;
 extern signature Eye__SIG_3;

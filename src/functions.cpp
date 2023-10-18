@@ -16,14 +16,18 @@ void IntakeControls::back() {
 void IntakeControls::stop() {
   Intake.stop();
 }
-void WingsCB() {
-  CurrentState = Wings.value();
-  Wings.set(!CurrentState);
-}
+// void WingsCB() {
+//   CurrentState = Wings.value();
+//   Wings.set(!CurrentState);
+// }
 
 void HangCB() {
   CurrentState = Hang.value();
   Hang.set(!CurrentState);
+}
+void BlockerCB() {
+  CurrentState = Blocker.value();
+  Blocker.set(!CurrentState);
 }
 
 //macros

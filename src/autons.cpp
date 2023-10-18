@@ -173,23 +173,32 @@ void AttackingMatchAutonSkeletoncodeRouteTwo() {
   chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(6, .25, .02, 5, 15);
   Intake.spin(fwd,100,percent); //start intake
-  wait(500,msec); // allow intake to spin up
+  
   chassis.drive_distance(26); // drive to 1st triball
   chassis.drive_distance(-42); // drive back
   chassis.turn_to_angle(330); //turn to push the preload
   Wings.set(true); // drop the wings
-  wait(500,msec); // allow the wings to drop
-  chassis.drive_distance(-5); // push the preload a little bit towards the goal
+
+  chassis.drive_distance(-12); // push the preload a little bit towards the goal
+  chassis.turn_to_angle(310);
+  chassis.drive_distance(-5);
+   chassis.turn_to_angle(280);
+  chassis.drive_distance(-15);
   Wings.set(false); // raise the wings
-  wait(500,msec); // give them time to raise
-  Turn180(); // spin around
+  chassis.drive_distance(5);
+  turnrelativeangle(180);
   Intake.spinFor(reverse,500,msec); // outtake
-  Turn180(); // spin around so wings face goal
-  Wings.set(true); // drop wings
-  wait(500,msec); // give time to wings
-  chassis.drive_distance(-14); // drive back towards the end of the field
-  chassis.turn_to_angle(270); // turn so the back faces the goal 
-  chassis.drive_distance(-20); // drive into the goal
+  chassis.drive_distance(7);
+  chassis.drive_distance(-5);
+  chassis.drive_distance(7);
+  chassis.drive_distance(-5);
+  chassis.turn_to_angle(5);
+  chassis.drive_distance(52);
+  chassis.turn_to_angle(90);
+  Intake.spin(fwd,100,percent); //start intake]
+  chassis.drive_distance(15);
+  turnrelativeangle(180);
+  chassis.drive_distance(-20);
 }
 
 void AttackingMatchAutonSkeletoncodeRouteOne() {

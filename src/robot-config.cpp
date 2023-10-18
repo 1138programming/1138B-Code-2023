@@ -21,6 +21,7 @@ motor  Catapult = motor(PORT10, ratio36_1, true);
 optical IntakeSensor = optical(PORT8);
 digital_out Wings = digital_out(Brain.ThreeWirePort.H);
 digital_out Hang = digital_out(Brain.ThreeWirePort.A);
+digital_out Blocker = digital_out(Brain.ThreeWirePort.G);
 /*vex-vision-config:begin*/
 vision Eye = vision (PORT20, 50);
 signature Eye__SIG_1 = signature (1, -6217, -5117, -5667, -5595, -4337, -4966, 2.5, 0);

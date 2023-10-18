@@ -168,7 +168,7 @@ void autonomous(void) {
   auto_started = true;
   switch(getCurrentAuton()){  
     case 1:
-      JustdowinpointOffWorking();
+      AttackingMatchAutonSkeletoncodeRouteTwo();
     // case 2:
     //   AttackingMatchAutonSkeletoncodeRouteTwo();       
     break;
@@ -215,10 +215,16 @@ void usercontrol(void) {
     else {
       Catapult.stop(coast);
     }
+    if (Controller1.ButtonL1.pressing()) {
+      Wings.set(true);
+    }
+    else {
+      Wings.set(false);
+    }
 
     //toggles
-    Controller1.ButtonL1.pressed(WingsCB);
     Controller1.ButtonY.pressed(HangCB);
+    Controller1.ButtonX.pressed(BlockerCB);
     Controller1.ButtonL2.pressed(Turn180);
 
     //debug data
