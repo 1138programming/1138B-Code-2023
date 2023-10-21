@@ -7,7 +7,7 @@ void pageHandler(int page) {
         initScreen();
         break;
     case 1:
-        autonSelector();
+        autonSelectorNew();
         break;
     case 2:
         debugScreen();

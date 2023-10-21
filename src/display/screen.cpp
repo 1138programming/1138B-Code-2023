@@ -5,6 +5,7 @@
 #include "display/pagehandler.h"
 #include "robot-config.h"
 #include "Constants.h"
+#include <string>
 extern "C" {
 #include "display/images.h"
 
@@ -24,7 +25,7 @@ void initscreen() {
 lv_obj_t* AutonTitle;
 lv_obj_t* DebugNote;
 static lv_style_t AutonStyle;
-int CurrentAuton = 1;
+int CurrentAuton;
 int getCurrentAuton() {
     return CurrentAuton;
 }
@@ -85,10 +86,76 @@ void autonSelector() {
     lv_obj_add_style(AutonButtons, &AutonStyle, LV_STATE_FOCUS_KEY);
 }
 
+lv_obj_t* CurrentAutonText;
+lv_obj_t* Autonbg;
+static void newAutonCB(lv_event_t* e) {
+    // autonList
+    // 1 = red defensive wp
+    // 2 = blue defensive wp
+    // 3 = red offensive 6 ball
+    // 4 = blue offensive 6 ball
+    lv_obj_t* selectedDD = lv_event_get_target(e);
+    char buf[64];
+    lv_dropdown_get_selected_str(selectedDD, buf, sizeof(buf));
+    const char* starting_pos = lv_dropdown_get_text(selectedDD);
+    lv_label_set_text_fmt(CurrentAutonText, "%s: %s", starting_pos, buf);
+    if (strcmp(buf, "Winpoint") + strcmp(starting_pos, "Red Defensive") == 0) {
+        lv_img_set_src(Autonbg, &rd_winpoint);
+        CurrentAuton = 1;
+
+    }
+    else if (strcmp(buf, "Winpoint") + strcmp(starting_pos, "Blue Defensive") == 0) {
+        lv_img_set_src(Autonbg, &bd_winpoint);
+        CurrentAuton = 2;
+    }
+    else if (strcmp(buf, "6 Ball") + strcmp(starting_pos, "Red Offensive") == 0) {
+        lv_img_set_src(Autonbg, &ro_6ball);
+        CurrentAuton = 3;
+    }
+    else if (strcmp(buf, "6 Ball") + strcmp(starting_pos, "Blue Offensive") == 0) {
+        lv_img_set_src(Autonbg, &bo_6ball);
+        CurrentAuton = 4;
+    }
+    else {
+        lv_img_set_src(Autonbg, &overunderfield);
+    }
+}
+
 void autonSelectorNew() {
-    lv_obj_t* bg = lv_img_create(lv_scr_act());
-    lv_img_set_src(bg, &overunderfield);
-    
+    clearScreen();
+    Autonbg = lv_img_create(lv_scr_act());
+    lv_img_set_src(Autonbg, &overunderfield);
+    lv_obj_align(Autonbg, LV_ALIGN_CENTER, 0, 0);
+    lv_obj_t* back = lv_btn_create(lv_scr_act());
+    lv_obj_set_size(back, 40, 40);
+    lv_obj_t* backlabel = lv_label_create(back);
+    lv_label_set_text(backlabel,"<-");
+    lv_obj_align(back, LV_ALIGN_LEFT_MID, 0, -25);
+    lv_obj_add_event_cb(back, BackHandler, LV_EVENT_PRESSED, NULL);
+    CurrentAutonText = lv_label_create(lv_scr_act());
+    lv_label_set_text(CurrentAutonText, "No Auton Selected!");
+    lv_obj_align(CurrentAutonText, LV_ALIGN_CENTER,0,0);
+    lv_obj_t* bo = lv_dropdown_create(lv_scr_act());
+    lv_dropdown_set_options(bo, "6 Ball");
+    lv_dropdown_set_text(bo, "Blue Offensive");
+    lv_obj_add_event_cb(bo, newAutonCB, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_t* bd = lv_dropdown_create(lv_scr_act());
+    lv_dropdown_set_options(bd, "Winpoint");
+    lv_dropdown_set_text(bd, "Blue Defensive");
+    lv_obj_align(bd, LV_ALIGN_TOP_RIGHT,0,0);
+    lv_obj_add_event_cb(bd,newAutonCB, LV_EVENT_VALUE_CHANGED,NULL);
+    lv_obj_t* rd = lv_dropdown_create(lv_scr_act());
+    lv_dropdown_set_options(rd, "Winpoint");
+    lv_dropdown_set_text(rd, "Red Defensive");
+    lv_dropdown_set_dir(rd, LV_DIR_TOP);
+    lv_obj_align(rd, LV_ALIGN_BOTTOM_LEFT,0,0);
+    lv_obj_add_event_cb(rd,newAutonCB, LV_EVENT_VALUE_CHANGED,NULL);
+    lv_obj_t* ro = lv_dropdown_create(lv_scr_act());
+    lv_dropdown_set_options(ro, "6 Ball");
+    lv_dropdown_set_text(ro, "Red Offensive");
+    lv_dropdown_set_dir(ro, LV_DIR_TOP);
+    lv_obj_align(ro, LV_ALIGN_BOTTOM_RIGHT,0,0);
+    lv_obj_add_event_cb(ro,newAutonCB, LV_EVENT_VALUE_CHANGED,NULL);
 }
 void debugScreen() {
     
@@ -102,7 +169,11 @@ void debugScreen() {
     lv_obj_t* backlabeld = lv_label_create(backd);
     lv_label_set_text(backlabeld,"<-");
     lv_obj_align(backd, LV_ALIGN_TOP_LEFT, 0, 0);
+    lv_obj_align(DebugNote, LV_ALIGN_TOP_MID,0,0);
     lv_obj_add_event_cb(backd, BackHandler, LV_EVENT_PRESSED, NULL);
+    lv_obj_t* CurrentAuton = lv_label_create(lv_scr_act());
+    lv_label_set_text_fmt(CurrentAuton, "CurrentAuton: %i", getCurrentAuton());
+    lv_obj_align(CurrentAuton, LV_ALIGN_TOP_RIGHT,0,0);
 }
 
 

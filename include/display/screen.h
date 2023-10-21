@@ -4,6 +4,7 @@ extern "C" {
 
 extern void initscreen();
 extern void autonSelector();
+extern void autonSelectorNew();
 extern void debugScreen();
 extern void initScreen();
 extern void leaveInit();
