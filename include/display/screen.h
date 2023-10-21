@@ -11,5 +11,5 @@ extern void leaveInit();
 extern void clearScreen();
 extern void PageSelector();
 extern int getCurrentAuton();
-
+extern void UpdateDebug();
 }

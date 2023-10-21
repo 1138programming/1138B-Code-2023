@@ -166,7 +166,9 @@ void pre_auton(void) {
 
 void autonomous(void) {
   auto_started = true;
-  switch(getCurrentAuton()){  
+  switch(getCurrentAuton()){
+    case 100:
+      SkillsAuton(); 
     case 1:
       AttackingMatchAutonSkeletoncodeRouteTwo();
     // case 2:
@@ -245,7 +247,6 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-
   chassis.set_coordinates(0, 0, 0);
   Inertial5.resetHeading();
   Inertial5.calibrate();

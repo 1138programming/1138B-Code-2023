@@ -331,7 +331,7 @@ void JustdowinpointDeffworking() { // maybe
 
 
 }
-void SkillsAutonSkeletoncode() {
+void SkillsAuton() {
   chassis.drive_distance(20);
   chassis.drive_distance(-20);
   chassis.turn_to_angle(315);

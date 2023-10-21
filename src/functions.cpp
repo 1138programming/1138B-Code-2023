@@ -69,3 +69,14 @@ void turnrelativeangle(float angle) {
   chassis.turn_to_angle(calculateRelativeHeading(chassis.get_absolute_heading(),angle));
 }
 
+float getBaseTempAvg() {
+  float tLtemp = LeftTop.temperature();
+  float bLtemp = LeftBack.temperature();
+  float fLtemp = LeftFront.temperature();
+  float tRtemp = RightTop.temperature();
+  float bRtemp = RightBack.temperature();
+  float fRtemp = RightBack.temperature();
+
+  float tempAvg = ((tLtemp + bLtemp + fLtemp + tRtemp + bRtemp + fRtemp) / 6);
+  return tempAvg;
+}

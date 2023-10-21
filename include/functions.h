@@ -13,3 +13,4 @@ extern void WingsCB();
 extern void BlockerCB();
 extern void Turn180();
 extern void turnrelativeangle(float angle);
+extern float getBaseTempAvg();

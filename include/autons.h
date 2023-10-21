@@ -20,7 +20,7 @@ void driveForward();
 void VisionOdomTest();
 void AttackingMatchAutonSkeletoncodeRouteOne();
 void OffMatchAutonSkeletoncode();
-void SkillsAutonSkeletoncode();
+void SkillsAuton();
 void AttackingMatchAutonSkeletoncodeRouteTwo();
 void JustdowinpointOffWorking();
 void JustdowinpointDeffworking();
