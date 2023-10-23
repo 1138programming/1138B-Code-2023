@@ -25,3 +25,5 @@ void AttackingMatchAutonSkeletoncodeRouteTwo();
 void JustdowinpointOffWorking();
 void JustdowinpointDeffworking();
 void WinPointAuton();
+void rd_winpoint_code();
+void bo_6ball_code();

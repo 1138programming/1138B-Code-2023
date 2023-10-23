@@ -170,9 +170,13 @@ void autonomous(void) {
     case 100:
       SkillsAuton(); 
     case 1:
-      AttackingMatchAutonSkeletoncodeRouteTwo();
-    // case 2:
-    //   AttackingMatchAutonSkeletoncodeRouteTwo();       
+      rd_winpoint_code();
+    case 2:
+      rd_winpoint_code();
+    case 3:
+      bo_6ball_code();
+    case 4:
+       bo_6ball_code();       
     break;
   }
 }
@@ -190,9 +194,6 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   //pneumatic toggles
-  bool WingExpand;
-  bool CurrentState;
-  bool IntakeObject;
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -212,7 +213,7 @@ void usercontrol(void) {
       Intake.stop(coast);
     }
     if (Controller1.ButtonB.pressing()) {
-      Catapult.spin(forward, 85, percent);
+      Catapult.spin(forward, 100, percent);
     }
     else {
       Catapult.stop(coast);
