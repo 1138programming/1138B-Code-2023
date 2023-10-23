@@ -266,7 +266,7 @@ void bd_winpoint_code() {
 
 void bo_6ball_code() {
   chassis.turn_settle_time = 0.2;
-  chassis.drive_settle_time = 0.1;
+  chassis.drive_settle_time = 0.2;
   chassis.set_turn_constants(6, .25, .02, 5, 15);
   Blocker.set(true);
   vex::wait(100,msec);
