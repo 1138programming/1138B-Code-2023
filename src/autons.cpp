@@ -3,8 +3,8 @@
 #include "Constants.h"
 #include "Vision.h"
 void default_constants(){
-  chassis.set_drive_constants(10, 1.5, 0, 10, 0);
-  chassis.set_heading_constants(6, .4, 0, 1, 0);
+  chassis.set_drive_constants(12, 1.5, 0, 10, 0);
+  chassis.set_heading_constants(12, .4, 0, 1, 0);
   chassis.set_turn_constants(12, .4, .03, 3, 15);
   chassis.set_swing_constants(12, .3, .001, 2, 15);
   chassis.set_drive_exit_conditions(1.5, 300, 5000);
@@ -265,20 +265,29 @@ void bd_winpoint_code() {
 }
 
 void bo_6ball_code() {
-  chassis.turn_settle_time = 0.2;
-  chassis.drive_settle_time = 0.2;
-  chassis.set_turn_constants(6, .25, .02, 5, 15);
+  chassis.set_drive_constants(12, 1, 0, 1.5, 0);
+  chassis.set_heading_constants(12, .25, 0, 1, 0);
+  chassis.set_turn_constants(12, 0.23, 0, 1, 0);
+  chassis.drive_settle_time = 0;
+  chassis.turn_settle_time = 0;
   Blocker.set(true);
   vex::wait(100,msec);
   Blocker.set(false);
   Intake.spin(fwd,100,percent); //start intake
-  chassis.drive_distance(26); // drive to 1st triball
-  chassis.drive_distance(-42); // drive back
+  chassis.drive_distance(6); // drive to 1st triball
+  chassis.drive_distance(-40); // drive back
+  chassis.turn_timeout = 500;
   chassis.turn_to_angle(330); //turn to push the preload
   Wings.set(true); // drop the wings
+  chassis.heading_kp = 1.3;
+  chassis.heading_kd = 1.5;
   chassis.drive_distance(-12,310); // push the preload a little bit towards the goal
+  chassis.heading_kp = 0.25;
+  chassis.heading_kd = 1;
   chassis.drive_distance(-5,280);
-  chassis.drive_distance(-15, 270);
+  chassis.drive_timeout = 500;
+  chassis.drive_distance(-18, 270);
+  chassis.drive_timeout = 1500;
   Wings.set(false); // raise the wings
   chassis.drive_distance(5);
   chassis.turn_to_angle(110);
@@ -291,22 +300,36 @@ void bo_6ball_code() {
   
   // chassis.turn_to_angle(45);
   Intake.spin(fwd,100,percent);
-  chassis.drive_distance(60, 47);
-  chassis.turn_to_angle(180);
+  chassis.drive_distance(60, 43);;
+  chassis.turn_to_angle(160);
   // Intake.spinFor(reverse,500,msec);
   // Turn180();
   // Wings.set(true);
   chassis.drive_timeout = 1200;
-  chassis.drive_distance(35);
+  chassis.drive_distance(38, 180);
   chassis.drive_distance(-24);
-  chassis.turn_to_angle(312);
-  chassis.drive_distance(16);
+  chassis.turn_to_angle(305);
+  chassis.drive_distance(24);
   chassis.drive_distance(-16);
-  chassis.turn_to_angle(180);
-  chassis.drive_distance(25);
+  chassis.turn_to_angle(170);
+  chassis.drive_distance(30);
   // chassis.turn_to_angle(90);
   // Intake.spin(fwd,100,percent); //start intake
   // chassis.drive_distance(15);
   // turnrelativeangle(180);
   // chassis.drive_distance(-20);
+}
+
+void pidTest() {
+  chassis.set_drive_constants(12, 1, 0, 1.5, 0);
+  chassis.set_heading_constants(12, .25, 0, 1, 0);
+  chassis.set_turn_constants(12, 0.23, 0, 1, 0);
+  chassis.drive_settle_time = 0;
+  chassis.turn_settle_time = 0;
+  // chassis.turn_to_angle(90);
+  // chassis.drive_distance(12);
+  // chassis.turn_to_angle(0);
+  // chassis.drive_distance(36);
+  // chassis.drive_distance(-24);
+  chassis.drive_distance(26, 270);
 }
