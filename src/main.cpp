@@ -169,15 +169,19 @@ void autonomous(void) {
   switch(getCurrentAuton()){
     case 100:
       SkillsAuton(); 
+      break;
     case 1:
       rd_winpoint_code();
+      break;
     case 2:
       rd_winpoint_code();
+      break;
     case 3:
       bo_6ball_code();
+      break;
     case 4:
        bo_6ball_code();       
-    break;
+      break;
   }
 }
 

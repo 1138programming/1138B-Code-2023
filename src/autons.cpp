@@ -158,7 +158,7 @@ void JustdowinpointOffWorking() {
 //  chassis.turn_to_angle(45);
 //   Turn180(); 
 //   chassis.drive_distance(-23);
-
+    
 }
 void JustdowinpointDeffworking() { // maybe
   chassis.turn_settle_time = 0.2;
@@ -211,10 +211,31 @@ void JustdowinpointDeffworking() { // maybe
 
 }
 void SkillsAuton() {
-  chassis.drive_distance(20);
-  chassis.drive_distance(-20);
-  chassis.turn_to_angle(315);
+  chassis.set_drive_constants(12, 1, 0, 1.5, 0);
+  chassis.set_heading_constants(12, .25, 0, 1, 0);
+  chassis.set_turn_constants(12, 0.23, 0, 1, 0);
+  chassis.drive_settle_time = 0;
+  chassis.drive_distance(25);
+  chassis.drive_distance(-8);
+  chassis.drive_distance(10);
+  chassis.turn_to_angle(45);
+  chassis.drive_distance(-25);
+  Wings.set(true);
+
+  
+  chassis.drive_distance(-15,350);
+  chassis.turn_to_angle(90);
   Catapult.spin(forward, 85, percent);
+  wait(500,msec);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(-100);
+  chassis.turn_to_angle(0);
+  chassis.drive_distance(-10);
+  chassis.turn_to_angle(270);
+  chassis.drive_distance(20);
+
+
+
 
 }
 
@@ -235,34 +256,22 @@ void WinPointAuton() {
 }
 
 void rd_winpoint_code() {
-  chassis.turn_settle_time = 0.2;
+  chassis.set_drive_constants(12, 1, 0, 1.5, 0);
+  chassis.set_heading_constants(12, .25, 0, 1, 0);
+  chassis.set_turn_constants(12, 0.23, 0, 1, 0);
   chassis.drive_settle_time = 0.2;
-  chassis.set_turn_constants(6, .25, .02, 5, 15);
   chassis.drive_distance(30,45);
-  chassis.drive_distance(-18);
+  chassis.drive_distance(-19);
   Wings.set(true);
   chassis.drive_distance(-12,315);
   chassis.drive_distance(-10, 325);
   Wings.set(false);
-  chassis.turn_to_angle(150);
+  chassis.turn_timeout = 500;
+  chassis.turn_to_angle(165);
   chassis.drive_distance(36);
   Blocker.set(true);
 } 
 
-void bd_winpoint_code() {
-  chassis.turn_settle_time = 0.2;
-  chassis.drive_settle_time = 0.2;
-  chassis.set_turn_constants(6, .25, .02, 5, 15);
-  chassis.drive_distance(30,45);
-  chassis.drive_distance(-18);
-  Wings.set(true);
-  chassis.drive_distance(-12,315);
-  chassis.drive_distance(-10, 325);
-  Wings.set(false);
-  chassis.turn_to_angle(150);
-  chassis.drive_distance(36);
-  Blocker.set(true);
-}
 
 void bo_6ball_code() {
   chassis.set_drive_constants(12, 1, 0, 1.5, 0);
