@@ -214,26 +214,23 @@ void SkillsAuton() {
   chassis.set_drive_constants(12, 1, 0, 1.5, 0);
   chassis.set_heading_constants(12, .25, 0, 1, 0);
   chassis.set_turn_constants(12, 0.23, 0, 1, 0);
-  chassis.drive_settle_time = 0;
-  chassis.turn_settle_time = 0;
-  chassis.drive_distance(25);
-  chassis.drive_distance(-8);
-  chassis.drive_distance(10);
-  chassis.turn_to_angle(45);
-  chassis.drive_distance(-25);
+  chassis.drive_settle_time = 150;
+  chassis.turn_settle_time = 150;
+  chassis.drive_distance(-28,45);
+  chassis.drive_distance(18, 0);
+  chassis.left_swing_to_angle(300);
   Wings.set(true);
-
-  
-  chassis.drive_distance(-15,350);
-  chassis.turn_to_angle(90);
-  Catapult.spin(forward, 85, percent);
-  wait(500,msec);
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(-100);
-  chassis.turn_to_angle(0);
+  Catapult.resetPosition();
+  Catapult.setVelocity(100,percent);
+  Catapult.spinTo((360*12),degrees, true);
+  Wings.set(false);
+  chassis.drive_distance(30,0);
+  chassis.turn_to_angle((180-45));
+  chassis.drive_distance(-80);
+  Wings.set(true);
+  chassis.drive_distance(-48, 45);
+  chassis.drive_distance(10);
   chassis.drive_distance(-10);
-  chassis.turn_to_angle(270);
-  chassis.drive_distance(20);
 
 }
 void rd_winpoint_code() {
@@ -242,16 +239,16 @@ void rd_winpoint_code() {
   chassis.set_turn_constants(12, 0.23, 0, 1, 0);
   chassis.drive_settle_time = 0.2;
   chassis.turn_settle_time = 0.2;
+  chassis.drive_timeout = 750;
+  chassis.turn_timeout = 500;
   chassis.drive_distance(30,45);
-  chassis.drive_distance(-19);
+  chassis.drive_distance(-20);
   Wings.set(true);
   chassis.drive_distance(-12,315);
-  chassis.drive_distance(-10, 325);
-  Wings.set(false);
-  chassis.turn_timeout = 500;
-  chassis.turn_to_angle(165);
-  chassis.drive_distance(35);
+  chassis.drive_distance(-12, 325);
   Blocker.set(true);
+  Wings.set(false);
+  chassis.drive_distance(-36);
 } 
 
 
