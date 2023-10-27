@@ -211,27 +211,48 @@ void JustdowinpointDeffworking() { // maybe
 
 }
 void SkillsAuton() {
-  chassis.set_drive_constants(12, 1, 0, 1.5, 0);
+  chassis.set_drive_constants(12, 1.2, 0, 1.5, 0);
   chassis.set_heading_constants(12, .25, 0, 1, 0);
   chassis.set_turn_constants(12, 0.23, 0, 1, 0);
-  chassis.drive_settle_time = 150;
-  chassis.turn_settle_time = 150;
-  chassis.drive_distance(-28,45);
-  chassis.drive_distance(18, 0);
-  chassis.left_swing_to_angle(300);
+  chassis.drive_settle_time = 0.2;
+  chassis.turn_settle_time = 0.2;
+  chassis.drive_distance(-16);
+  chassis.drive_distance(4);
+  chassis.drive_distance(12,265);
+  chassis.drive_distance(-8);
   Wings.set(true);
   Catapult.resetPosition();
-  Catapult.setVelocity(100,percent);
-  Catapult.spinTo((360*12),degrees, true);
+  Catapult.setVelocity(100, percent);
+  Catapult.spinTo((360*3), degrees, true);
   Wings.set(false);
-  chassis.drive_distance(30,0);
-  chassis.turn_to_angle((180-45));
-  chassis.drive_distance(-80);
+  chassis.drive_distance(25,305);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(-70);
+  chassis.drive_timeout = 750;
   Wings.set(true);
-  chassis.drive_distance(-48, 45);
-  chassis.drive_distance(10);
-  chassis.drive_distance(-10);
-
+  chassis.drive_distance(-32, 20);
+  chassis.drive_distance(-18, 35);
+  Wings.set(false);
+  chassis.drive_distance(18);
+  chassis.drive_distance(-20);
+  chassis.drive_distance(18);
+  // Wings.set(true);
+  chassis.drive_distance(-18);
+  Wings.set(false);
+  chassis.drive_distance(18);
+  chassis.drive_distance(-20);
+  chassis.drive_distance(20);
+  chassis.left_swing_to_angle(290);
+  chassis.drive_distance(-35);
+  chassis.right_swing_to_angle(0);
+  chassis.drive_distance(-20);
+  chassis.right_swing_to_angle(90);
+  Wings.set(true);
+  chassis.drive_distance(-45);
+  chassis.drive_distance(25);
+  chassis.drive_distance(-40);
+  chassis.drive_distance(25);
+  chassis.drive_distance(-35);
 }
 void rd_winpoint_code() {
   chassis.set_drive_constants(12, 1, 0, 1.5, 0);
@@ -309,7 +330,7 @@ void bo_6ball_code() {
 }
 
 void pidTest() {
-  chassis.set_drive_constants(12, 1, 0, 1.5, 0);
+  chassis.set_drive_constants(12, 2, 1.5, 1.75, 10);
   chassis.set_heading_constants(12, .25, 0, 1, 0);
   chassis.set_turn_constants(12, 0.23, 0, 1, 0);
   chassis.drive_settle_time = 0;
@@ -319,5 +340,9 @@ void pidTest() {
   // chassis.turn_to_angle(0);
   // chassis.drive_distance(36);
   // chassis.drive_distance(-24);
-  chassis.drive_distance(26, 270);
+  chassis.drive_distance(-24);
+  chassis.drive_distance(14);
+  chassis.drive_distance(-24);
+  chassis.drive_distance(10);
+  chassis.drive_distance(-24);
 }
