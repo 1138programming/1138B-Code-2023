@@ -1,7 +1,8 @@
 bin/EZ-Template/drive/drive.cpp.o: src/EZ-Template/drive/drive.cpp \
  include/EZ-Template/drive/drive.hpp include/EZ-Template/PID.hpp \
- include/EZ-Template/util.hpp include/api.h include/liblvgl/lvgl.h \
- include/liblvgl/misc/lv_log.h include/liblvgl/misc/../lv_conf_internal.h \
+ include/EZ-Template/util.hpp include/api.h include/devices.h \
+ include/api.h include/liblvgl/lvgl.h include/liblvgl/misc/lv_log.h \
+ include/liblvgl/misc/../lv_conf_internal.h \
  include/liblvgl/misc/../lv_conf_kconfig.h \
  include/liblvgl/misc/../lv_conf.h include/liblvgl/misc/lv_types.h \
  include/liblvgl/misc/lv_timer.h \
@@ -199,13 +200,15 @@ bin/EZ-Template/drive/drive.cpp.o: src/EZ-Template/drive/drive.cpp \
  include/pros/motors.hpp include/pros/optical.hpp include/pros/optical.h \
  include/pros/rotation.hpp include/pros/rotation.h include/pros/rtos.hpp \
  include/pros/screen.hpp include/pros/screen.h include/pros/vision.hpp \
- include/pros/vision.h include/main.h include/api.h \
- include/EZ-Template/api.hpp include/EZ-Template/auton.hpp \
- include/EZ-Template/auton_selector.hpp include/EZ-Template/sdcard.hpp \
- include/autons.hpp include/pros/screen.hpp include/pros/llemu.hpp
+ include/pros/vision.h include/main.h include/EZ-Template/api.hpp \
+ include/EZ-Template/auton.hpp include/EZ-Template/auton_selector.hpp \
+ include/EZ-Template/sdcard.hpp include/autons.hpp \
+ include/pros/screen.hpp include/pros/llemu.hpp
 include/EZ-Template/drive/drive.hpp:
 include/EZ-Template/PID.hpp:
 include/EZ-Template/util.hpp:
+include/api.h:
+include/devices.h:
 include/api.h:
 include/liblvgl/lvgl.h:
 include/liblvgl/misc/lv_log.h:
@@ -470,7 +473,6 @@ include/pros/screen.h:
 include/pros/vision.hpp:
 include/pros/vision.h:
 include/main.h:
-include/api.h:
 include/EZ-Template/api.hpp:
 include/EZ-Template/auton.hpp:
 include/EZ-Template/auton_selector.hpp:

@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "api.h"
 
 // Chassis constructor
 Drive chassis (
@@ -55,7 +55,6 @@ Drive chassis (
  */
 void initialize() {
   // Print our branding over your terminal :D
-  ez::print_ez_template();
   
   pros::delay(500); // Stop the user from doing anything while legacy ports configure.
 
@@ -151,7 +150,6 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
-
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }
