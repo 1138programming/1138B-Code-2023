@@ -1,270 +1,162 @@
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial5            inertial      5               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// Eye                  vision        6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial5            inertial      5               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial6            inertial      6               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-#include "vex.h"
-#include "functions.h"
-#include "Vision.h"
-#include "v5lvgl.h"
-#include "display/screen.h"
-#include "display/pagehandler.h"
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial5            inertial      5               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
+#include "main.h"
 
-using namespace vex;
-competition Competition;
+/////
+// For installation, upgrading, documentations and tutorials, check the GitHub!
+// https://github.com/EZ-Robotics/EZ-Template
+/////
 
-/*---------------------------------------------------------------------------*/
-/*                             VEXcode Config                                */
-/*                                                                           */
-/*  Before you do anything else, start by configuring your motors and        */
-/*  sensors using the V5 port icon in the top right of the screen. Doing     */
-/*  so will update robot-config.cpp and robot-config.h automatically, so     */
-/*  you don't have to. Ensure that your motors are reversed properly. For    */
-/*  the drive, spinning all motors forward should drive the robot forward.   */
-/*---------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------*/
-/*                             JAR-Template Config                           */
-/*                                                                           */
-/*  Where all the magic happens. Follow the instructions below to input      */
-/*  all the physical constants and values for your robot. You should         */
-/*  already have configured your robot manually with the sidebar configurer. */
-/*---------------------------------------------------------------------------*/
-
+// Chassis constructor
 Drive chassis(
+    // Left Chassis Ports (negative port will reverse it!)
+    //   the first port is the sensored port (when trackers are not used!)
+    {-10, -19, 20, 9}
 
-//Specify your drive setup below. There are seven options:
-//ZERO_TRACKER_NO_ODOM, ZERO_TRACKER_ODOM, TANK_ONE_ENCODER, TANK_ONE_ROTATION, TANK_TWO_ENCODER, TANK_TWO_ROTATION, HOLONOMIC_TWO_ENCODER, and HOLONOMIC_TWO_ROTATION
-//For example, if you are not using odometry, put ZERO_TRACKER_NO_ODOM below:
-ZERO_TRACKER_ODOM,
+    // Right Chassis Ports (negative port will reverse it!)
+    //   the first port is the sensored port (when trackers are not used!)
+    ,
+    {3, -4, -11, 12}
 
-//Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
-//You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
+    // IMU Port
+    ,
+    6
 
-//Left Motors:
-motor_group(LeftFront,LeftBack, LeftTop),
+    // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
+    //    (or tracking wheel diameter)
+    ,
+    3.25
 
-//Right Motors:
-motor_group(RightFront,RightBack, RightTop),
+    // Cartridge RPM
+    //   (or tick per rotation if using tracking wheels)
+    ,
+    600
 
-//Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT15,
+    // External Gear Ratio (MUST BE DECIMAL)
+    //    (or gear ratio of tracking wheel)
+    // eg. if your drive is 84:36 where the 36t is powered, your RATIO would be 2.333.
+    // eg. if your drive is 36:60 where the 60t is powered, your RATIO would be 0.6.
+    ,
+    1.18343195266
 
-//Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-3.25,
+    // Uncomment if using tracking wheels
+    /*
+    // Left Tracking Wheel Ports (negative port will reverse it!)
+    ,{1, 2}
+    // Right Tracking Wheel Ports (negative port will reverse it!)
+    ,{3, 4}
+    */
 
-//External ratio, must be in decimal, in the format of input teeth/output teeth.
-//If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
-//If the motor drives the wheel directly, this value is 1:
-0.6,
-
-//Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
-//For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
-360,
-
-/*---------------------------------------------------------------------------*/
-/*                                  PAUSE!                                   */
-/*                                                                           */
-/*  The rest of the drive constructor is for robots using POSITION TRACKING. */
-/*  If you are not using position tracking, leave the rest of the values as  */
-/*  they are.                                                                */
-/*---------------------------------------------------------------------------*/
-
-//If you are using ZERO_TRACKER_ODOM, you ONLY need to adjust the FORWARD TRACKER CENTER DISTANCE.
-
-//FOR HOLONOMIC DRIVES ONLY: Input your drive motors by position. This is only necessary for holonomic drives, otherwise this section can be left alone.
-//LF:      //RF:    
-PORT1,     -PORT2,
-
-//LB:      //RB: 
-PORT3,     -PORT4,
-
-//If you are using position tracking, this is the Forward Tracker port (the tracker which runs parallel to the direction of the chassis).
-//If this is a rotation sensor, enter it in "PORT1" format, inputting the port below.
-//If this is an encoder, enter the port as an integer. Triport A will be a "1", Triport B will be a "2", etc.
-3,
-
-//Input the Forward Tracker diameter (reverse it to make the direction switch):
-3.25,
-
-//Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
-//For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
-//This distance is in inches:
-5,
-
-//Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
-1,
-
-//Sideways tracker diameter (reverse to make the direction switch):
--2.75,
-
-//Sideways tracker center distance (positive distance is behind the center of the robot, negative is in front):
-5.5
-
+    // Uncomment if tracking wheels are plugged into a 3 wire expander
+    // 3 Wire Port Expander Smart Port
+    // ,1
 );
 
-int current_auton_selection = 1;
-bool auto_started = false;
+/**
+ * Runs initialization code. This occurs as soon as the program is started.
+ *
+ * All other competition modes are blocked by initialize; it is recommended
+ * to keep execution time for this mode under a few seconds.
+ */
+void initialize() {
+  // Print our branding over your terminal :D
+  ez::print_ez_template();
 
-void pre_auton(void) {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
-  v5_lv_init();
-  pageHandler(0);
-  LeftFront.setStopping(brake);
-  LeftBack.setStopping(brake);
-  RightFront.setStopping(brake);
-  RightBack.setStopping(brake);
-  Catapult.setMaxTorque(100,percent);
-  IntakeControls::init();
-  default_constants();
+  pros::delay(500);  // Stop the user from doing anything while legacy ports configure.
+
+  // Configure your chassis controls
+  chassis.toggle_modify_curve_with_controller(true);  // Enables modifying the controller curve with buttons on the joysticks
+  chassis.set_active_brake(0);                        // Sets the active brake kP. We recommend 0.1.
+  chassis.set_curve_default(0, 0);                    // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
+  default_constants();                                // Set the drive to your own constants from autons.cpp!
+
+  // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
+  // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used.
+  // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
+
+  // Autonomous Selector using LLEMU
+  ez::as::auton_selector.add_autons({
+      Auton("Example Drive\n\nDrive forward and come back.", drive_example),
+      Auton("Example Turn\n\nTurn 3 times.", turn_example),
+      Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
+      Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
+      Auton("Swing Example\n\nSwing, drive, swing.", swing_example),
+      Auton("Combine all 3 movements", combining_movements),
+  });
+
+  // Initialize chassis and auton selector
+  chassis.initialize();
+  ez::as::initialize();
 }
 
-void autonomous(void) {
-  auto_started = true;
-  switch(getCurrentAuton()){
-    case 100:
-      SkillsAuton(); 
-      break;
-    case 1:
-      rd_winpoint_code();
-      break;
-    case 2:
-      rd_winpoint_code();
-      break;
-    case 3:
-      bo_6ball_code();
-      break;
-    case 4:
-       bo_6ball_code();       
-      break;
-  }
+/**
+ * Runs while the robot is in the disabled state of Field Management System or
+ * the VEX Competition Switch, following either autonomous or opcontrol. When
+ * the robot is enabled, this task will exit.
+ */
+void disabled() {
+  // . . .
 }
 
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              User Control Task                            */
-/*                                                                           */
-/*  This task is used to control your robot during the user control phase of */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
-void usercontrol(void) {
-  // User control code here, inside the loop
-  //pneumatic toggles
-  while (1) {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
-
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
-    if (Controller1.ButtonR1.pressing()) {
-      Intake.spin(reverse,100,percent);
-    }
-    else if (Controller1.ButtonR2.pressing()) {
-      Intake.spin(forward,100,percent);
-    }
-    else {
-      Intake.stop(coast);
-    }
-    if (Controller1.ButtonB.pressing()) {
-      Catapult.spin(forward, 100, percent);
-    }
-    else {
-      Catapult.stop(coast);
-    }
-    if (Controller1.ButtonL1.pressing()) {
-      Wings.set(true);
-    }
-    else {
-      Wings.set(false);
-    }
-
-    //toggles
-    Controller1.ButtonY.pressed(HangCB);
-    Controller1.ButtonX.pressed(BlockerCB);
-    Controller1.ButtonL2.pressed(Turn180);
-
-    //debug data
-    Controller1.Screen.setCursor(1,1);
-    Controller1.Screen.print(IntakeSensor.isNearObject());
-    
-    
-    //Replace this line with chassis.control_tank(); for tank drive 
-    //or chassis.control_holonomic(); for holo drive.
-    chassis.control_arcade();
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
-  }
+/**
+ * Runs after initialize(), and before autonomous when connected to the Field
+ * Management System or the VEX Competition Switch. This is intended for
+ * competition-specific initialization routines, such as an autonomous selector
+ * on the LCD.
+ *
+ * This task will exit when the robot is enabled and autonomous or opcontrol
+ * starts.
+ */
+void competition_initialize() {
+  // . . .
 }
 
-//
-// Main will set up the competition functions and callbacks.
-//
-int main() {
-  // Set up callbacks for autonomous and driver control periods.
-  chassis.set_coordinates(0, 0, 0);
-  Inertial5.resetHeading();
-  Inertial5.calibrate();
-  Competition.autonomous(autonomous);
-  Competition.drivercontrol(usercontrol);
-  
-  
-  
-  // Run the pre-autonomous function.
-  pre_auton();
-  // Prevent main from exiting with an infinite loop.
+/**
+ * Runs the user autonomous code. This function will be started in its own task
+ * with the default priority and stack size whenever the robot is enabled via
+ * the Field Management System or the VEX Competition Switch in the autonomous
+ * mode. Alternatively, this function may be called in initialize or opcontrol
+ * for non-competition testing purposes.
+ *
+ * If the robot is disabled or communications is lost, the autonomous task
+ * will be stopped. Re-enabling the robot will restart the task, not re-start it
+ * from where it left off.
+ */
+void autonomous() {
+  chassis.reset_pid_targets();                // Resets PID targets to 0
+  chassis.reset_gyro();                       // Reset gyro position to 0
+  chassis.reset_drive_sensor();               // Reset drive sensors to 0
+  chassis.set_drive_brake(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency.
+
+  ez::as::auton_selector.call_selected_auton();  // Calls selected auton from autonomous selector.
+}
+
+/**
+ * Runs the operator control code. This function will be started in its own task
+ * with the default priority and stack size whenever the robot is enabled via
+ * the Field Management System or the VEX Competition Switch in the operator
+ * control mode.
+ *
+ * If no competition control is connected, this function will run immediately
+ * following initialize().
+ *
+ * If the robot is disabled or communications is lost, the
+ * operator control task will be stopped. Re-enabling the robot will restart the
+ * task, not resume it from where it left off.
+ */
+void opcontrol() {
+  // This is preference to what you like to drive on.
+  chassis.set_drive_brake(MOTOR_BRAKE_COAST);
+
   while (true) {
-    
-    wait(100, msec);
+    chassis.tank();  // Tank control
+    // chassis.arcade_standard(ez::SPLIT); // Standard split arcade
+    // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
+    // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
+    // chassis.arcade_flipped(ez::SINGLE); // Flipped single arcade
+
+    // . . .
+    // Put more user control code here!
+    // . . .
+
+    pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }

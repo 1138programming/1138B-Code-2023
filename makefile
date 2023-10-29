@@ -1,58 +1,45 @@
- # VEXcode makefile 2019_03_26_01
+################################################################################
+######################### User configurable parameters #########################
+# filename extensions
+CEXTS:=c
+ASMEXTS:=s S
+CXXEXTS:=cpp c++ cc
 
-# show compiler output
-VERBOSE = 0
+# probably shouldn't modify these, but you may need them below
+ROOT=.
+FWDIR:=$(ROOT)/firmware
+BINDIR=$(ROOT)/bin
+SRCDIR=$(ROOT)/src
+INCDIR=$(ROOT)/include
 
-# include toolchain options
-include vex/mkenv.mk
+WARNFLAGS+=
+EXTRA_CFLAGS=
+EXTRA_CXXFLAGS=
 
-# location of the project source cpp and c files
-SRC_C += $(wildcard src/*.c)
-SRC_C += $(wildcard src/*.cpp)
-SRC_C += $(wildcard src/*/*.cpp) 
-SRC_C += $(wildcard src/*/*.c)
-SRC_C += $(wildcard lvgl/src/*/*.c) 
-SRC_C += $(wildcard lvgl/src/*/*/*.c) 
-SRC_C += $(wildcard lvgl/src/*/*/*/*.c) 
+# Set to 1 to enable hot/cold linking
+USE_PACKAGE:=1
 
-OBJ = $(addprefix $(BUILD)/, $(addsuffix .o, $(basename $(SRC_C))) )
+# Add libraries you do not wish to include in the cold image here
+# EXCLUDE_COLD_LIBRARIES:= $(FWDIR)/your_library.a
+EXCLUDE_COLD_LIBRARIES:= 
 
-# location of include files that c and cpp files depend on
-SRC_H  = $(wildcard include/*.h)
-SRC_H +=  lv_conf.h
+# Set this to 1 to add additional rules to compile your project as a PROS library template
+IS_LIBRARY:=0
+# TODO: CHANGE THIS!
+LIBNAME:=libbest
+VERSION:=1.0.0
+# EXCLUDE_SRC_FROM_LIB= $(SRCDIR)/unpublishedfile.c
+# this line excludes opcontrol.c and similar files
+EXCLUDE_SRC_FROM_LIB+=$(foreach file, $(SRCDIR)/main,$(foreach cext,$(CEXTS),$(file).$(cext)) $(foreach cxxext,$(CXXEXTS),$(file).$(cxxext)))
 
-# additional dependancies
-SRC_A  = makefile
+# files that get distributed to every user (beyond your source archive) - add
+# whatever files you want here. This line is configured to add all header files
+# that are in the the include directory get exported
+TEMPLATE_FILES=$(INCDIR)/**/*.h $(INCDIR)/**/*.hpp
 
-# project header file locations
-INC_F  = include . lvgl lvgl/src
+.DEFAULT_GOAL=quick
 
-# headers needed to use library
-LV_SRC_H += $(wildcard lvgl/lvgl.h) 
-LV_SRC_H += $(wildcard lvgl/src/*.h) 
-LV_SRC_H += $(wildcard lvgl/src/*/*.h)
-LV_SRC_H += $(wildcard lvgl/src/*/*/*.h)
-LV_SRC_H += $(wildcard lvgl/src/*/*/*/*.h)
-
-LV_DST_H = $(addprefix $(BUILD)/include/, $(LV_SRC_H) )
-LV_DST_H += $(BUILD)/include/lv_conf.h $(BUILD)/include/v5lvgl.h
-
-$(BUILD)/include/%: %
-	$(Q)$(MKDIR)
-	$(Q) $(call copyfile,$^, $@)
-
-vpath %.h lvgl/ include/
-
-# override default library name
-PROJECTLIB = libv5lvgl
-
-# build targets
-all: $(BUILD)/$(PROJECT).bin $(BUILD)/$(PROJECTLIB).a inc
-
-# copy lvgl header files
-.PHONY: inc
-inc: $(LV_DST_H)
-	$(ECHO) "Copy headers to build folder"
-
-# include build rules
-include vex/mkrules.mk
+################################################################################
+################################################################################
+########## Nothing below this line should be edited by typical users ###########
+-include ./common.mk

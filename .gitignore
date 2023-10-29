@@ -7,19 +7,11 @@
 *.elf
 
 # PROS
-bin//
+bin/
+.vscode/
 .cache/
 compile_commands.json
 temp.log
 temp.errors
 *.ini
-.d//
-.DS_Store
-build//
-
-# VSCode
-.vscode/settings.json
-.vscode/c_cpp_properties.json
-.vscode/settings.json
-.vscode/settings.json
-.vscode/c_cpp_properties.json
+.d/
