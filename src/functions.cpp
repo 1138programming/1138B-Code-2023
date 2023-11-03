@@ -29,7 +29,10 @@ void BlockerCB() {
   CurrentState = Blocker.value();
   Blocker.set(!CurrentState);
 }
-
+void WingsCB() {
+  CurrentState = Wings.value();
+  Blocker.set(!CurrentState);
+}
 //macros
 float calculateOppositeHeading(float currentHeading) {
     // Ensure that currentHeading is within the range [0, 360)

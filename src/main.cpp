@@ -232,7 +232,7 @@ void usercontrol(void) {
     //toggles
     Controller1.ButtonY.pressed(HangCB);
     Controller1.ButtonX.pressed(BlockerCB);
-    Controller1.ButtonL2.pressed(Turn180);
+    Controller1.ButtonL2.pressed(WingsCB);
 
     //debug data
     Controller1.Screen.setCursor(1,1);
