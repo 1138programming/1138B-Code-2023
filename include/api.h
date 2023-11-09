@@ -43,7 +43,6 @@
 #define PROS_VERSION_MINOR 0
 #define PROS_VERSION_PATCH 3
 #define PROS_VERSION_STRING "4.0.3"
-#include "devices.h"
 #include "liblvgl/lvgl.h"
 #include "pros/adi.h"
 #include "pros/colors.h"

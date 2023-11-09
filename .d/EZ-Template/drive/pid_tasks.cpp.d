@@ -1,6 +1,6 @@
 bin/EZ-Template/drive/pid_tasks.cpp.o: \
  src/EZ-Template/drive/pid_tasks.cpp include/main.h include/api.h \
- include/devices.h include/liblvgl/lvgl.h include/liblvgl/misc/lv_log.h \
+ include/liblvgl/lvgl.h include/liblvgl/misc/lv_log.h \
  include/liblvgl/misc/../lv_conf_internal.h \
  include/liblvgl/misc/../lv_conf_kconfig.h \
  include/liblvgl/misc/../lv_conf.h include/liblvgl/misc/lv_types.h \
@@ -206,7 +206,6 @@ bin/EZ-Template/drive/pid_tasks.cpp.o: \
  include/autons.hpp
 include/main.h:
 include/api.h:
-include/devices.h:
 include/liblvgl/lvgl.h:
 include/liblvgl/misc/lv_log.h:
 include/liblvgl/misc/../lv_conf_internal.h:

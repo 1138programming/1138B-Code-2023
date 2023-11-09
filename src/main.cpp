@@ -1,22 +1,21 @@
 #include "main.h"
 #include "api.h"
-
 // Chassis constructor
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {-15, -16}
+  {-6, -2, 7}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{6, 5}
+  ,{10, 9, -8}
 
   // IMU Port
   ,20
 
   // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
   //    (or tracking wheel diameter)
-  ,2.5
+  ,3.25
 
   // Cartridge RPM
   //   (or tick per rotation if using tracking wheels)
@@ -53,6 +52,9 @@ Drive chassis (
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+pros::Motor Intake = pros::Motor(-19, pros::MotorGears::blue);
+pros::Motor Kicker = pros::Motor(20, pros::MotorGears::red);
+pros::ADIPneumatics Lift = pros::ADIPneumatics(8, false);
 void initialize() {
   // Print our branding over your terminal :D
   
@@ -146,7 +148,24 @@ void opcontrol() {
     // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
     // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
     // chassis.arcade_flipped(ez::SINGLE); // Flipped single arcade
-
+    if (master.get_digital(DIGITAL_R2)) {
+      Intake.move(127);
+    }
+    else if (master.get_digital(DIGITAL_R1)) {
+      Intake.move(-127);
+    }
+    else {
+      Intake.move(0);
+    }
+    if (master.get_digital(DIGITAL_B)) {
+      Kicker.move(127);
+    }
+    else {
+      Kicker.move(0);
+    }
+    if (master.get_digital_new_press(DIGITAL_X)) {
+      Lift.toggle();
+    }
     // . . .
     // Put more user control code here!
     // . . .

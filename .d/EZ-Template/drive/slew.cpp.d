@@ -1,5 +1,5 @@
 bin/EZ-Template/drive/slew.cpp.o: src/EZ-Template/drive/slew.cpp \
- include/main.h include/api.h include/devices.h include/liblvgl/lvgl.h \
+ include/main.h include/api.h include/liblvgl/lvgl.h \
  include/liblvgl/misc/lv_log.h include/liblvgl/misc/../lv_conf_internal.h \
  include/liblvgl/misc/../lv_conf_kconfig.h \
  include/liblvgl/misc/../lv_conf.h include/liblvgl/misc/lv_types.h \
@@ -205,7 +205,6 @@ bin/EZ-Template/drive/slew.cpp.o: src/EZ-Template/drive/slew.cpp \
  include/autons.hpp
 include/main.h:
 include/api.h:
-include/devices.h:
 include/liblvgl/lvgl.h:
 include/liblvgl/misc/lv_log.h:
 include/liblvgl/misc/../lv_conf_internal.h:

@@ -1,6 +1,6 @@
 bin/EZ-Template/util.cpp.o: src/EZ-Template/util.cpp include/main.h \
- include/api.h include/devices.h include/liblvgl/lvgl.h \
- include/liblvgl/misc/lv_log.h include/liblvgl/misc/../lv_conf_internal.h \
+ include/api.h include/liblvgl/lvgl.h include/liblvgl/misc/lv_log.h \
+ include/liblvgl/misc/../lv_conf_internal.h \
  include/liblvgl/misc/../lv_conf_kconfig.h \
  include/liblvgl/misc/../lv_conf.h include/liblvgl/misc/lv_types.h \
  include/liblvgl/misc/lv_timer.h \
@@ -205,7 +205,6 @@ bin/EZ-Template/util.cpp.o: src/EZ-Template/util.cpp include/main.h \
  include/autons.hpp include/pros/llemu.hpp
 include/main.h:
 include/api.h:
-include/devices.h:
 include/liblvgl/lvgl.h:
 include/liblvgl/misc/lv_log.h:
 include/liblvgl/misc/../lv_conf_internal.h:
