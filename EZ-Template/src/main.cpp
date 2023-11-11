@@ -70,7 +70,8 @@ void initialize() {
   // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
   // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
 
-
+  Intake.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  Kicker.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
   // Initialize chassis and auton selector
   chassis.initialize();
 }
