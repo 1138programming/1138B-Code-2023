@@ -4,14 +4,14 @@
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  {-6, -2, 7}
+  {-14, -13, 15}
 
   // Right Chassis Ports (negative port will reverse it!)
   //   the first port is the sensored port (when trackers are not used!)
-  ,{10, 9, -8}
+  ,{17, 18, -16}
 
   // IMU Port
-  ,20
+  ,9
 
   // Wheel Diameter (Remember, 4" wheels are actually 4.125!)
   //    (or tracking wheel diameter)
@@ -52,10 +52,10 @@ Drive chassis (
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-pros::Motor Intake = pros::Motor(-19, pros::MotorGears::blue);
-pros::Motor Kicker = pros::Motor(20, pros::MotorGears::red);
-pros::adi::Pneumatics Lift = pros::adi::Pneumatics(8, false);
-pros::adi::Pneumatics Wings = pros::adi::Pneumatics(7, false);
+pros::Motor Intake = pros::Motor(-1, pros::MotorGears::blue);
+pros::Motor Kicker = pros::Motor(11, pros::MotorGears::red);
+pros::adi::Pneumatics Lift = pros::adi::Pneumatics(7, false);
+pros::adi::Pneumatics Wings = pros::adi::Pneumatics(8, false);
 void initialize() {
   // Print our branding over your terminal :D
   
@@ -143,7 +143,7 @@ void opcontrol() {
   while (true) {
 
     //chassis.tank(); // Tank control
-     chassis.arcade_standard(ez::SPLIT); // Standard split arcade
+    chassis.arcade_standard(ez::SPLIT); // Standard split arcade
     // chassis.arcade_standard(ez::SINGLE); // Standard single arcade
     // chassis.arcade_flipped(ez::SPLIT); // Flipped split arcade
     // chassis.arcade_flipped(ez::SINGLE); // Flipped single arcade
@@ -165,14 +165,11 @@ void opcontrol() {
     if (master.get_digital_new_press(DIGITAL_X)) {
       Lift.toggle();
     }
-    if (master.get_digital(DIGITAL_R1)) {
-      Wings.extend();
+    if (master.get_digital(DIGITAL_L1)) {
+      Wings.set_value(true);
     }
     else {
-      Wings.retract();
-    }
-    if (master.get_digital_new_press(DIGITAL_R2)) {
-      Wings.toggle();
+      Wings.set_value(false);
     }
     // . . .
     // Put more user control code here!
