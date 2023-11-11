@@ -54,7 +54,8 @@ Drive chassis (
  */
 pros::Motor Intake = pros::Motor(-19, pros::MotorGears::blue);
 pros::Motor Kicker = pros::Motor(20, pros::MotorGears::red);
-pros::ADIPneumatics Lift = pros::ADIPneumatics(8, false);
+pros::adi::Pneumatics Lift = pros::adi::Pneumatics(8, false);
+pros::adi::Pneumatics Wings = pros::adi::Pneumatics(7, false);
 void initialize() {
   // Print our branding over your terminal :D
   
@@ -65,7 +66,6 @@ void initialize() {
   chassis.set_active_brake(0); // Sets the active brake kP. We recommend 0.1.
   chassis.set_curve_default(0, 0); // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)  
   default_constants(); // Set the drive to your own constants from autons.cpp!
-
   // These are already defaulted to these buttons, but you can change the left/right curve buttons here!
   // chassis.set_left_curve_buttons (pros::E_CONTROLLER_DIGITAL_LEFT, pros::E_CONTROLLER_DIGITAL_RIGHT); // If using tank, only the left side is used. 
   // chassis.set_right_curve_buttons(pros::E_CONTROLLER_DIGITAL_Y,    pros::E_CONTROLLER_DIGITAL_A);
@@ -140,7 +140,6 @@ void autonomous() {
 void opcontrol() {
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_BRAKE);
-
   while (true) {
 
     //chassis.tank(); // Tank control
@@ -165,6 +164,15 @@ void opcontrol() {
     }
     if (master.get_digital_new_press(DIGITAL_X)) {
       Lift.toggle();
+    }
+    if (master.get_digital(DIGITAL_R1)) {
+      Wings.extend();
+    }
+    else {
+      Wings.retract();
+    }
+    if (master.get_digital_new_press(DIGITAL_R2)) {
+      Wings.toggle();
     }
     // . . .
     // Put more user control code here!
