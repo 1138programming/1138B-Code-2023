@@ -81,7 +81,11 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
+
 //#include <iostream>
 #endif
-
+extern pros::adi::Pneumatics Wings;
+extern pros::adi::Pneumatics Lift;
+extern pros::Motor Intake;
+extern pros::Motor Kicker;
 #endif  // _PROS_MAIN_H_

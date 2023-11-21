@@ -1,5 +1,7 @@
 #include "main.h"
 #include "api.h"
+#include "pagehandler.h"
+#include "screen.h"
 // Chassis constructor
 Drive chassis (
   // Left Chassis Ports (negative port will reverse it!)
@@ -19,13 +21,13 @@ Drive chassis (
 
   // Cartridge RPM
   //   (or tick per rotation if using tracking wheels)
-  ,1200
+  ,600
 
   // External Gear Ratio (MUST BE DECIMAL)
   //    (or gear ratio of tracking wheel)
   // eg. if your drive is 84:36 where the 36t is powered, your RATIO would be 2.333.
   // eg. if your drive is 36:60 where the 60t is powered, your RATIO would be 0.6.
-  ,2
+  ,1.666
 
 
   // Uncomment if using tracking wheels
@@ -74,6 +76,10 @@ void initialize() {
   Kicker.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
   // Initialize chassis and auton selector
   chassis.initialize();
+  
+  pageHandler(0);
+
+
 }
 
 
@@ -120,6 +126,9 @@ void autonomous() {
   chassis.reset_gyro(); // Reset gyro position to 0
   chassis.reset_drive_sensor(); // Reset drive sensors to 0
   chassis.set_drive_brake(MOTOR_BRAKE_HOLD); // Set motors to hold.  This helps autonomous consistency.
+  pros::delay(1500);
+  fourball();
+  
 
 }
 
