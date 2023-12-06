@@ -42,9 +42,11 @@
 //#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 #include "EZ-Template/api.hpp"
+#include "autons.hpp"
 
 // More includes here...
-#include "autons.hpp"
+//
+// . . .
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -57,14 +59,13 @@
 // using namespace pros;
 // using namespace pros::literals;
 // using namespace okapi;
-// using namespace ez;
+using namespace okapi::literals;
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
  * that they can be called from user code (i.e. calling autonomous from a
  * button press in opcontrol() for testing purposes).
  */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -81,11 +82,7 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
-
 //#include <iostream>
 #endif
-extern pros::adi::Pneumatics Wings;
-extern pros::adi::Pneumatics Lift;
-extern pros::Motor Intake;
-extern pros::Motor Kicker;
+
 #endif  // _PROS_MAIN_H_

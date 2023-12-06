@@ -6,6 +6,7 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #pragma once
 
+#include <bits/stdc++.h>
 #include <stdio.h>
 #include <string.h>
 
