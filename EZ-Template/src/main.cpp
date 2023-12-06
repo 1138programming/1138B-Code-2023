@@ -55,9 +55,14 @@ Drive chassis (
  * to keep execution time for this mode under a few seconds.
  */
 pros::Motor Intake = pros::Motor(-1, pros::MotorGears::blue);
-pros::Motor Kicker = pros::Motor(11, pros::MotorGears::red);
-pros::adi::Pneumatics Lift = pros::adi::Pneumatics(7, false);
-pros::adi::Pneumatics Wings = pros::adi::Pneumatics(8, false);
+pros::Motor Flywheel = pros::Motor(11, pros::MotorGears::red);
+pros::adi::Pneumatics Lift = pros::adi::Pneumatics(7, false); // And blocker, four pistons
+pros::adi::Pneumatics Hang = pros::adi::Pneumatics(8, false); // Middle Bar Hang
+pros::adi::Pneumatics Wings = pros::adi::Pneumatics(9, false);
+pros::adi::PID FlyweheePid{0, 0, 0, 0, "FlyweheePid"};
+
+
+
 void initialize() {
   // Print our branding over your terminal :D
   
@@ -172,18 +177,27 @@ void opcontrol() {
     else {
       Kicker.move(0);
     }
-    if (master.get_digital_new_press(DIGITAL_X)) {
+    if (master.get_digital_new_press(DIGITAL_Y)) {
       Lift.toggle();
     }
+    if (master.get_digital(DIGITAL_A)) {
+      Wings.Toggle();
+    }
+    if (master.get_digital(DIGITAL_X)) {
+      hang.Toggle();
+    }
+    if (master.get_digital(DIGITAL_L2)) {
+      FlyweheePid.setTarget(127f * FlyweheelSpeed);
+      Flywheel = FlyweheePid.compute(Flywheel.get_actual_velocity())
+      
+    }
     if (master.get_digital(DIGITAL_L1)) {
-      Wings.set_value(true);
+      FlyweheePid.setTarget(-127f * FlyweheePid);
+      Flywheel = FlyweheePid.compute(Flywheel.get_actual_velocity())
     }
-    else {
-      Wings.set_value(false);
-    }
-    // . . .
-    // Put more user control code here!
-    // . . .
+ 
+
+
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }
