@@ -63,8 +63,7 @@ void initialize()
 
   // Configure your chassis controls
   chassis.toggle_modify_curve_with_controller(true); // Enables modifying the controller curve with buttons on the joysticks
-  chassis.set_active_brake(0);                       // Sets the active brake kP. We recommend 0.1.
-  chassis.set_drive_brake(pros::E_MOTOR_BRAKE_BRAKE);
+  chassis.set_active_brake(0);                       // Sets the active brake kP. We recommend 0.1
   chassis.set_curve_default(0, 0); // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
   default_constants();             // Set the drive to your own constants from autons.cpp!
 
@@ -86,6 +85,7 @@ void initialize()
   // Initialize chassis and auton selector
   chassis.initialize();
   ez::as::initialize();
+  sylib::initialize();
 }
 
 /**
@@ -149,10 +149,12 @@ void autonomous()
 void opcontrol()
 {
   static bool toggle{false}; // This static variable will keep state between loops or function calls
-
+  static bool ledSet{true}; // This static variable will keep state between loops or function calls
+  ledDefault(1);
   // This is preference to what you like to drive on.
   chassis.set_drive_brake(MOTOR_BRAKE_BRAKE);
-
+  // Store the time at the start of the loop
+  std::uint32_t clock = sylib::millis();
   while (true)
   {
 
@@ -165,6 +167,8 @@ void opcontrol()
     // . . .
     // Put more user control code here!
     // . . .
+
+    //intake
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
     {
       intake.move(127);
@@ -172,16 +176,67 @@ void opcontrol()
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
     {
       intake.move(-127);
+      ledOuttake();
+      ledSet = false;
     }
     else
     {
       intake.move(0);
+      if(!ledSet) {
+        ledDefault(1);
+        ledSet = true;
+      };
+      
     }
-    if (master.get_digital_new_press(DIGITAL_L1))
+
+    //wings
+    if (master.get_digital(DIGITAL_L1))
     {
-      wings.set_value(!toggle); // When false go to true and in reverse
-      toggle = !toggle;     // Flip the toggle to match piston state
+      wings.set_value(true); // When false go to true and in reverse
     }
+    else {
+      wings.set_value(false);
+    }
+
+    //flywheel control
+    if (master.get_digital(DIGITAL_B))
+    {
+      flywheel.set_velocity_custom_controller(450);
+      //run fw pid
+      master.print(1,1,"RPM: %f", flywheel.get_velocity());
+      ledMatchload();
+      ledSet = false;
+    }
+    else if (master.get_digital(DIGITAL_DOWN))
+    {
+      flywheel.set_velocity_custom_controller(-300);
+      //run fw pid
+      ledBowling();
+      ledSet = false;
+    }
+    else if (master.get_digital(DIGITAL_UP)) {
+      flywheel.set_velocity_custom_controller(600);
+      if(!ledSet) {
+        ledDefault(1);
+        ledSet = true;
+      };
+      flywheel.stop();
+    }
+    else {
+      if(!ledSet) {
+        ledDefault(1);
+        ledSet = true;
+      };
+      flywheel.stop();
+    }
+    
+    //lift
+    if (master.get_digital_new_press(DIGITAL_A)) {
+      hangUp.set_value(!toggle);
+      toggle = !toggle;
+    }
+
     pros::delay(ez::util::DELAY_TIME); // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+    sylib::delay_until(&clock, 10);
   }
 }

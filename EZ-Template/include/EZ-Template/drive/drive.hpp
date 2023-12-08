@@ -700,8 +700,8 @@ class Drive {
   double slew_calculate(slew_ &input, double current);
 
  private:  // !Auton
-  bool drive_toggle = true;
-  bool print_toggle = true;
+  bool drive_toggle = false;
+  bool print_toggle = false;
   int swing_min = 0;
   int turn_min = 0;
 
