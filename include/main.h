@@ -36,6 +36,7 @@
 
 #include "api.h"
 #include "sylib/sylib.hpp"
+#include "LemLib/api.hpp"
 /**
  * You should add more #includes here
  */
@@ -43,6 +44,7 @@
 //#include "pros/api_legacy.h"
 #include "devices.h"
 #include "autons.h"
+#include "control.h"
 
 
 /*IMPORTANT: Only the okapi or pros namespace may be used, not both

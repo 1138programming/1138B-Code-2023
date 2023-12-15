@@ -1,5 +1,5 @@
 #include "main.h"
-#include "LemLib/api.hpp"
+
 
 
 /**
@@ -91,23 +91,16 @@ void autonomous() {
  */
 void opcontrol() {
 	
-	baseLeds.set_all(0xff0000);
-	intakeLeds.set_all(0xff0000);
+	ledDefault(1);
 
 	// Store the time at the start of the loop
     std::uint32_t clock = sylib::millis();
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-		int drive = master.get_analog(ANALOG_LEFT_Y);
-		int turn = master.get_analog(ANALOG_RIGHT_X);
+		baseControl(); // run the base control fuction in control.cpp
+		intakeControl(); // run the intake control fuction in control.cpp
+		flywheelControl(); // run the flywheel control function in control.cpp
 
-
-		left_side = drive + turn ;
-		right_side = drive - turn;
 		// 10ms delay to allow other tasks to run
         sylib::delay_until(&clock, 10);
-		pros::delay(20);
 	}
 }
