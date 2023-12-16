@@ -12,7 +12,16 @@
 
 
 
-
+void screen() {
+    // loop forever
+    while (true) {
+        lemlib::Pose pose = chassis.getPose(); // get the current position of the robot
+        pros::lcd::print(0, "x: %f", pose.x); // print the x position
+        pros::lcd::print(1, "y: %f", pose.y); // print the y position
+        pros::lcd::print(2, "heading: %f", pose.theta); // print the heading
+        pros::delay(10);
+    }
+}
 
 
 
@@ -37,7 +46,9 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 	chassis.calibrate(); // calibrate the chassis
     chassis.setPose(0, 0, 0); // X: 0, Y: 0, Heading: 0
+	setDriveBrake(MOTOR_BRAKE_BRAKE);
 	sylib::initialize();
+	pros::Task screenTask(screen); // create a task to print the position to the screen
 	pros::lcd::register_btn1_cb(on_center_button);
 }
 
@@ -71,8 +82,10 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-
-	lemlib_test();
+	setDriveBrake(MOTOR_BRAKE_HOLD);
+	//chassis.turnTo(30, 0, 10000);
+	chassis.setPose(-35, 58, 180);
+	chassis.follow("test-2.txt", 30000, 15, false, 127, true);
 
 }
 
@@ -99,7 +112,7 @@ void opcontrol() {
 		chassis.arcade(master.get_analog(ANALOG_LEFT_Y), master.get_analog(ANALOG_RIGHT_X), 0);
 		intakeControl(); // run the intake control fuction in control.cpp
 		flywheelControl(); // run the flywheel control function in control.cpp
-
+		pneumaticControl();
 		// 10ms delay to allow other tasks to run
         sylib::delay_until(&clock, 10);
 	}

@@ -42,8 +42,8 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // forward/backward PID
     inline lemlib::ChassisController_t lateralController {
-        8, // kP
-        30, // kD
+        19, // kP
+        85, // kD
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange

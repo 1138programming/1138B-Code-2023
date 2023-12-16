@@ -1,6 +1,6 @@
 #include "autons.h"
 
 void lemlib_test() {
-    chassis.follow("test.txt", 10000, 15);
+    chassis.follow("test-2.txt", 2000, 15);
 
 }

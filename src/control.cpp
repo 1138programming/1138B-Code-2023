@@ -79,3 +79,8 @@ void flywheelControl() {
       flywheel.stop();
     }
 }
+
+//pneumatic control
+void pneumaticControl() {
+  wings.set_value(master.get_digital(DIGITAL_L1));
+}
