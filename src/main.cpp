@@ -92,11 +92,11 @@ void autonomous() {
 void opcontrol() {
 	
 	ledDefault(1);
-
+	setDriveBrake(MOTOR_BRAKE_BRAKE);
 	// Store the time at the start of the loop
     std::uint32_t clock = sylib::millis();
 	while (true) {
-		baseControl(); // run the base control fuction in control.cpp
+		chassis.arcade(master.get_analog(ANALOG_LEFT_Y), master.get_analog(ANALOG_RIGHT_X), 0);
 		intakeControl(); // run the intake control fuction in control.cpp
 		flywheelControl(); // run the flywheel control function in control.cpp
 

@@ -1,13 +1,5 @@
 #include "main.h"
 
-void baseControl() {
-
-int drive = master.get_analog(ANALOG_LEFT_Y); // get left joystick
-int turn = master.get_analog(ANALOG_RIGHT_X); // get right joystick
-left_side = drive + turn ; // set the left motor group
-right_side = drive - turn; // set the right motor group
-
-}
 
 void setDriveBrake(pros::motor_brake_mode_e_t mode) {
     left_side.set_brake_modes(mode);
