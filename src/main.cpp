@@ -82,10 +82,8 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	setDriveBrake(MOTOR_BRAKE_HOLD);
-	//chassis.turnTo(30, 0, 10000);
-	chassis.setPose(-35, 58, 180);
-	chassis.follow("test-2.txt", 30000, 15, false, 127, true);
+	basicWP();
+
 
 }
 
@@ -109,7 +107,7 @@ void opcontrol() {
 	// Store the time at the start of the loop
     std::uint32_t clock = sylib::millis();
 	while (true) {
-		baseControl(); // run the base control fuction in control.cpp
+		chassis.arcade(master.get_analog(ANALOG_LEFT_Y), master.get_analog(ANALOG_RIGHT_X));
 		intakeControl(); // run the intake control fuction in control.cpp
 		flywheelControl(); // run the flywheel control function in control.cpp
 		pneumaticControl();

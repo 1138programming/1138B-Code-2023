@@ -2,4 +2,4 @@
 
 #include "devices.h"
 
-void lemlib_test();
+void basicWP();

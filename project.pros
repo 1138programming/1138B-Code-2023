@@ -5,7 +5,7 @@
         "target": "v5",
         "templates": {
             "LemLib": {
-                "location": "/Users/robotics/Library/Application Support/PROS/templates/LemLib@0.4.7",
+                "location": "/Users/robotics/Library/Application Support/PROS/templates/LemLib@0.5.0-rc4",
                 "metadata": {
                     "origin": "local"
                 },
@@ -13,19 +13,34 @@
                 "py/object": "pros.conductor.templates.local_template.LocalTemplate",
                 "supported_kernels": "^3.8.0",
                 "system_files": [
-                    "firmware\\LemLib.a",
-                    "include\\lemlib\\chassis\\odom.hpp",
-                    "include\\lemlib\\pose.hpp",
+                    "include\\lemlib\\logger\\message.hpp",
+                    "firmware\\asset.mk",
                     "include\\lemlib\\util.hpp",
+                    "include\\lemlib\\logger\\logger.hpp",
+                    "include\\lemlib\\logger\\infoSink.hpp",
+                    "include\\lemlib\\logger\\buffer.hpp",
+                    "include\\fmt\\args.h",
                     "include\\lemlib\\chassis\\trackingWheel.hpp",
-                    "include\\lemlib\\pid.hpp",
+                    "include\\lemlib\\asset.hpp",
                     "include\\lemlib\\api.hpp",
-                    "include\\lemlib\\logger.hpp",
-                    "include\\lemlib\\chassis\\chassis.hpp"
+                    "include\\lemlib\\logger\\stdout.hpp",
+                    "static\\example.txt",
+                    "include\\lemlib\\chassis\\odom.hpp",
+                    "include\\lemlib\\pid.hpp",
+                    "include\\fmt\\format.h",
+                    "include\\lemlib\\exitcondition.hpp",
+                    "include\\lemlib\\pose.hpp",
+                    "include\\lemlib\\logger\\telemetrySink.hpp",
+                    "include\\lemlib\\logger\\baseSink.hpp",
+                    "include\\fmt\\core.h",
+                    "include\\fmt\\format-inl.h",
+                    "firmware\\LemLib.a",
+                    "include\\lemlib\\chassis\\chassis.hpp",
+                    "include\\lemlib\\timer.hpp"
                 ],
                 "target": "v5",
                 "user_files": [],
-                "version": "0.4.7"
+                "version": "0.5.0-rc4"
             },
             "kernel": {
                 "location": "/Users/robotics/Library/Application Support/PROS/templates/kernel@3.8.0",

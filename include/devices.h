@@ -22,16 +22,17 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 
     //chassis
 
-    inline lemlib::Drivetrain_t drivetrain {
+    inline lemlib::Drivetrain drivetrain {
         &left_side, // left drivetrain motors
         &right_side, // right drivetrain motors
         10, // track width
-        2.75, // wheel diameter
-        450 // wheel rpm
+        lemlib::Omniwheel::NEW_275, // wheel diameter
+        450, // wheel rpm
+        6 // chase speed 
     };
 
     // odometry struct
-    inline lemlib::OdomSensors_t sensors {
+    inline lemlib::OdomSensors sensors {
         nullptr, // vertical tracking wheel 1
         nullptr, // vertical tracking wheel 2
         nullptr, // horizontal tracking wheel 1
@@ -41,33 +42,37 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 
     
     // forward/backward PID
-    inline lemlib::ChassisController_t lateralController {
+    inline lemlib::ControllerSettings lateralController {
         19, // kP
+        0, // KI
         85, // kD
+        3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        5 // slew rate
+        5// slew rate
+        
     };
     
     // turning PID
-    inline lemlib::ChassisController_t angularController {
+    inline lemlib::ControllerSettings angularController {
         4, // kP
+        0, // kI
         40, // kD
+        3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
         40 // slew rate
     };
-
     inline lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 
 //system motors
 inline sylib::SpeedControllerInfo flyController ([](double rpm){return 0;},1, 1, 1, 1, false, 0, false, 0, 1, 0); // custom motor control pid for flywheel
 inline sylib::Motor flywheel = sylib::Motor(16, 600, true, flyController); // define the flywheel motor using sylib motor
-inline pros::Motor intake(-17, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
+inline pros::Motor intake(17, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
 
 // three wire
 inline pros::ADIDigitalOut wings(1);
