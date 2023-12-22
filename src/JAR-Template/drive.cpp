@@ -356,20 +356,12 @@ void Drive::holonomic_drive_to_point(float X_position, float Y_position, float a
   DriveRB.stop(hold);
   DriveRF.stop(hold);
 }
-float driveSpeed = 1;
-float turnSpeed = 1;
+
 void Drive::control_arcade(){
-  float throttle = deadband(controller(primary).Axis3.value(), 5) * driveSpeed;
-  float turn = deadband(controller(primary).Axis1.value(), 5) * turnSpeed;
+  float throttle = deadband(controller(primary).Axis3.value(), 5);
+  float turn = deadband(controller(primary).Axis1.value(), 5);
   DriveL.spin(fwd, to_volt(throttle+turn), volt);
   DriveR.spin(fwd, to_volt(throttle-turn), volt);
-}
-
-void Drive::control_arcade_reverse(){
-  float throttle = deadband(controller(primary).Axis3.value(), 5);
-  float turn = deadband(controller(primary).Axis1.value(), 5) * turnSpeed;
-  DriveL.spin(reverse, to_volt(throttle-turn), volt);
-  DriveR.spin(reverse, to_volt(throttle+turn), volt);
 }
 
 void Drive::control_holonomic(){

@@ -1,58 +1,4 @@
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial5            inertial      5               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// Eye                  vision        6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial5            inertial      5               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial6            inertial      6               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
 #include "vex.h"
-#include "functions.h"
-#include "Vision.h"
-#include "v5lvgl.h"
-#include "display/screen.h"
-#include "display/pagehandler.h"
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Inertial5            inertial      5               
-// Controller1          controller                    
-// RightBack            motor         3               
-// RightFront           motor         4               
-// LeftBack             motor         9               
-// LeftFront            motor         10              
-// Intake               motor         7               
-// IntakeSolenoid       digital_out   A               
-// ---- END VEXCODE CONFIGURED DEVICES ----
 
 using namespace vex;
 competition Competition;
@@ -80,19 +26,19 @@ Drive chassis(
 //Specify your drive setup below. There are seven options:
 //ZERO_TRACKER_NO_ODOM, ZERO_TRACKER_ODOM, TANK_ONE_ENCODER, TANK_ONE_ROTATION, TANK_TWO_ENCODER, TANK_TWO_ROTATION, HOLONOMIC_TWO_ENCODER, and HOLONOMIC_TWO_ROTATION
 //For example, if you are not using odometry, put ZERO_TRACKER_NO_ODOM below:
-ZERO_TRACKER_ODOM,
+ZERO_TRACKER_NO_ODOM,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(LeftFront,LeftBack, LeftTop),
+motor_group(),
 
 //Right Motors:
-motor_group(RightFront,RightBack, RightTop),
+motor_group(),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT15,
+PORT1,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -129,12 +75,12 @@ PORT3,     -PORT4,
 3,
 
 //Input the Forward Tracker diameter (reverse it to make the direction switch):
-3.25,
+2.75,
 
 //Input Forward Tracker center distance (a positive distance corresponds to a tracker on the right side of the robot, negative is left.)
 //For a zero tracker tank drive with odom, put the positive distance from the center of the robot to the right side of the drive.
 //This distance is in inches:
-5,
+-2,
 
 //Input the Sideways Tracker Port, following the same steps as the Forward Tracker Port:
 1,
@@ -147,42 +93,80 @@ PORT3,     -PORT4,
 
 );
 
-int current_auton_selection = 1;
+int current_auton_selection = 0;
 bool auto_started = false;
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  v5_lv_init();
-  pageHandler(0);
-  LeftFront.setStopping(brake);
-  LeftBack.setStopping(brake);
-  RightFront.setStopping(brake);
-  RightBack.setStopping(brake);
-  Catapult.setMaxTorque(100,percent);
-  IntakeControls::init();
   default_constants();
+
+  while(auto_started == false){            //Changing the names below will only change their names on the
+    Brain.Screen.clearScreen();            //brain screen for auton selection.
+    switch(current_auton_selection){       //Tap the brain screen to cycle through autons.
+      case 0:
+        Brain.Screen.printAt(50, 50, "Drive Test");
+        break;
+      case 1:
+        Brain.Screen.printAt(50, 50, "Drive Test");
+        break;
+      case 2:
+        Brain.Screen.printAt(50, 50, "Turn Test");
+        break;
+      case 3:
+        Brain.Screen.printAt(50, 50, "Swing Test");
+        break;
+      case 4:
+        Brain.Screen.printAt(50, 50, "Full Test");
+        break;
+      case 5:
+        Brain.Screen.printAt(50, 50, "Odom Test");
+        break;
+      case 6:
+        Brain.Screen.printAt(50, 50, "Tank Odom Test");
+        break;
+      case 7:
+        Brain.Screen.printAt(50, 50, "Holonomic Odom Test");
+        break;
+    }
+    if(Brain.Screen.pressing()){
+      while(Brain.Screen.pressing()) {}
+      current_auton_selection ++;
+    } else if (current_auton_selection == 8){
+      current_auton_selection = 0;
+    }
+    task::sleep(10);
+  }
 }
 
 void autonomous(void) {
   auto_started = true;
-  switch(getCurrentAuton()){
-    case 100:
-      SkillsAuton(); 
-      break;
-    case 1:
-      rd_winpoint_code();
+  switch(current_auton_selection){  
+    case 0:
+      drive_test(); //This is the default auton, if you don't select from the brain.
+      break;        //Change these to be your own auton functions in order to use the auton selector.
+    case 1:         //Tap the screen to cycle through autons.
+      drive_test();
       break;
     case 2:
-      rd_winpoint_code();
+      turn_test();
       break;
     case 3:
-      bo_6ball_code();
+      swing_test();
       break;
     case 4:
-       bo_6ball_code();       
+      full_test();
       break;
-  }
+    case 5:
+      odom_test();
+      break;
+    case 6:
+      tank_odom_test();
+      break;
+    case 7:
+      holonomic_odom_test();
+      break;
+ }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -197,7 +181,6 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  //pneumatic toggles
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -207,41 +190,11 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-    if (Controller1.ButtonR1.pressing()) {
-      Intake.spin(reverse,100,percent);
-    }
-    else if (Controller1.ButtonR2.pressing()) {
-      Intake.spin(forward,100,percent);
-    }
-    else {
-      Intake.stop(coast);
-    }
-    if (Controller1.ButtonB.pressing()) {
-      Catapult.spin(forward, 100, percent);
-    }
-    else {
-      Catapult.stop(coast);
-    }
-    if (Controller1.ButtonL1.pressing()) {
-      Wings.set(true);
-    }
-    else {
-      Wings.set(false);
-    }
 
-    //toggles
-    Controller1.ButtonY.pressed(HangCB);
-    Controller1.ButtonX.pressed(BlockerCB);
-    Controller1.ButtonL2.pressed(WingsCB);
-
-    //debug data
-    Controller1.Screen.setCursor(1,1);
-    Controller1.Screen.print(IntakeSensor.isNearObject());
-    
-    
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();
+
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
@@ -252,19 +205,14 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  chassis.set_coordinates(0, 0, 0);
-  Inertial5.resetHeading();
-  Inertial5.calibrate();
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
-  
-  
-  
+
   // Run the pre-autonomous function.
   pre_auton();
+
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    
     wait(100, msec);
   }
 }
