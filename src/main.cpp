@@ -2,7 +2,9 @@
 
 using namespace vex;
 competition Competition;
-
+digital_out wings();
+digital_out balance();
+digital_out hang();
 /*---------------------------------------------------------------------------*/
 /*                             VEXcode Config                                */
 /*                                                                           */
@@ -32,21 +34,21 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(),
+motor_group(leftFront, leftMid, leftBack),
 
 //Right Motors:
-motor_group(),
+motor_group(rightFront, rightMid, rightBack),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT1,
+PORT15,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
-3.25,
+2.75,
 
 //External ratio, must be in decimal, in the format of input teeth/output teeth.
 //If your motor has an 84-tooth gear and your wheel has a 60-tooth gear, this value will be 1.4.
 //If the motor drives the wheel directly, this value is 1:
-0.6,
+0.75,
 
 //Gyro scale, this is what your gyro reads when you spin the robot 360 degrees.
 //For most cases 360 will do fine here, but this scale factor can be very helpful when precision is necessary.
@@ -98,9 +100,13 @@ bool auto_started = false;
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
   default_constants();
-
+  leftFront.setStopping(brake);
+  leftMid.setStopping(brake);
+  leftBack.setStopping(brake);
+  rightFront.setStopping(brake);
+  rightMid.setStopping(brake);
+  rightBack.setStopping(brake);
   while(auto_started == false){            //Changing the names below will only change their names on the
     Brain.Screen.clearScreen();            //brain screen for auton selection.
     switch(current_auton_selection){       //Tap the brain screen to cycle through autons.
