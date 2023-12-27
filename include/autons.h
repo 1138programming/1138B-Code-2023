@@ -5,3 +5,5 @@
 void basicWP();
 void disrupt();
 void sixBall();
+void fiveBall();
+void pidTest();

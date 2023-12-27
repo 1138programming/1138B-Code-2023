@@ -4,6 +4,23 @@
         "project_name": "V5-Cookage",
         "target": "v5",
         "templates": {
+            "EZ-GUI": {
+                "location": "/Users/robotics/Library/Application Support/PROS/templates/EZ-GUI@0.1.1",
+                "metadata": {
+                    "origin": "local"
+                },
+                "name": "EZ-GUI",
+                "py/object": "pros.conductor.templates.local_template.LocalTemplate",
+                "supported_kernels": "^3.8.0",
+                "system_files": [
+                    "firmware/EZ-GUI.a",
+                    "include/EZ-GUI/gui.hpp",
+                    "include/EZ-GUI/api.hpp"
+                ],
+                "target": "v5",
+                "user_files": [],
+                "version": "0.1.1"
+            },
             "LemLib": {
                 "location": "/Users/robotics/Library/Application Support/PROS/templates/LemLib@0.5.0-rc4",
                 "metadata": {

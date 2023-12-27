@@ -8,28 +8,28 @@
  * "I was pressed!" and nothing.
  */
 
-void screen() {
-    // loop forever
-    while (true) {
-        lemlib::Pose pose = chassis.getPose(); // get the current position of the robot
-        pros::lcd::print(0, "x: %f", pose.x); // print the x position
-        pros::lcd::print(1, "y: %f", pose.y); // print the y position
-        pros::lcd::print(2, "heading: %f", pose.theta); // print the heading
-        pros::delay(10);
-    }
-}
+// void screen() {
+//     // loop forever
+//     while (true) {
+//         lemlib::Pose pose = chassis.getPose(); // get the current position of the robot
+//         pros::lcd::print(0, "x: %f", pose.x); // print the x position
+//         pros::lcd::print(1, "y: %f", pose.y); // print the y position
+//         pros::lcd::print(2, "heading: %f", pose.theta); // print the heading
+//         pros::delay(10);
+//     }
+// }
 
 
 
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
-	} else {
-		pros::lcd::clear_line(2);
-	}
-}
+// void on_center_button() {
+// 	static bool pressed = false;
+// 	pressed = !pressed;
+// 	if (pressed) {
+// 		pros::lcd::set_text(2, "I was pressed!");
+// 	} else {
+// 		pros::lcd::clear_line(2);
+// 	}
+// }
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -44,8 +44,6 @@ void initialize() {
     chassis.setPose(0, 0, 0); // X: 0, Y: 0, Heading: 0
 	setDriveBrake(MOTOR_BRAKE_BRAKE);
 	sylib::initialize();
-	pros::Task screenTask(screen); // create a task to print the position to the screen
-	pros::lcd::register_btn1_cb(on_center_button);
 }
 
 /**
@@ -78,7 +76,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	sixBall();
+	disrupt();
 
 
 }

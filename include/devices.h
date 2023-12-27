@@ -2,6 +2,8 @@
 #include "api.h"
 #include "sylib/sylib.hpp"
 #include "lemlib/api.hpp"
+#include "EZ-GUI/api.hpp"
+#include "pros/misc.hpp"
 #include "autons.h"
 
 //controller
@@ -9,12 +11,12 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 // base
     //motors
-    inline pros::Motor left_front_motor(20, pros::E_MOTOR_GEARSET_06, true); // port 1, blue gearbox, not reversed
-    inline pros::Motor left_mid_motor(19, pros::E_MOTOR_GEARSET_06, true); // port 1, blue gearbox, not reversed
-    inline pros::Motor left_back_motor(18, pros::E_MOTOR_GEARSET_06, true); // port 2, green gearbox, not reversed
-    inline pros::Motor right_front_motor(11, pros::E_MOTOR_GEARSET_06, false); // port 3, red gearbox, reversed
-    inline pros::Motor right_mid_motor(12, pros::E_MOTOR_GEARSET_06, false); // port 3, red gearbox, reversed
-    inline pros::Motor right_back_motor(13, pros::E_MOTOR_GEARSET_06, false); // port 4,
+    inline pros::Motor left_front_motor(20, pros::E_MOTOR_GEARSET_06, true);
+    inline pros::Motor left_mid_motor(19, pros::E_MOTOR_GEARSET_06, true); 
+    inline pros::Motor left_back_motor(18, pros::E_MOTOR_GEARSET_06, true); 
+    inline pros::Motor right_front_motor(11, pros::E_MOTOR_GEARSET_06, false);
+    inline pros::Motor right_mid_motor(12, pros::E_MOTOR_GEARSET_06, false);
+    inline pros::Motor right_back_motor(13, pros::E_MOTOR_GEARSET_06, false);
     inline pros::MotorGroup left_side({left_mid_motor, left_front_motor, left_back_motor});
     inline pros::MotorGroup right_side({right_mid_motor, right_front_motor, right_back_motor});
 
@@ -44,15 +46,15 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // forward/backward PID
     inline lemlib::ControllerSettings lateralController {
-        19, // kP
+        11.5, // kP
         0, // KI
-        85, // kD
-        3, // antiwindup
+        4, // kD
+        0, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        5// slew rate
+        3// slew rate
         
     };
     
@@ -60,13 +62,13 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     inline lemlib::ControllerSettings angularController {
         3, // kP
         0, // kI
-        40, // kD
-        3, // antiwindup
+        29, // kD
+        0, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        40 // slew rate
+        0 // slew rate
     };
     inline lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 
@@ -82,4 +84,16 @@ inline pros::ADIDigitalOut hang(3);
 inline sylib::Addrled baseLeds(22, 5, 43);
 inline sylib::Addrled intakeLeds(22, 6, 14);
 
-// screen
+// // screen
+// inline ez::GUI display(
+//     {{left_front_motor, "left front"},
+//      {left_mid_motor, "left mid"},
+//      {left_back_motor, "left back"},
+//      {right_front_motor, "right front"},
+//      {right_mid_motor, "right mid"},
+//      {right_back_motor, "right back"},
+//      {flywheel, "fly 1"},
+//      {intake, "intake"}},
+//     {{"WP", basicWP},
+//      {"Disrupt", disrupt},
+//      {"SixBall", sixBall}});

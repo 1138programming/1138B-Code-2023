@@ -8,7 +8,7 @@ void basicWP() {
     chassis.follow(WP0_txt, 15, 2000, false);
     chassis.waitUntilDone();
     chassis.follow(WP1_txt, 15, 5000);
-    chassis.waitUntil(14);
+    chassis.waitUntil(10);
     wings.set_value(true);
     chassis.waitUntil(30);
     wings.set_value(false);
@@ -37,7 +37,7 @@ void disrupt() {
 void sixBall() {
     chassis.setPose(-36, 54.25, 180);
     intake.move(127);
-    chassis.moveToPoint(-5, 2, 2500);
+    chassis.moveToPoint(-5, 2, 2000);
     chassis.waitUntilDone();
     chassis.turnTo(-40, 2, 500);
     chassis.waitUntilDone();
@@ -78,4 +78,46 @@ void sixBall() {
     intake.move(-127);
     chassis.waitUntilDone();
     intake.move(0);
+}
+
+void pidTest() {
+    chassis.setPose(0,0,0);
+    chassis.turnTo(-10, 0, 2500);
+    chassis.waitUntilDone();
+    chassis.turnTo(0,10,2500);
+    chassis.waitUntilDone();
+    master.rumble(". . .");
+}
+
+void fiveBall() {
+    chassis.setPose(-36, 54.25, 180);
+    intake.move(127);
+    chassis.moveToPoint(-5, 2, 2000);
+    chassis.waitUntilDone();
+    chassis.turnTo(-40, 2, 500);
+    chassis.waitUntilDone();
+    wings.set_value(true);
+    pros::delay(100);
+    intake.move(0);
+    chassis.moveToPoint(-46, 0, 1500);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-40, 2, 750, false);
+    wings.set_value(false);
+    chassis.waitUntilDone();
+    chassis.turnTo(-5, 30, 1000);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-6.5, 30, 2500);
+    intake.move(127);
+    chassis.waitUntilDone();
+    chassis.turnTo(-40, 0, 1000);
+    chassis.waitUntilDone();
+    chassis.moveToPose(-46,0,270, 2500, true, 8);
+    pros::delay(500);
+    intake.move(-127);
+    wings.set_value(true);
+    chassis.waitUntilDone();
+    intake.move(0);
+    wings.set_value(false);
+    chassis.moveToPoint(-40, 0, 1000, false);
+    chassis.waitUntilDone();
 }

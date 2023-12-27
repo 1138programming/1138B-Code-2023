@@ -37,6 +37,7 @@
 #include "api.h"
 #include "sylib/sylib.hpp"
 #include "LemLib/api.hpp"
+#include "EZ-GUI/api.hpp"
 /**
  * You should add more #includes here
  */
