@@ -2,6 +2,7 @@
 #include "api.h"
 #include "sylib/sylib.hpp"
 #include "lemlib/api.hpp"
+#include "autons.h"
 
 //controller
 inline pros::Controller master(pros::E_CONTROLLER_MASTER);
@@ -57,7 +58,7 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // turning PID
     inline lemlib::ControllerSettings angularController {
-        4, // kP
+        3, // kP
         0, // kI
         40, // kD
         3, // antiwindup
@@ -77,7 +78,8 @@ inline pros::Motor intake(17, pros::E_MOTOR_GEAR_600); // define the intake moto
 // three wire
 inline pros::ADIDigitalOut wings(1);
 inline pros::ADIDigitalOut balance(2);
-inline pros::ADIDigitalOut hangUp(4);
-inline pros::ADIDigitalOut hangDown(3);
+inline pros::ADIDigitalOut hang(3);
 inline sylib::Addrled baseLeds(22, 5, 43);
 inline sylib::Addrled intakeLeds(22, 6, 14);
+
+// screen

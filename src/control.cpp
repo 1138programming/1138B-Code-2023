@@ -1,4 +1,3 @@
-#pragma once
 #include "main.h"
 
 void baseControl() {
@@ -88,8 +87,18 @@ void flywheelControl() {
       flywheel.stop();
     }
 }
-
+static bool hangValue{false};
+static bool balanceValue{false};
 //pneumatic control
 void pneumaticControl() {
+  // toggle states
   wings.set_value(master.get_digital(DIGITAL_L1));
+  if (master.get_digital_new_press(DIGITAL_Y)) {
+      hang.set_value(!hangValue);
+      hangValue = !hangValue;
+  }
+  if (master.get_digital_new_press(DIGITAL_A)) {
+    balance.set_value(!balanceValue);
+    balanceValue = !balanceValue;
+  }
 }

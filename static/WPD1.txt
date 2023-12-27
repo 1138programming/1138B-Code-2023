@@ -1,0 +1,41 @@
+30.833, 53.762, 127
+31.061, 51.775, 127
+31.295, 49.789, 127
+31.532, 47.803, 127
+31.769, 45.817, 124.242
+32.001, 43.83, 120.879
+32.223, 41.843, 117.42
+32.432, 39.854, 113.855
+32.622, 37.863, 110.175
+32.786, 35.869, 106.368
+32.918, 33.874, 102.42
+33.011, 31.876, 98.313
+33.052, 29.877, 94.027
+33.024, 27.877, 89.536
+32.922, 25.88, 84.808
+32.729, 23.889, 79.801
+32.405, 21.916, 74.458
+31.952, 19.969, 68.701
+31.315, 18.074, 62.417
+30.498, 16.25, 55.427
+29.45, 14.549, 48.585
+28.192, 12.997, 49.756
+26.734, 11.631, 60.192
+25.103, 10.478, 80.071
+23.348, 9.522, 80.4
+21.501, 8.759, 75.102
+19.59, 8.171, 69.399
+17.642, 7.723, 63.184
+15.669, 7.397, 56.286
+13.682, 7.178, 48.413
+11.686, 7.05, 38.982
+9.687, 7, 26.37
+8, 7, 0
+8, 7, 0
+-12, 6.994, 0
+endData
+206.1
+127
+200
+30.833, 53.762, 33.802, 27.391, 38.692, 6.434, 8, 7
+#PATH.JERRYIO-DATA {"appVersion":"0.5.1","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":12.5,"robotHeight":14,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"vk2joaGjl4","x":30.833059620649504,"y":53.76174396505111,"lock":false,"visible":true,"heading":180,"__type":"end-point"},{"uid":"WESludeaO1","x":33.80195350005072,"y":27.390980683310946,"lock":false,"visible":true,"__type":"control"},{"uid":"f28XR1fOH5","x":38.691896360240946,"y":6.434082711067089,"lock":false,"visible":true,"__type":"control"},{"uid":"TIYGOboMNa","x":8,"y":7,"lock":false,"visible":true,"heading":0,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"i0ZzvgwFwO"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":10,"to":127},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":4,"label":"4"},"step":0.01,"from":1.4,"to":1.8},"maxDecelerationRate":206.1},"name":"Path","uid":"vxuP94k9uK","lock":false,"visible":true}]}
