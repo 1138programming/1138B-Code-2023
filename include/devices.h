@@ -46,15 +46,15 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // forward/backward PID
     inline lemlib::ControllerSettings lateralController {
-        11.5, // kP
+        19, // kP
         0, // KI
-        4, // kD
-        0, // antiwindup
+        85, // kD
+        3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        3// slew rate
+        5// slew rate
         
     };
     
@@ -62,13 +62,13 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     inline lemlib::ControllerSettings angularController {
         3, // kP
         0, // kI
-        29, // kD
-        0, // antiwindup
+        40, // kD
+        3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        0 // slew rate
+        40 // slew rate
     };
     inline lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 

@@ -56,7 +56,7 @@ void intakeControl() {
 
 void flywheelControl() {
      //flywheel control
-    if (master.get_digital(DIGITAL_B))
+    if (master.get_digital(DIGITAL_Y))
     {
       flywheel.set_velocity_custom_controller(450);
       //run fw pid
@@ -64,7 +64,7 @@ void flywheelControl() {
       ledMatchload();
       ledSet = false;
     }
-    else if (master.get_digital(DIGITAL_DOWN))
+    else if (master.get_digital(DIGITAL_RIGHT))
     {
       flywheel.set_velocity_custom_controller(-300);
       //run fw pid
@@ -93,12 +93,8 @@ static bool balanceValue{false};
 void pneumaticControl() {
   // toggle states
   wings.set_value(master.get_digital(DIGITAL_L1));
-  if (master.get_digital_new_press(DIGITAL_Y)) {
+  if (master.get_digital_new_press(DIGITAL_A)) {
       hang.set_value(!hangValue);
       hangValue = !hangValue;
-  }
-  if (master.get_digital_new_press(DIGITAL_A)) {
-    balance.set_value(!balanceValue);
-    balanceValue = !balanceValue;
   }
 }
