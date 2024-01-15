@@ -51,7 +51,9 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+	hang.set_value(false);
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -76,7 +78,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	sixBall();
+	betterWP();
 
 
 }

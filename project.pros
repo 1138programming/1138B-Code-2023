@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "V5-Cookage",
+    "project_name": "V5-Cookage WP",
     "target": "v5",
     "templates": {
       "EZ-GUI": {
@@ -506,7 +506,7 @@
     },
     "upload_options": {
       "icon": "X",
-      "slot": 2
+      "slot": 1
     }
   }
 }

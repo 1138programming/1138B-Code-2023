@@ -44,10 +44,10 @@ void ledOuttake() {
 
 void intakeControl() {
     if (master.get_digital(DIGITAL_R2)) {
-        intake.move(127);
+        intake.move(-127);
     }
     else if (master.get_digital(DIGITAL_R1)) {
-        intake.move(-127);
+        intake.move(127);
     }
     else {
         intake.brake();
@@ -88,13 +88,17 @@ void flywheelControl() {
     }
 }
 static bool hangValue{false};
-static bool balanceValue{false};
+static bool descoreValue{false};
 //pneumatic control
 void pneumaticControl() {
   // toggle states
-  wings.set_value(master.get_digital(DIGITAL_L1));
+  //wings.set_value(master.get_digital(DIGITAL_L1));
   if (master.get_digital_new_press(DIGITAL_A)) {
       hang.set_value(!hangValue);
       hangValue = !hangValue;
+  }
+  if (master.get_digital_new_press(DIGITAL_L2)) {
+    descore.set_value(!descoreValue);
+    descoreValue = !descoreValue;
   }
 }

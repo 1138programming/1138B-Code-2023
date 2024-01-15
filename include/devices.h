@@ -8,7 +8,7 @@
 
 //controller
 inline pros::Controller master(pros::E_CONTROLLER_MASTER);
-
+ 
 // base
     //motors
     inline pros::Motor left_front_motor(20, pros::E_MOTOR_GEARSET_06, true);
@@ -54,13 +54,13 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        5// slew rate
+        10// slew rate
         
     };
     
     // turning PID
     inline lemlib::ControllerSettings angularController {
-        3, // kP
+        2, // kP
         0, // kI
         40, // kD
         3, // antiwindup
@@ -75,11 +75,10 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 //system motors
 inline sylib::SpeedControllerInfo flyController ([](double rpm){return 0;},1, 1, 1, 1, false, 0, false, 0, 1, 0); // custom motor control pid for flywheel
 inline sylib::Motor flywheel = sylib::Motor(16, 600, true, flyController); // define the flywheel motor using sylib motor
-inline pros::Motor intake(17, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
+inline pros::Motor intake(-17, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
 
 // three wire
-inline pros::ADIDigitalOut wings(1);
-inline pros::ADIDigitalOut balance(2);
+inline pros::ADIDigitalOut descore(2);
 inline pros::ADIDigitalOut hang(3);
 inline sylib::Addrled baseLeds(22, 5, 43);
 inline sylib::Addrled intakeLeds(22, 6, 14);

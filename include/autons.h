@@ -7,3 +7,5 @@ void disrupt();
 void sixBall();
 void fiveBall();
 void pidTest();
+void safeTwo();
+void betterWP();
