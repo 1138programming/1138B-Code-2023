@@ -145,12 +145,20 @@ void safeTwo() {
     intake.move(0);
 }
 
+ASSET(AWP1_txt);
+ASSET(AWP2_txt);
 void betterWP() {
     chassis.setPose(-34,-59,0);
+    descore.set_value(true);
+    pros::delay(700);
+    descore.set_value(false);
+    pros::delay(250);
     intake.move(127);
-    chassis.moveToPoint(-26, -6, 3000, true, 127);
+    lateralController.slew = 25;
+    chassis.moveToPoint(-24, -8.5, 3000, true, 127);
     chassis.waitUntilDone();
-    pros::delay(750);
+    lateralController.slew = 5;
+    pros::delay(1000);
     chassis.moveToPoint(chassis.getPose().x, (chassis.getPose().y-18), 750, false);
     chassis.waitUntilDone();
     chassis.turnTo((chassis.getPose().x+25), chassis.getPose().y, 750);
@@ -160,4 +168,21 @@ void betterWP() {
     chassis.waitUntilDone();
     pros::delay(750);
     intake.move(0);
+    chassis.follow(AWP1_txt, 10, 3000, false);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y+5, 750, false);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y-10, 1000);
+    chassis.waitUntilDone();
+    chassis.turnTo(chassis.getPose().x, chassis.getPose().y-7.5, 750, false);
+    chassis.waitUntilDone();
+    chassis.moveToPose(-56,-55, 315, 1000, false);
+    chassis.waitUntilDone();
+    descore.set_value(true);
+    pros::delay(250);
+    chassis.moveToPose(-35, -59, 270, 1500, false);
+    chassis.waitUntilDone();
+    chassis.moveToPose(chassis.getPose().x+28, chassis.getPose().y, 265, 2500, false);
+    chassis.waitUntilDone();
+    descore.set_value(false);
 }
