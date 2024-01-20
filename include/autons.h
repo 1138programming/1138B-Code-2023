@@ -9,3 +9,5 @@ void fiveBall();
 void pidTest();
 void safeTwo();
 void betterWP();
+void safeWP();
+void safe4Ball();
