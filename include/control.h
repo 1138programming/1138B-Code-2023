@@ -6,3 +6,4 @@ extern void intakeControl();
 extern void flywheelControl();
 extern void pneumaticControl();
 extern void ledDefault(int type);
+extern void kickerControl();

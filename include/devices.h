@@ -76,12 +76,12 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 inline sylib::SpeedControllerInfo flyController ([](double rpm){return 0;},1, 1, 1, 1, false, 0, false, 0, 1, 0); // custom motor control pid for flywheel
 inline sylib::Motor flywheel = sylib::Motor(16, 600, true, flyController); // define the flywheel motor using sylib motor
 inline pros::Motor intake(-17, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
+inline pros::Motor kicker(3, pros::E_MOTOR_GEAR_100); // define the intake motor in vanilla pros
 
 // three wire
-inline pros::ADIDigitalOut descore(2);
-inline pros::ADIDigitalOut hang(3);
-inline sylib::Addrled baseLeds(22, 5, 43);
-inline sylib::Addrled intakeLeds(22, 6, 14);
+inline pros::ADIDigitalOut leftWing(2);
+inline pros::ADIDigitalOut rightWing(3);
+inline pros::ADIDigitalOut hang(4);
 
 // // screen
 // inline ez::GUI display(

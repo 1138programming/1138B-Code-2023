@@ -53,7 +53,7 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-	hang.set_value(false);
+
 }
 
 /**
@@ -79,7 +79,6 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	safe4Ball();
 
 
 }
@@ -99,15 +98,13 @@ void autonomous() {
  */
 void opcontrol() {
 	
-	ledDefault(1);
 
 	// Store the time at the start of the loop
     std::uint32_t clock = sylib::millis();
 	while (true) {
 		chassis.arcade(master.get_analog(ANALOG_LEFT_Y), master.get_analog(ANALOG_RIGHT_X));
-		intakeControl(); // run the intake control fuction in control.cpp
-		flywheelControl(); // run the flywheel control function in control.cpp
 		pneumaticControl();
+		kickerControl();
 		// 10ms delay to allow other tasks to run
         sylib::delay_until(&clock, 10);
 	}
