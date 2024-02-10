@@ -11,17 +11,17 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
  
 // base
     //motors
-    inline pros::Motor left_front_motor(20, pros::E_MOTOR_GEARSET_06, true);
-    inline pros::Motor left_mid_motor(19, pros::E_MOTOR_GEARSET_06, true); 
-    inline pros::Motor left_back_motor(18, pros::E_MOTOR_GEARSET_06, true); 
-    inline pros::Motor right_front_motor(11, pros::E_MOTOR_GEARSET_06, false);
-    inline pros::Motor right_mid_motor(12, pros::E_MOTOR_GEARSET_06, false);
-    inline pros::Motor right_back_motor(13, pros::E_MOTOR_GEARSET_06, false);
+    inline pros::Motor left_front_motor(-6, pros::E_MOTOR_GEARSET_06);
+    inline pros::Motor left_mid_motor(-4, pros::E_MOTOR_GEARSET_06); 
+    inline pros::Motor left_back_motor(-9, pros::E_MOTOR_GEARSET_06); 
+    inline pros::Motor right_front_motor(5, pros::E_MOTOR_GEARSET_06);
+    inline pros::Motor right_mid_motor(7, pros::E_MOTOR_GEARSET_06);
+    inline pros::Motor right_back_motor(10, pros::E_MOTOR_GEARSET_06);
     inline pros::MotorGroup left_side({left_mid_motor, left_front_motor, left_back_motor});
     inline pros::MotorGroup right_side({right_mid_motor, right_front_motor, right_back_motor});
 
     //sensors
-    inline pros::Imu Imu(15);
+    inline pros::Imu Imu(20);
 
     //chassis
 
@@ -60,22 +60,20 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // turning PID
     inline lemlib::ControllerSettings angularController {
-        2, // kP
-        0, // kI
-        40, // kD
+        1.5, // kP
+        3, // kI
+        5, // kD
         3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
         500, // largeErrorTimeout
-        40 // slew rate
+        5 // slew rate
     };
     inline lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 
 //system motors
-inline sylib::SpeedControllerInfo flyController ([](double rpm){return 0;},1, 1, 1, 1, false, 0, false, 0, 1, 0); // custom motor control pid for flywheel
-inline sylib::Motor flywheel = sylib::Motor(16, 600, true, flyController); // define the flywheel motor using sylib motor
-inline pros::Motor intake(-17, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
+inline pros::Motor intake(2, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
 inline pros::Motor kicker(3, pros::E_MOTOR_GEAR_100); // define the intake motor in vanilla pros
 
 // three wire

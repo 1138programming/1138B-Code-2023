@@ -75,12 +75,14 @@ void competition_initialize() {}
  * for non-competition testing purposes.
  *
  * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
+ * will be stopped. Re-e5nabling the robot will restart the task, not re-start it
  * from where it left off.
  */
 void autonomous() {
-
-
+	chassis.setPose(0,0,0);
+	chassis.turnTo(30, 0, 5000);
+	chassis.waitUntilDone();
+	chassis.turnTo(0, 30, 5000);
 }
 
 /**
@@ -104,6 +106,7 @@ void opcontrol() {
 	while (true) {
 		chassis.arcade(master.get_analog(ANALOG_LEFT_Y), master.get_analog(ANALOG_RIGHT_X));
 		pneumaticControl();
+		intakeControl();
 		kickerControl();
 		// 10ms delay to allow other tasks to run
         sylib::delay_until(&clock, 10);
