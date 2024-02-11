@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "autons.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -19,7 +19,16 @@ void screen() {
     }
 }
 
-
+ez::GUI display(
+    {{left_front_motor, "lF"},
+     {left_mid_motor, "lM"},
+     {left_back_motor, "lB"},
+     {right_front_motor, "rF"},
+     {right_mid_motor, "rM"},
+     {right_back_motor, "rB"},
+     {kicker, "kicker"},
+     {intake, "intake"}},
+    {{"WP", disruptWP}});
 
 // void on_center_button() {
 // 	static bool pressed = false;
@@ -38,13 +47,15 @@ void screen() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	display.enable();
+  	display.auton_enable();
+  	display.auton_print();
 	chassis.calibrate(); // calibrate the chassis
     chassis.setPose(0, 0, 0); // X: 0, Y: 0, Heading: 0
 	setDriveBrake(MOTOR_BRAKE_BRAKE);
 	sylib::initialize();
-	pros::Task debug = pros::Task(screen);
+	
+	//pros::Task debug = pros::Task(screen);
 }
 
 /**
@@ -79,10 +90,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	chassis.setPose(0,0,0);
-	chassis.turnTo(30, 0, 5000);
-	chassis.waitUntilDone();
-	chassis.turnTo(0, 30, 5000);
+	display.auton_call();
 }
 
 /**
@@ -100,7 +108,7 @@ void autonomous() {
  */
 void opcontrol() {
 	
-
+	display.auton_disable();
 	// Store the time at the start of the loop
     std::uint32_t clock = sylib::millis();
 	while (true) {

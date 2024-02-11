@@ -82,15 +82,3 @@ inline pros::ADIDigitalOut rightWing(3);
 inline pros::ADIDigitalOut hang(4);
 
 // // screen
-// inline ez::GUI display(
-//     {{left_front_motor, "left front"},
-//      {left_mid_motor, "left mid"},
-//      {left_back_motor, "left back"},
-//      {right_front_motor, "right front"},
-//      {right_mid_motor, "right mid"},
-//      {right_back_motor, "right back"},
-//      {flywheel, "fly 1"},
-//      {intake, "intake"}},
-//     {{"WP", basicWP},
-//      {"Disrupt", disrupt},
-//      {"SixBall", sixBall}});

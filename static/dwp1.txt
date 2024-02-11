@@ -1,0 +1,37 @@
+-25, -7, 100
+-24.89, -8.997, 100
+-24.9, -10.996, 100
+-25.036, -12.991, 100
+-25.306, -14.972, 100
+-25.736, -16.924, 100
+-26.313, -18.838, 100
+-27.038, -20.701, 100
+-27.926, -22.492, 100
+-28.946, -24.212, 98.837
+-30.118, -25.831, 96.234
+-31.404, -27.363, 93.558
+-32.811, -28.783, 90.804
+-34.31, -30.107, 87.963
+-35.9, -31.319, 85.027
+-37.56, -32.433, 81.986
+-39.285, -33.444, 78.828
+-41.064, -34.358, 75.538
+-42.885, -35.183, 72.097
+-44.747, -35.913, 68.484
+-46.638, -36.564, 64.669
+-48.557, -37.127, 60.615
+-50.496, -37.614, 56.269
+-52.453, -38.028, 51.559
+-54.425, -38.361, 46.372
+-56.407, -38.628, 40.526
+-58.397, -38.82, 33.681
+-60.393, -38.942, 25.029
+-62.859, -39, 0
+-62.859, -39, 0
+-82.853, -39.472, 0
+endData
+127
+100
+200
+-25, -7, -23.01, -29.908, -44.434, -39, -62.859, -39
+#PATH.JERRYIO-DATA {"appVersion":"0.5.1","format":"LemLib v0.4.x (inch, byte-voltage)","gc":{"robotWidth":14,"robotHeight":14,"robotIsHolonomic":false,"showRobot":true,"uol":2.54,"pointDensity":2,"controlMagnetDistance":1.968503937007874,"fieldImage":{"displayName":"VRC 2024 - Over Under","signature":"VRC 2024 - Over Under","origin":{"__type":"built-in"}}},"paths":[{"segments":[{"controls":[{"uid":"XiSFwykScT","x":-25,"y":-7,"lock":false,"visible":true,"heading":0,"__type":"end-point"},{"uid":"bmXXvRykzt","x":-23.009751773049643,"y":-29.908392434988187,"lock":false,"visible":true,"__type":"control"},{"uid":"N82A2WcQam","x":-44.43410165484634,"y":-39,"lock":false,"visible":true,"__type":"control"},{"uid":"PBkYm1jVaJ","x":-62.85904255319149,"y":-39,"lock":false,"visible":true,"heading":90,"__type":"end-point"}],"speedProfiles":[],"lookaheadKeyframes":[],"uid":"i85slPxCuM"}],"pc":{"speedLimit":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":127,"label":"127"},"step":1,"from":20,"to":100},"bentRateApplicableRange":{"minLimit":{"value":0,"label":"0"},"maxLimit":{"value":4,"label":"4"},"step":0.01,"from":1.4,"to":1.8},"maxDecelerationRate":127},"name":"Path","uid":"zTxgrHYBC0","lock":false,"visible":true}]}
