@@ -28,7 +28,8 @@ ez::GUI display(
      {right_back_motor, "rB"},
      {kicker, "kicker"},
      {intake, "intake"}},
-    {{"WP", disruptWP}});
+    {{"Disrupt WP", disruptWP},
+	 {"Disrupt Bowl", disruptBowl}});
 
 // void on_center_button() {
 // 	static bool pressed = false;
