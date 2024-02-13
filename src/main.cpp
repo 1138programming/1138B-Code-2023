@@ -28,7 +28,8 @@ ez::GUI display(
      {right_back_motor, "rB"},
      {kicker, "kicker"},
      {intake, "intake"}},
-    {{"Disrupt WP", disruptWP},
+    {{"3 Ball Safe", safe3Ball},
+	 {"Disrupt WP", disruptWP},
 	 {"Disrupt Bowl", disruptBowl}});
 
 // void on_center_button() {
@@ -55,7 +56,7 @@ void initialize() {
     chassis.setPose(0, 0, 0); // X: 0, Y: 0, Heading: 0
 	setDriveBrake(MOTOR_BRAKE_BRAKE);
 	sylib::initialize();
-	
+	intake.set_brake_mode(MOTOR_BRAKE_HOLD);
 	//pros::Task debug = pros::Task(screen);
 }
 

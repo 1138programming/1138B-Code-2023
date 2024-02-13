@@ -62,7 +62,7 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     inline lemlib::ControllerSettings angularController {
         1.5, // kP
         3, // kI
-        5, // kD
+        8, // kD
         3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout

@@ -11,8 +11,8 @@ void moveRelative(float distance, int timeout) {
     double headingRadians = chassis.getPose(true).theta;
     double startingX = chassis.getPose().x;
     double startingY = chassis.getPose().y;
-    double deltaX = distance * cos(headingRadians);
-    double deltaY = distance * sin(headingRadians);
+    double deltaX = distance * sin(headingRadians);
+    double deltaY = distance * cos(headingRadians);
     double newX = startingX + deltaX;
     double newY = startingY + deltaY;
     if (distance > 0) {
@@ -75,4 +75,37 @@ void disruptWP() {
     chassis.waitUntil(24);
     intake.move(-127);
     chassis.waitUntilDone();
+}
+
+void safe3Ball() {
+    chassis.setPose(-17,60,90);
+    intake.move(127);
+    moveRelative(8, 1000);
+    chassis.waitUntilDone();   
+    chassis.moveToPoint(chassis.getPose().x-31.5, chassis.getPose().y, 2500, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.turnToHeading(50, 750, false);
+    leftWing.set_value(true);
+    pros::delay(250);
+    moveRelative(-15, 1000);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(0, 500, false);
+    leftWing.set_value(false);
+    chassis.turnToHeading(36, 1000, false);
+    chassis.moveToPoint(chassis.getPose().x, 22, 1500, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y+10, 750, {.maxSpeed=127});
+    chassis.waitUntilDone();
+    chassis.turnToHeading(180, 1000, false);
+    intake.move(-127);
+    chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y-14, 750, {.maxSpeed=127});
+    chassis.waitUntilDone();
+    moveRelative(-8, 750);
+    chassis.waitUntilDone();
+    intake.move(0);
+    chassis.turnToHeading(90, 750, false);
+    std::cout << chassis.getPose().x << std::endl;
+    std::cout << chassis.getPose().y << std::endl;
+    std::cout << chassis.getPose().theta << std::endl;
+
 }
