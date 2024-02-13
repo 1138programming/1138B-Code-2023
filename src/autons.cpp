@@ -1,4 +1,27 @@
+#include <cmath> // For sin(), cos(), and M_PI
 #include "autons.h"
+
+/**
+* @brief Move the robot a relative distance forwards or backwards
+*
+* @param distance distance to be moved
+* @param timeout the timeout duration for the movement
+*/
+void moveRelative(float distance, int timeout) {
+    double headingRadians = chassis.getPose(true).theta;
+    double startingX = chassis.getPose().x;
+    double startingY = chassis.getPose().y;
+    double deltaX = distance * cos(headingRadians);
+    double deltaY = distance * sin(headingRadians);
+    double newX = startingX + deltaX;
+    double newY = startingY + deltaY;
+    if (distance > 0) {
+        chassis.moveToPoint(newX, newY, timeout, {.forwards=true});
+    }
+    else if (distance < 0) {
+        chassis.moveToPoint(newX, newY, timeout, {.forwards=false});
+    }
+};
 
 ASSET(dwp1_txt);
 
