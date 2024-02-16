@@ -30,7 +30,7 @@ void disruptBowl() {
     intake.move(127);
     chassis.moveToPose(-25, -7, 0, 2000, {.lead=0.2});
     chassis.waitUntilDone();
-    chassis.follow(dwp1_txt, 10, 2000, false);
+    chassis.follow(dwp1_txt, 10, 3000, false);
     chassis.waitUntilDone();
     // chassis.turnToHeading(180, 750, false);
     // chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y-3, 750);
@@ -57,7 +57,7 @@ void disruptWP() {
     intake.move(127);
     chassis.moveToPose(-25, -7, 0, 2000, {.lead=0.2});
     chassis.waitUntilDone();
-    chassis.follow(dwp1_txt, 10, 2000, false);
+    chassis.follow(dwp1_txt, 10, 3000, false);
     chassis.waitUntilDone();
     // chassis.turnToHeading(180, 750, false);
     // chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y-3, 750);
@@ -87,12 +87,12 @@ void safe3Ball() {
     chassis.turnToHeading(50, 750, false);
     leftWing.set_value(true);
     pros::delay(250);
-    moveRelative(-15, 1000);
+    moveRelative(-13.5, 1000);
     chassis.waitUntilDone();
-    chassis.turnToHeading(0, 500, false);
+    chassis.turnToHeading(340, 1000, false);
     leftWing.set_value(false);
     chassis.turnToHeading(36, 1000, false);
-    chassis.moveToPoint(chassis.getPose().x, 22, 1500, {.forwards=false});
+    chassis.moveToPoint(-60, 22, 1500, {.forwards=false});
     chassis.waitUntilDone();
     chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y+10, 750, {.maxSpeed=127});
     chassis.waitUntilDone();

@@ -60,9 +60,9 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // turning PID
     inline lemlib::ControllerSettings angularController {
-        1.5, // kP
-        3, // kI
-        8, // kD
+        1.4, // kP
+        0, // kI
+        5, // kD
         3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
