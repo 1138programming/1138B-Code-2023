@@ -13,10 +13,13 @@ void setDriveBrake(pros::motor_brake_mode_e_t mode) {
     left_side.set_brake_modes(mode);
     right_side.set_brake_modes(mode);
 }
-
+static bool kickerState{false};
 void kickerControl() {
-  if (master.get_digital(DIGITAL_B)) {
-    kicker.move(-127);
+  if (master.get_digital_new_press(DIGITAL_Y)) {
+    kickerState = !kickerState;
+  }
+  if (kickerState) {
+    kicker.move(127);
   }
   else {
     kicker.move(0);

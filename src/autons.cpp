@@ -109,3 +109,30 @@ void safe3Ball() {
     std::cout << chassis.getPose().theta << std::endl;
 
 }
+ASSET(skill1_txt);
+ASSET(skill2_txt);
+void skills() {
+    chassis.setPose(-40, -54, 90);
+    chassis.follow(skill1_txt, 10, 2000, false);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-56, -46, 1500);
+    chassis.turnToHeading(65, 750);
+    chassis.waitUntilDone();
+    rightWing.set_value(true);
+    kicker.move_relative(360*44, 100);
+    pros::delay(35000);
+    chassis.follow(skill2_txt, 10, 10000, false, false);
+    chassis.turnToHeading(270, 750, false);
+    rightWing.set_value(true);
+    leftWing.set_value(true);
+    chassis.moveToPoint(42, chassis.getPose().y, 1500, {.forwards=false});
+    chassis.waitUntilDone();
+    moveRelative(10, 1000);
+    chassis.waitUntilDone();
+    moveRelative(-10, 1000);
+    chassis.waitUntilDone();
+
+
+    
+    
+}

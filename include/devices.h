@@ -11,17 +11,17 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
  
 // base
     //motors
-    inline pros::Motor left_front_motor(-6, pros::E_MOTOR_GEARSET_06);
-    inline pros::Motor left_mid_motor(-4, pros::E_MOTOR_GEARSET_06); 
-    inline pros::Motor left_back_motor(-9, pros::E_MOTOR_GEARSET_06); 
-    inline pros::Motor right_front_motor(5, pros::E_MOTOR_GEARSET_06);
-    inline pros::Motor right_mid_motor(7, pros::E_MOTOR_GEARSET_06);
-    inline pros::Motor right_back_motor(10, pros::E_MOTOR_GEARSET_06);
+    inline pros::Motor left_front_motor(-10, pros::E_MOTOR_GEARSET_06);
+    inline pros::Motor left_mid_motor(-9, pros::E_MOTOR_GEARSET_06); 
+    inline pros::Motor left_back_motor(-8, pros::E_MOTOR_GEARSET_06); 
+    inline pros::Motor right_front_motor(1, pros::E_MOTOR_GEARSET_06);
+    inline pros::Motor right_mid_motor(2, pros::E_MOTOR_GEARSET_06);
+    inline pros::Motor right_back_motor(3, pros::E_MOTOR_GEARSET_06);
     inline pros::MotorGroup left_side({left_mid_motor, left_front_motor, left_back_motor});
     inline pros::MotorGroup right_side({right_mid_motor, right_front_motor, right_back_motor});
 
     //sensors
-    inline pros::Imu Imu(20);
+    inline pros::Imu Imu(6);
 
     //chassis
 
@@ -73,8 +73,8 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     inline lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 
 //system motors
-inline pros::Motor intake(2, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
-inline pros::Motor kicker(3, pros::E_MOTOR_GEAR_100); // define the intake motor in vanilla pros
+inline pros::Motor intake(7, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
+inline pros::Motor kicker(-5, pros::E_MOTOR_GEAR_100); // define the intake motor in vanilla pros
 
 // three wire
 inline pros::ADIDigitalOut leftWing(2);
