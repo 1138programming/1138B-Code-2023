@@ -77,8 +77,8 @@ inline pros::Motor intake(7, pros::E_MOTOR_GEAR_600); // define the intake motor
 inline pros::Motor kicker(-5, pros::E_MOTOR_GEAR_100); // define the intake motor in vanilla pros
 
 // three wire
-inline pros::ADIDigitalOut leftWing(2);
-inline pros::ADIDigitalOut rightWing(3);
+inline pros::ADIDigitalOut leftWing(3);
+inline pros::ADIDigitalOut rightWing(2);
 inline pros::ADIDigitalOut hang(4);
 
 // // screen

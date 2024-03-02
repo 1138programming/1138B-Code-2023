@@ -131,8 +131,42 @@ void skills() {
     chassis.waitUntilDone();
     moveRelative(-10, 1000);
     chassis.waitUntilDone();
+}
+
+void sixBallRush() {
+    chassis.setPose(34, -54, 0);
+    intake.move(127);
+    chassis.moveToPoint(25, -10, 1500);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(34, -54, 1500, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.turnToHeading(45, 750, false);
+    intake.move(-127);
+    pros::delay(250);
+    moveRelative(-6, 750);
+    chassis.waitUntilDone();
+    intake.move(0);
+    chassis.turnToHeading(270, 750, false);
+    intake.move(127);
+    chassis.moveToPoint(8, -62, 1500);
+    chassis.waitUntilDone();
+    moveRelative(-37, 2000);
+    chassis.waitUntil(10);
+    rightWing.set_value(true);
+    chassis.waitUntilDone();
+    leftWing.set_value(true);
+    chassis.turnToHeading(235, 750, false);
+    moveRelative(-12, 1000);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(160, 750, false);
+    rightWing.set_value(false);
+    chassis.turnToHeading(235, 750, false);
+    chassis.moveToPoint(65, -28, 2500, {.forwards=false});
+    chassis.waitUntilDone();
+    moveRelative(6, 1000);
+    chassis.waitUntilDone();
+    moveRelative(-8, 1000);
+    chassis.waitUntilDone();
 
 
-    
-    
 }
