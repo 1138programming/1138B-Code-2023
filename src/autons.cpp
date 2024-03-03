@@ -134,39 +134,64 @@ void skills() {
 }
 
 void sixBallRush() {
+    float startTime = pros::millis();
+    lateralController.slew = 0;
+    angularController.slew = 0;
     chassis.setPose(34, -54, 0);
     intake.move(127);
     chassis.moveToPoint(25, -10, 1500);
     chassis.waitUntilDone();
-    chassis.moveToPoint(34, -54, 1500, {.forwards=false});
+    chassis.moveToPoint(34, -55, 1500, {.forwards=false});
     chassis.waitUntilDone();
-    chassis.turnToHeading(45, 750, false);
+    chassis.turnToHeading(45, 500, false);
     intake.move(-127);
     pros::delay(250);
-    moveRelative(-6, 750);
-    chassis.waitUntilDone();
-    intake.move(0);
+    // moveRelative(-6, 500);
+    // chassis.waitUntilDone();
     chassis.turnToHeading(270, 750, false);
     intake.move(127);
-    chassis.moveToPoint(8, -62, 1500);
+    chassis.moveToPoint(8, -60, 1500);
     chassis.waitUntilDone();
-    moveRelative(-37, 2000);
-    chassis.waitUntil(10);
+    moveRelative(-37, 750);
+    chassis.waitUntil(6);
     rightWing.set_value(true);
     chassis.waitUntilDone();
     leftWing.set_value(true);
-    chassis.turnToHeading(235, 750, false);
+    chassis.turnToHeading(235, 500, false);
     moveRelative(-12, 1000);
     chassis.waitUntilDone();
     chassis.turnToHeading(160, 750, false);
+    leftWing.set_value(false);
+    chassis.turnToHeading(235, 650, false);
+    std::cout << chassis.getPose().x << std::endl;
+    std::cout << chassis.getPose().y << std::endl;
+    std::cout << chassis.getPose().theta << std::endl;
+    chassis.moveToPose(68, -24, 180, 1250, {.forwards=false, .chasePower=18, .maxSpeed=127});
+    chassis.waitUntilDone();
+    // moveRelative(6, 500);
+    // chassis.waitUntilDone();
+    // moveRelative(-8, 750);
+    // chassis.waitUntilDone();
+    moveRelative(6, 500);
+    chassis.waitUntilDone();
     rightWing.set_value(false);
-    chassis.turnToHeading(235, 750, false);
-    chassis.moveToPoint(65, -28, 2500, {.forwards=false});
+    chassis.turnToHeading(270, 750, false);
+    moveRelative(28, 750);
     chassis.waitUntilDone();
-    moveRelative(6, 1000);
+    chassis.turnToHeading(30, 750, false);
+    intake.move(-127);
     chassis.waitUntilDone();
-    moveRelative(-8, 1000);
+    pros::delay(250);
+    chassis.turnToHeading(315, 500, false);
+    intake.move(127);
+    moveRelative(18, 750);
     chassis.waitUntilDone();
+    moveRelative(-6, 500);
+    chassis.waitUntilDone();
+    float endTime = pros::millis();
+    float totalTime = endTime - startTime;
+    std::cout << totalTime << std::endl;
+    master.print(0,0,"%f", totalTime);
 
 
 }
