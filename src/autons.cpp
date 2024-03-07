@@ -23,12 +23,61 @@ void moveRelative(float distance, int timeout) {
     }
 };
 
+void old_constants() {
+    //lateral constants
+    lateralController.kP = 19;
+    lateralController.kI = 0; 
+    lateralController.kD = 85;
+    lateralController.windupRange = 3;
+    lateralController.smallError = 1;
+    lateralController.smallErrorTimeout = 100;
+    lateralController.largeError = 3;
+    lateralController.largeErrorTimeout = 500;
+    lateralController.slew = 10;
+    //angular constants
+    angularController.kP = 1.4;
+    angularController.kI = 0; 
+    angularController.kD = 5;
+    angularController.windupRange = 3;
+    angularController.smallError = 1;
+    angularController.smallErrorTimeout = 100;
+    angularController.largeError = 3;
+    angularController.largeErrorTimeout = 500;
+    angularController.slew = 5;
+}
+
+void new_constants() {
+    //lateral constants
+    lateralController.kP = 100;
+    lateralController.kI = 0; 
+    lateralController.kD = 0;
+    lateralController.windupRange = 3;
+    lateralController.smallError = 1;
+    lateralController.smallErrorTimeout = 100;
+    lateralController.largeError = 3;
+    lateralController.largeErrorTimeout = 500;
+    lateralController.slew = 0;
+    //angular constants
+    angularController.kP = 1.4;
+    angularController.kI = 0; 
+    angularController.kD = 5;
+    angularController.windupRange = 3;
+    angularController.smallError = 1;
+    angularController.smallErrorTimeout = 100;
+    angularController.largeError = 3;
+    angularController.largeErrorTimeout = 500;
+    angularController.slew = 5;
+}
+
 ASSET(dwp1_txt);
 
 void disruptBowl() {
+    old_constants();
     chassis.setPose(-36,-54,0);
-    intake.move(127);
+    intake.move(-127);
     chassis.moveToPose(-25, -7, 0, 2000, {.lead=0.2});
+    chassis.waitUntil(2);
+    intake.move(127);
     chassis.waitUntilDone();
     chassis.follow(dwp1_txt, 10, 3000, false);
     chassis.waitUntilDone();
@@ -53,9 +102,12 @@ void disruptBowl() {
 }
 
 void disruptWP() {
+    old_constants;
     chassis.setPose(-36,-54,0);
-    intake.move(127);
+    intake.move(-127);
     chassis.moveToPose(-25, -7, 0, 2000, {.lead=0.2});
+    chassis.waitUntil(2);
+    intake.move(127);
     chassis.waitUntilDone();
     chassis.follow(dwp1_txt, 10, 3000, false);
     chassis.waitUntilDone();
@@ -77,69 +129,15 @@ void disruptWP() {
     chassis.waitUntilDone();
 }
 
-void safe3Ball() {
-    chassis.setPose(-17,60,90);
-    intake.move(127);
-    moveRelative(8, 1000);
-    chassis.waitUntilDone();   
-    chassis.moveToPoint(chassis.getPose().x-31.5, chassis.getPose().y, 2500, {.forwards=false});
-    chassis.waitUntilDone();
-    chassis.turnToHeading(50, 750, false);
-    leftWing.set_value(true);
-    pros::delay(250);
-    moveRelative(-13.5, 1000);
-    chassis.waitUntilDone();
-    chassis.turnToHeading(340, 1000, false);
-    leftWing.set_value(false);
-    chassis.turnToHeading(36, 1000, false);
-    chassis.moveToPoint(-60, 22, 1500, {.forwards=false});
-    chassis.waitUntilDone();
-    chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y+10, 750, {.maxSpeed=127});
-    chassis.waitUntilDone();
-    chassis.turnToHeading(180, 1000, false);
-    intake.move(-127);
-    chassis.moveToPoint(chassis.getPose().x, chassis.getPose().y-14, 750, {.maxSpeed=127});
-    chassis.waitUntilDone();
-    moveRelative(-8, 750);
-    chassis.waitUntilDone();
-    intake.move(0);
-    chassis.turnToHeading(90, 750, false);
-    std::cout << chassis.getPose().x << std::endl;
-    std::cout << chassis.getPose().y << std::endl;
-    std::cout << chassis.getPose().theta << std::endl;
-
-}
-ASSET(skill1_txt);
-ASSET(skill2_txt);
-void skills() {
-    chassis.setPose(-40, -54, 90);
-    chassis.follow(skill1_txt, 10, 2000, false);
-    chassis.waitUntilDone();
-    chassis.moveToPoint(-56, -46, 1500);
-    chassis.turnToHeading(65, 750);
-    chassis.waitUntilDone();
-    rightWing.set_value(true);
-    kicker.move_relative(360*44, 100);
-    pros::delay(35000);
-    chassis.follow(skill2_txt, 10, 10000, false, false);
-    chassis.turnToHeading(270, 750, false);
-    rightWing.set_value(true);
-    leftWing.set_value(true);
-    chassis.moveToPoint(42, chassis.getPose().y, 1500, {.forwards=false});
-    chassis.waitUntilDone();
-    moveRelative(10, 1000);
-    chassis.waitUntilDone();
-    moveRelative(-10, 1000);
-    chassis.waitUntilDone();
-}
-
 void sixBallRush() {
     float startTime = pros::millis();
     lateralController.slew = 0;
     angularController.slew = 0;
     chassis.setPose(34, -54, 0);
-    intake.move(127);
+    intake.move(-127);
     chassis.moveToPoint(25, -10, 1500);
+    chassis.waitUntil(2);
+    intake.move(127);
     chassis.waitUntilDone();
     chassis.moveToPoint(34, -55, 1500, {.forwards=false});
     chassis.waitUntilDone();
@@ -194,4 +192,13 @@ void sixBallRush() {
     master.print(0,0,"%f", totalTime);
 
 
+}
+
+void pidTest() {
+    new_constants();
+    chassis.setPose(0,0,0);
+    chassis.turnToHeading(180, 2500);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(0, 2500);
+    chassis.waitUntilDone();
 }
