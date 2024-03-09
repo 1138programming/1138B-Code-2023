@@ -28,7 +28,8 @@ ez::GUI display(
      {right_back_motor, "rB"},
      {kicker, "kicker"},
      {intake, "intake"}},
-    {{"PIDS", pidTest},
+    {{"5 Ball Rush", FiveBall},
+	 {"PIDS", pidTest},
 	 {"6 Ball Rush", sixBallRush},
 	 {"Disrupt WP", disruptWP},
 	 {"Disrupt Bowl", disruptBowl}});

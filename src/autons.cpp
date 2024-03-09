@@ -1,5 +1,8 @@
 #include <cmath> // For sin(), cos(), and M_PI
 #include "autons.h"
+#include "devices.h"
+#include "lemlib/asset.hpp"
+#include "pros/rtos.hpp"
 
 /**
 * @brief Move the robot a relative distance forwards or backwards
@@ -21,6 +24,14 @@ void moveRelative(float distance, int timeout) {
     else if (distance < 0) {
         chassis.moveToPoint(newX, newY, timeout, {.forwards=false});
     }
+};
+
+void moveVoltage(float leftPower, float rightPower, float duration) {
+    left_side.move(leftPower);
+    right_side.move(rightPower);
+    pros::delay(duration);
+    left_side.move(0);
+    right_side.move(0);
 };
 
 void old_constants() {
@@ -102,7 +113,6 @@ void disruptBowl() {
 }
 
 void disruptWP() {
-    old_constants;
     chassis.setPose(-36,-54,0);
     intake.move(-127);
     chassis.moveToPose(-25, -7, 0, 2000, {.lead=0.2});
@@ -128,11 +138,10 @@ void disruptWP() {
     intake.move(-127);
     chassis.waitUntilDone();
 }
-
+ASSET(sixball1_txt);
+ASSET(sixball2_txt);
 void sixBallRush() {
     float startTime = pros::millis();
-    lateralController.slew = 0;
-    angularController.slew = 0;
     chassis.setPose(34, -54, 0);
     intake.move(-127);
     chassis.moveToPoint(25, -10, 1500);
@@ -150,55 +159,129 @@ void sixBallRush() {
     intake.move(127);
     chassis.moveToPoint(8, -60, 1500);
     chassis.waitUntilDone();
-    moveRelative(-37, 750);
+    chassis.follow(sixball2_txt, 10, 2000, false);
     chassis.waitUntil(6);
     rightWing.set_value(true);
     chassis.waitUntilDone();
-    leftWing.set_value(true);
-    chassis.turnToHeading(235, 500, false);
-    moveRelative(-12, 1000);
-    chassis.waitUntilDone();
-    chassis.turnToHeading(160, 750, false);
-    leftWing.set_value(false);
-    chassis.turnToHeading(235, 650, false);
-    std::cout << chassis.getPose().x << std::endl;
-    std::cout << chassis.getPose().y << std::endl;
-    std::cout << chassis.getPose().theta << std::endl;
-    chassis.moveToPose(68, -24, 180, 1250, {.forwards=false, .chasePower=18, .maxSpeed=127});
-    chassis.waitUntilDone();
+    // chassis.turnToHeading(235, 500, false);
+    // moveRelative(-10, 1000);
+    // chassis.waitUntilDone();
+    // chassis.turnToHeading(160, 750, false);
+    // leftWing.set_value(false);
+    // chassis.turnToHeading(235, 650, false);
+    // chassis.moveToPose(68, -24, 180, 1250, {.forwards=false, .chasePower=20, .maxSpeed=127});
+    // chassis.waitUntilDone();
     // moveRelative(6, 500);
     // chassis.waitUntilDone();
     // moveRelative(-8, 750);
     // chassis.waitUntilDone();
-    moveRelative(6, 500);
+    moveRelative(10, 750);
     chassis.waitUntilDone();
     rightWing.set_value(false);
-    chassis.turnToHeading(270, 750, false);
+    chassis.turnToHeading(300, 750, false);
     moveRelative(28, 750);
     chassis.waitUntilDone();
-    chassis.turnToHeading(30, 750, false);
     intake.move(-127);
+    chassis.turnToHeading(40, 750, false);
     chassis.waitUntilDone();
     pros::delay(250);
-    chassis.turnToHeading(315, 500, false);
+    chassis.turnToHeading(270, 500, false);
     intake.move(127);
     moveRelative(18, 750);
     chassis.waitUntilDone();
     moveRelative(-6, 500);
     chassis.waitUntilDone();
+    chassis.turnToHeading(0, 500, false);
+    chassis.follow(sixball1_txt, 10, 1500);
+    chassis.waitUntil(30);
+    intake.move(-127);
+    chassis.waitUntilDone();
+    intake.move(0);
+    moveRelative(-10, 750);
+    chassis.turnToHeading(270, 750, false);
+    intake.move(127);
+    moveRelative(40, 750);
+    chassis.waitUntilDone();
+    std::cout << chassis.getPose().x << std::endl;
+    std::cout << chassis.getPose().y << std::endl;
+    std::cout << chassis.getPose().theta << std::endl;
     float endTime = pros::millis();
     float totalTime = endTime - startTime;
     std::cout << totalTime << std::endl;
     master.print(0,0,"%f", totalTime);
 
+}
+ASSET(fiveball1_txt);
+void FiveBall() {
+    float startTime = pros::millis();
+    chassis.setPose(34, -54, 0);
+    intake.move(-127);
+    chassis.moveToPoint(25, -10, 1500);
+    chassis.waitUntil(2);
+    intake.move(127);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(34, -55, 1500, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.turnToHeading(75, 350, false);
+    intake.move(-127);
+    chassis.turnToHeading(90, 350, false);
+    moveRelative(8, 750);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(60, 750, false);
+    moveRelative(16, 750);
+    chassis.waitUntil(3);
+    rightWing.set_value(true);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(0, 750, false);
+    rightWing.set_value(false);
+    intake.move(0);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(225, 750, true);
+    chassis.follow(fiveball1_txt, 10, 850, false);
+    rightWing.set_value(true);
+    chassis.waitUntilDone();
+    moveVoltage(-127, -127, 500);
+    std::cout << chassis.getPose().x << std::endl;
+    std::cout << chassis.getPose().y << std::endl;
+    std::cout << chassis.getPose().theta << std::endl;
+    moveRelative(8, 750);
+    chassis.waitUntilDone();
+    rightWing.set_value(false);
+    chassis.turnToHeading(270, 750, false);
+    chassis.moveToPoint(11, -22, 1250);
+    intake.move(127);
+    chassis.waitUntilDone();
+    moveRelative(-6, 750);
+    chassis.turnToHeading(65, 500, false);
+    moveRelative(19, 750);
+    chassis.waitUntilDone();
+    intake.move(-127);
+    pros::delay(250);
+    chassis.moveToPoint(10, -3, 750);
+    chassis.waitUntilDone();
+    intake.move(127);
+    moveRelative(-6, 500);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(90, 750, false);
+    intake.move(-127);
+    moveVoltage(127, 127, 500);
+    moveRelative(-6, 500);
+    chassis.waitUntilDone();
+    std::cout << chassis.getPose().x << std::endl;
+    std::cout << chassis.getPose().y << std::endl;
+    std::cout << chassis.getPose().theta << std::endl;
+    float endTime = pros::millis();
+    float totalTime = endTime - startTime;
+    std::cout << totalTime << std::endl;
+    master.print(0,0,"%f", totalTime);
 
 }
 
 void pidTest() {
     new_constants();
     chassis.setPose(0,0,0);
-    chassis.turnToHeading(180, 2500);
+    moveRelative(24, 2500);
     chassis.waitUntilDone();
-    chassis.turnToHeading(0, 2500);
+    moveRelative(-24, 2500);
     chassis.waitUntilDone();
 }

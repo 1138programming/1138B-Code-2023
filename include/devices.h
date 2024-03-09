@@ -28,10 +28,10 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     inline lemlib::Drivetrain drivetrain {
         &left_side, // left drivetrain motors
         &right_side, // right drivetrain motors
-        10, // track width
+        11.5, // track width
         lemlib::Omniwheel::NEW_275, // wheel diameter
         450, // wheel rpm
-        6 // chase speed 
+        15 // chase speed 
     };
 
     // odometry struct
@@ -48,7 +48,7 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     inline lemlib::ControllerSettings lateralController {
         12, // kP
         0, // KI
-        4, // kD
+        20, // kD
         3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
@@ -60,9 +60,9 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // turning PID
     inline lemlib::ControllerSettings angularController {
-        1.3, // kP
+        1.9, // kP
         0, // kI
-        0, // kD
+        15, // kD
         3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
