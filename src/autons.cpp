@@ -227,14 +227,14 @@ void FiveBall() {
     chassis.turnToHeading(90, 350, false);
     moveRelative(8, 750);
     chassis.waitUntilDone();
-    chassis.turnToHeading(60, 750, false);
+    chassis.turnToHeading(60, 500, false);
     moveRelative(16, 750);
     chassis.waitUntil(3);
     rightWing.set_value(true);
     chassis.waitUntilDone();
+    intake.move(0);
     chassis.turnToHeading(0, 750, false);
     rightWing.set_value(false);
-    intake.move(0);
     chassis.waitUntilDone();
     chassis.turnToHeading(225, 750, true);
     chassis.follow(fiveball1_txt, 10, 850, false);
