@@ -276,6 +276,20 @@ void FiveBall() {
     master.print(0,0,"%f", totalTime);
 
 }
+ASSET(skillsroute1_txt);
+void skills() {
+    chassis.setPose(-40, -54, 90);
+    chassis.follow(skillsroute1_txt, 10, 2000, false);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-55, -50, 750);  
+    chassis.waitUntilDone();
+    chassis.turnToHeading(72.5, 500, false);
+    rightWing.set_value(true);
+    moveRelative(-3, 500);
+    chassis.waitUntilDone();
+    kicker.tare_position();
+    kicker.move_relative(360*44, 127);
+}
 
 void pidTest() {
     new_constants();

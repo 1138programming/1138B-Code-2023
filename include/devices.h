@@ -1,5 +1,6 @@
 #pragma once
 #include "api.h"
+#include "pros/motors.h"
 #include "sylib/sylib.hpp"
 #include "lemlib/api.hpp"
 #include "EZ-GUI/api.hpp"
@@ -74,7 +75,7 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 //system motors
 inline pros::Motor intake(7, pros::E_MOTOR_GEAR_600); // define the intake motor in vanilla pros
-inline pros::Motor kicker(-5, pros::E_MOTOR_GEAR_100); // define the intake motor in vanilla pros
+inline pros::Motor kicker(-5, pros::E_MOTOR_GEAR_100, false, pros::E_MOTOR_ENCODER_DEGREES); // define the intake motor in vanilla pros
 
 // three wire
 inline pros::ADIDigitalOut leftWing(2);
