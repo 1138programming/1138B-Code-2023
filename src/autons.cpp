@@ -276,19 +276,59 @@ void FiveBall() {
     master.print(0,0,"%f", totalTime);
 
 }
-ASSET(skillsroute1_txt);
+ASSET(skillsroute2_txt);
+ASSET(skillsroute3_txt);
 void skills() {
-    chassis.setPose(-40, -54, 90);
-    chassis.follow(skillsroute1_txt, 10, 2000, false);
+    float startTime = pros::millis();
+    chassis.setPose(-50, -58, 135);
+    chassis.moveToPoint(-58, -24, 750, {.forwards=false});
     chassis.waitUntilDone();
-    chassis.moveToPoint(-55, -50, 750);  
+    moveVoltage(-127, -127, 500);
+    chassis.setPose(-58, -30, 185);
+    chassis.moveToPoint(-53, -50, 1000);  
     chassis.waitUntilDone();
-    chassis.turnToHeading(72.5, 500, false);
+    chassis.turnToHeading(72, 750, false);
+    moveRelative(-3, 750);
+    chassis.waitUntilDone();
     rightWing.set_value(true);
-    moveRelative(-3, 500);
-    chassis.waitUntilDone();
     kicker.tare_position();
-    kicker.move_relative(360*44, 127);
+    int runCount = 46;
+    kicker.move_relative(runCount*360, 127);
+    while (!((kicker.get_position() < ((runCount*360) + 5)) && (kicker.get_position() > ((runCount*360) - 5)))) {
+    // Continue running this loop as long as the motor is not within +-5 units of its goal
+    pros::delay(2);
+    }
+    rightWing.set_value(false);
+    chassis.follow(skillsroute2_txt, 10, 2500);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(225, 750, false);
+    rightWing.set_value(true);
+    chassis.moveToPoint(64, -26, 750, {.forwards=false});
+    chassis.waitUntilDone();
+    moveRelative(8, 750);
+    chassis.waitUntilDone();
+    moveVoltage(-127, -127, 750);
+    chassis.setPose(62.5, -32, 180);
+    moveRelative(6, 750);
+    chassis.waitUntilDone();
+    rightWing.set_value(false);
+    chassis.turnToHeading(90, 1000, false);
+    chassis.follow(skillsroute3_txt, 10, 5000, false);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(270, 750, false);
+    rightWing.set_value(true);
+    leftWing.set_value(true);
+    moveVoltage(-127, -127, 1250);
+    moveRelative(6, 750);
+    chassis.waitUntilDone();
+    moveVoltage(-127, -127, 750);
+    std::cout << chassis.getPose().x << std::endl;
+    std::cout << chassis.getPose().y << std::endl;
+    std::cout << chassis.getPose().theta << std::endl;
+    float endTime = pros::millis();
+    float totalTime = endTime - startTime;
+    std::cout << totalTime << std::endl;
+    master.print(0,0,"%f", totalTime);
 }
 
 void pidTest() {

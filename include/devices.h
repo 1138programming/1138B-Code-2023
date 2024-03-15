@@ -32,7 +32,7 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
         11.5, // track width
         lemlib::Omniwheel::NEW_275, // wheel diameter
         450, // wheel rpm
-        15 // chase speed 
+        3 // chase speed 
     };
 
     // odometry struct
@@ -61,9 +61,9 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
     
     // turning PID
     inline lemlib::ControllerSettings angularController {
-        1.9, // kP
+        1.25, // kP
         0, // kI
-        15, // kD
+        20, // kD
         3, // antiwindup
         1, // smallErrorRange
         100, // smallErrorTimeout
